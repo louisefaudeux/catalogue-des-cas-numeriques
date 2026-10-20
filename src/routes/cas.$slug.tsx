@@ -51,7 +51,7 @@ function CasePage() {
     { id: "cas-proches", title: "Cas proches" },
   ].filter(Boolean) as { id: string; title: string }[];
 
-  const [active, setActive] = useState(sections[0].id);
+  const [active, setActive] = useState(sections[0]?.id ?? "");
   useEffect(() => {
     const obs = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setActive(e.target.id)), { rootMargin: "-30% 0px -60% 0px" });
     sections.forEach((s) => { const el = document.getElementById(s.id); if (el) obs.observe(el); });

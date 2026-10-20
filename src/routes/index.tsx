@@ -86,7 +86,7 @@ function Home() {
         <section aria-labelledby="contexte" className="prose-ed mx-auto max-w-[68ch]">
           <h2 id="contexte" className="text-3xl font-semibold">Le contexte</h2>
           <p className="mt-4 text-lg font-medium">{CONTEXT_INTRO}</p>
-          <p className="mt-3 text-muted-foreground">{CONTEXT_SECTIONS[0].paragraphs[0]}</p>
+          <p className="mt-3 text-muted-foreground">{CONTEXT_SECTIONS[0]?.paragraphs[0]}</p>
           <p className="mt-3 text-sm"><GuideLink /></p>
           <Accordion type="multiple" className="mt-6 border-t border-border">
             {CONTEXT_SECTIONS.map((s) => (

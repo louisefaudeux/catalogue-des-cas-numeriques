@@ -24,9 +24,9 @@ const norm = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").t
 function HowTo() {
   const [q, setQ] = useState("");
   const terms = [...LEXICON].sort((a, b) => a.term.localeCompare(b.term, "fr")).filter((t) => norm(t.term + " " + t.def).includes(norm(q)));
-  const letters = [...new Set(LEXICON.map((t) => norm(t.term[0]).toUpperCase()))].sort();
+  const letters = [...new Set(LEXICON.map((t) => norm(t.term.charAt(0)).toUpperCase()))].sort();
   const firstOf = new Map<string, string>();
-  terms.forEach((t) => { const L = norm(t.term[0]).toUpperCase(); if (!firstOf.has(L)) firstOf.set(L, t.term); });
+  terms.forEach((t) => { const L = norm(t.term.charAt(0)).toUpperCase(); if (!firstOf.has(L)) firstOf.set(L, t.term); });
 
   return (
     <Container className="py-10 md:py-14">
@@ -73,7 +73,7 @@ function HowTo() {
         <p className="sr-only" aria-live="polite">{terms.length} termes</p>
         <dl className="mt-6 max-w-3xl divide-y divide-border">
           {terms.map((t) => {
-            const L = norm(t.term[0]).toUpperCase();
+            const L = norm(t.term.charAt(0)).toUpperCase();
             return (
               <div key={t.term} id={firstOf.get(L) === t.term ? `lex-${L}` : undefined} className="scroll-mt-24 py-4 md:grid md:grid-cols-[240px_1fr] md:gap-6">
                 <dt className="font-semibold">{t.term}</dt><dd className="mt-1 text-muted-foreground md:mt-0">{t.def}</dd>
