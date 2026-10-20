@@ -21,8 +21,8 @@ export interface Lesson {
 
 const split = (t: string) => {
   const m = t.match(/^(.*?)\s*Points? de vigilance : (.*)$/s)!;
-  const w = m[2];
-  return { body: m[1], watchpoint: w.charAt(0).toUpperCase() + w.slice(1) };
+  const w = m[2] ?? "";
+  return { body: m[1] ?? "", watchpoint: w.charAt(0).toUpperCase() + w.slice(1) };
 };
 
 const raw: Omit<Lesson, "body" | "watchpoint">[] & { text: string }[] = [

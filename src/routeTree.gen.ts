@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BibliothequeRouteImport } from './routes/bibliotheque'
+import { Route as CommentLireRouteImport } from './routes/comment-lire'
+import { Route as EnseignementsRouteImport } from './routes/enseignements'
+import { Route as ProposerUnCasRouteImport } from './routes/proposer-un-cas'
+import { Route as CasSlugRouteImport } from './routes/cas.$slug'
+import { Route as CasSlugFicheRouteImport } from './routes/cas.$slug_.fiche'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BibliothequeRoute = BibliothequeRouteImport.update({
+  id: '/bibliotheque',
+  path: '/bibliotheque',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommentLireRoute = CommentLireRouteImport.update({
+  id: '/comment-lire',
+  path: '/comment-lire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnseignementsRoute = EnseignementsRouteImport.update({
+  id: '/enseignements',
+  path: '/enseignements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProposerUnCasRoute = ProposerUnCasRouteImport.update({
+  id: '/proposer-un-cas',
+  path: '/proposer-un-cas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CasSlugRoute = CasSlugRouteImport.update({
+  id: '/cas/$slug',
+  path: '/cas/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CasSlugFicheRoute = CasSlugFicheRouteImport.update({
+  id: '/cas/$slug_/fiche',
+  path: '/cas/$slug/fiche',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bibliotheque': typeof BibliothequeRoute
+  '/comment-lire': typeof CommentLireRoute
+  '/enseignements': typeof EnseignementsRoute
+  '/proposer-un-cas': typeof ProposerUnCasRoute
+  '/cas/$slug': typeof CasSlugRoute
+  '/cas/$slug/fiche': typeof CasSlugFicheRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bibliotheque': typeof BibliothequeRoute
+  '/comment-lire': typeof CommentLireRoute
+  '/enseignements': typeof EnseignementsRoute
+  '/proposer-un-cas': typeof ProposerUnCasRoute
+  '/cas/$slug': typeof CasSlugRoute
+  '/cas/$slug/fiche': typeof CasSlugFicheRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bibliotheque': typeof BibliothequeRoute
+  '/comment-lire': typeof CommentLireRoute
+  '/enseignements': typeof EnseignementsRoute
+  '/proposer-un-cas': typeof ProposerUnCasRoute
+  '/cas/$slug': typeof CasSlugRoute
+  '/cas/$slug_/fiche': typeof CasSlugFicheRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/bibliotheque'
+    | '/comment-lire'
+    | '/enseignements'
+    | '/proposer-un-cas'
+    | '/cas/$slug'
+    | '/cas/$slug/fiche'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/bibliotheque'
+    | '/comment-lire'
+    | '/enseignements'
+    | '/proposer-un-cas'
+    | '/cas/$slug'
+    | '/cas/$slug/fiche'
+  id:
+    | '__root__'
+    | '/'
+    | '/bibliotheque'
+    | '/comment-lire'
+    | '/enseignements'
+    | '/proposer-un-cas'
+    | '/cas/$slug'
+    | '/cas/$slug_/fiche'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BibliothequeRoute: typeof BibliothequeRoute
+  CommentLireRoute: typeof CommentLireRoute
+  EnseignementsRoute: typeof EnseignementsRoute
+  ProposerUnCasRoute: typeof ProposerUnCasRoute
+  CasSlugRoute: typeof CasSlugRoute
+  CasSlugFicheRoute: typeof CasSlugFicheRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bibliotheque': {
+      id: '/bibliotheque'
+      path: '/bibliotheque'
+      fullPath: '/bibliotheque'
+      preLoaderRoute: typeof BibliothequeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comment-lire': {
+      id: '/comment-lire'
+      path: '/comment-lire'
+      fullPath: '/comment-lire'
+      preLoaderRoute: typeof CommentLireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/enseignements': {
+      id: '/enseignements'
+      path: '/enseignements'
+      fullPath: '/enseignements'
+      preLoaderRoute: typeof EnseignementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proposer-un-cas': {
+      id: '/proposer-un-cas'
+      path: '/proposer-un-cas'
+      fullPath: '/proposer-un-cas'
+      preLoaderRoute: typeof ProposerUnCasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cas/$slug': {
+      id: '/cas/$slug'
+      path: '/cas/$slug'
+      fullPath: '/cas/$slug'
+      preLoaderRoute: typeof CasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cas/$slug_/fiche': {
+      id: '/cas/$slug_/fiche'
+      path: '/cas/$slug/fiche'
+      fullPath: '/cas/$slug/fiche'
+      preLoaderRoute: typeof CasSlugFicheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BibliothequeRoute: BibliothequeRoute,
+  CommentLireRoute: CommentLireRoute,
+  EnseignementsRoute: EnseignementsRoute,
+  ProposerUnCasRoute: ProposerUnCasRoute,
+  CasSlugRoute: CasSlugRoute,
+  CasSlugFicheRoute: CasSlugFicheRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
