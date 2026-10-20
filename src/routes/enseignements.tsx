@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Container } from "@/components/site/SiteChrome";
 import { GuideLink, Notice } from "@/components/site/ui-bits";
 import { getCase } from "@/data/cases";
@@ -40,7 +40,7 @@ function LessonCard({ l }: { l: Lesson }) {
         <div id={id} className="px-5 pb-6 md:px-6 md:pl-[88px]">
           <p className="prose-ed">{l.body}</p>
           <div className="mt-5 max-w-[68ch] rounded-lg border-l-4 border-warning-foreground/60 bg-warning p-4 text-warning-foreground">
-            <p className="text-sm font-semibold">{/^Points/.test(l.watchpoint) ? "" : ""}Point de vigilance</p>
+            <p className="text-sm font-semibold">Point de vigilance</p>
             <p className="mt-1">{l.watchpoint}</p>
           </div>
           {l.cases.length > 0 && (
@@ -78,8 +78,8 @@ function Lessons() {
 
       <ul className="mt-6 max-w-4xl space-y-4">
         {shown.map((l) => (
-          <>
-            {l.num === "3.7" && fam === "all" || (l.num === "3.7" && fam === "socle") ? (
+          <Fragment key={l.num}>
+            {l.num === "3.7" && (fam === "all" || fam === "socle") ? (
               <li key="disc" className="rounded-xl border-2 border-dashed border-input bg-card p-5 md:p-6">
                 <span className="inline-block rounded-md border border-dashed border-warning-foreground/50 bg-warning px-2 py-0.5 text-xs font-semibold text-warning-foreground">À valider en session</span>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">En discussion</p>
@@ -87,8 +87,8 @@ function Lessons() {
                 <p className="mt-2 text-muted-foreground">{DISCUSSION.question}</p>
               </li>
             ) : null}
-            <LessonCard key={l.num} l={l} />
-          </>
+            <LessonCard l={l} />
+          </Fragment>
         ))}
       </ul>
 
