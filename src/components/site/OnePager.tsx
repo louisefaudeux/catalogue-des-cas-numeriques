@@ -71,7 +71,7 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
       {lessons?.length ? (
         <section className="mt-5">
           <h2 className="text-[13px] font-bold uppercase tracking-wider">À retenir</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px]">{lessons.map((l, i) => <li key={i} className="line-clamp-2">{l}</li>)}</ul>
+          <ul className="mt-2 space-y-1 text-[13px]">{lessons.map((l, i) => <li key={i} className="flex gap-2"><span aria-hidden>•</span><span className="line-clamp-2">{l}</span></li>)}</ul>
         </section>
       ) : null}
       {truncated && <p className="mt-2 text-[11px] italic text-muted-foreground">{MORE}</p>}
