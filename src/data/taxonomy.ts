@@ -5,7 +5,7 @@ export interface Option {
   id: string;
   label: string;
   shortLabel: string;
-  family?: Family;
+  family?: Family | undefined;
 }
 
 export const slugify = (s: string) =>
@@ -16,7 +16,7 @@ export const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-const short = (l: string) => l.split(" (")[0].trim();
+const short = (l: string) => (l.split(" (")[0] ?? l).trim();
 const opt = (label: string, family?: Family): Option => ({
   id: slugify(label),
   label,

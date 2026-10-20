@@ -12,16 +12,16 @@ import { CASES } from "@/data/cases";
 import { FACETS, FAMILIES, findOption, type FacetKey, type Option } from "@/data/taxonomy";
 import { facetCount, filterCases, sortCases, type Selection } from "@/lib/filters";
 
-type Search = Partial<Record<FacetKey, string>> & { q?: string; tri?: "az"; documentes?: 1 };
+type Search = Partial<Record<FacetKey, string | undefined>> & { q?: string | undefined; tri?: "az" | undefined; documentes?: 1 | undefined };
 const KEYS = FACETS.map((f) => f.key);
 
 export const Route = createFileRoute("/bibliotheque")({
   validateSearch: (s: Record<string, unknown>): Search => {
     const out: Search = {};
     for (const k of KEYS) if (typeof s[k] === "string" && s[k]) out[k] = s[k] as string;
-    if (typeof s.q === "string" && s.q) out.q = s.q;
-    if (s.tri === "az") out.tri = "az";
-    if (s.documentes === 1 || s.documentes === "1") out.documentes = 1;
+    const q = s["q"]; if (typeof q === "string" && q) out.q = q;
+    if (s["tri"] === "az") out.tri = "az";
+    if (s["documentes"] === 1 || s["documentes"] === "1") out.documentes = 1;
     return out;
   },
   head: () => ({

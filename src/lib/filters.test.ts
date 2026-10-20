@@ -19,7 +19,7 @@ describe("filters", () => {
     expect(facetCount(CASES, { pdv: ["gsa"] }, "pdv", "gss")).toBe(5);
   });
   it("similar cases exclude the case itself", () => {
-    const s = similarCases(CASES[0], CASES);
+    const s = similarCases(CASES[0]!, CASES);
     expect(s).toHaveLength(3);
     expect(s.some((x) => x.c.slug === "netto")).toBe(false);
   });

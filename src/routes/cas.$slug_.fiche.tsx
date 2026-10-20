@@ -8,7 +8,7 @@ import { todayFr } from "@/lib/pdf";
 import { PdfButton } from "@/components/site/CaseCard";
 
 export const Route = createFileRoute("/cas/$slug_/fiche")({
-  validateSearch: (s: Record<string, unknown>): { imprimer?: 1 } => (s.imprimer ? { imprimer: 1 } : {}),
+  validateSearch: (s: Record<string, unknown>): { imprimer?: 1 } => (s["imprimer"] ? { imprimer: 1 } : {}),
   loader: ({ params }) => {
     if (!getCase(params.slug)) throw notFound();
     return { slug: params.slug };
