@@ -6,7 +6,7 @@ import { CaseCard } from "@/components/site/CaseCard";
 import { Container } from "@/components/site/SiteChrome";
 import { GuideLink, KeyFigure } from "@/components/site/ui-bits";
 import { CASES } from "@/data/cases";
-import { BASELINE, CONTEXT_INTRO, CONTEXT_SECTIONS, GUIDE_BLOCK, HOME_FIGURES, SITE_TITLE } from "@/data/editorial";
+import { BASELINE, CONTEXT_INTRO, CONTEXT_SECTIONS, GUIDE_BLOCK, GUIDE_URL, HOME_FIGURES, SITE_TITLE } from "@/data/editorial";
 import { FREQUENCIES, PDV_TYPES, SCALES, type Option } from "@/data/taxonomy";
 import { filterCases } from "@/lib/filters";
 
@@ -116,7 +116,7 @@ function Home() {
           <h2 className="text-2xl font-semibold">Aller plus loin avec le Guide</h2>
           <p className="prose-ed mt-3">{GUIDE_BLOCK}</p>
           <Button asChild className="mt-6 h-12 px-6">
-            <a href="https://www.alliancedigitale.org/publication/le-catalogue-se-reinvente-sortie-de-notre-guide-de-la-digitalisation-des-catalogues/" target="_blank" rel="noopener noreferrer">
+            <a href={GUIDE_URL} target="_blank" rel="noopener noreferrer">
               Consulter le Guide 2025<span className="sr-only"> (s'ouvre dans un nouvel onglet)</span>
             </a>
           </Button>

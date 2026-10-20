@@ -1,14 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Download, Eye, Loader2, Printer } from "lucide-react";
+import { ArrowLeft, Eye, Printer } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CaseCard } from "@/components/site/CaseCard";
+import { CaseCard, PdfButton } from "@/components/site/CaseCard";
 import { Container } from "@/components/site/SiteChrome";
 import { CreativeSlot, EnvBadge, GuideLink, KeyFigure, MethodBadge, Notice, Tag } from "@/components/site/ui-bits";
-import { CASES, displayBrand, getCase, type CaseStudy } from "@/data/cases";
+import { CASES, displayBrand, getCase } from "@/data/cases";
 import { FACETS, labelOf } from "@/data/taxonomy";
 import { caseValues, similarCases } from "@/lib/filters";
-import { downloadCasePdf } from "@/lib/pdf";
 
 export const Route = createFileRoute("/cas/$slug")({
   loader: ({ params }) => {
@@ -24,16 +23,6 @@ export const Route = createFileRoute("/cas/$slug")({
   },
   component: CasePage,
 });
-
-export function PdfButton({ c, variant = "default" }: { c: CaseStudy; variant?: "default" | "outline" }) {
-  const [busy, setBusy] = useState(false);
-  return (
-    <Button variant={variant} className="h-11" disabled={busy} onClick={async () => { setBusy(true); try { await downloadCasePdf(c); } finally { setBusy(false); } }}>
-      {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <Download className="size-4" aria-hidden />}
-      Télécharger la fiche (PDF)
-    </Button>
-  );
-}
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (

@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BibliothequeRouteImport } from './routes/bibliotheque'
+import { Route as CasSlugRouteImport } from './routes/cas.$slug'
+import { Route as CasSlugFicheRouteImport } from './routes/cas.$slug_.fiche'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +24,49 @@ const BibliothequeRoute = BibliothequeRouteImport.update({
   path: '/bibliotheque',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CasSlugRoute = CasSlugRouteImport.update({
+  id: '/cas/$slug',
+  path: '/cas/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CasSlugFicheRoute = CasSlugFicheRouteImport.update({
+  id: '/cas/$slug_/fiche',
+  path: '/cas/$slug/fiche',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bibliotheque': typeof BibliothequeRoute
+  '/cas/$slug': typeof CasSlugRoute
+  '/cas/$slug/fiche': typeof CasSlugFicheRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bibliotheque': typeof BibliothequeRoute
+  '/cas/$slug': typeof CasSlugRoute
+  '/cas/$slug/fiche': typeof CasSlugFicheRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bibliotheque': typeof BibliothequeRoute
+  '/cas/$slug': typeof CasSlugRoute
+  '/cas/$slug_/fiche': typeof CasSlugFicheRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bibliotheque'
+  fullPaths: '/' | '/bibliotheque' | '/cas/$slug' | '/cas/$slug/fiche'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bibliotheque'
-  id: '__root__' | '/' | '/bibliotheque'
+  to: '/' | '/bibliotheque' | '/cas/$slug' | '/cas/$slug/fiche'
+  id: '__root__' | '/' | '/bibliotheque' | '/cas/$slug' | '/cas/$slug_/fiche'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BibliothequeRoute: typeof BibliothequeRoute
+  CasSlugRoute: typeof CasSlugRoute
+  CasSlugFicheRoute: typeof CasSlugFicheRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +85,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BibliothequeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cas/$slug': {
+      id: '/cas/$slug'
+      path: '/cas/$slug'
+      fullPath: '/cas/$slug'
+      preLoaderRoute: typeof CasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cas/$slug_/fiche': {
+      id: '/cas/$slug_/fiche'
+      path: '/cas/$slug/fiche'
+      fullPath: '/cas/$slug/fiche'
+      preLoaderRoute: typeof CasSlugFicheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BibliothequeRoute: BibliothequeRoute,
+  CasSlugRoute: CasSlugRoute,
+  CasSlugFicheRoute: CasSlugFicheRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

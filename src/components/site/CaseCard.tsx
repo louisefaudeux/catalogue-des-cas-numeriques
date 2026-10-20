@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Download, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { displayBrand, type CaseStudy } from "@/data/cases";
 import { labelOf } from "@/data/taxonomy";
@@ -61,3 +62,14 @@ export function CaseCard({ c, large, footnote }: { c: CaseStudy; large?: boolean
     </article>
   );
 }
+
+export function PdfButton({ c, variant = "default" }: { c: CaseStudy; variant?: "default" | "outline" }) {
+  const [busy, setBusy] = useState(false);
+  return (
+    <Button variant={variant} className="h-11" disabled={busy} onClick={async () => { setBusy(true); try { await downloadCasePdf(c); } finally { setBusy(false); } }}>
+      {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <Download className="size-4" aria-hidden />}
+      Télécharger la fiche (PDF)
+    </Button>
+  );
+}
+
