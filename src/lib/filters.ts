@@ -34,15 +34,8 @@ export const matchesQuery = (c: CaseStudy, q: string) => {
 export const facetCount = (cases: CaseStudy[], sel: Selection, key: FacetKey, optionId: string) =>
   cases.filter((c) => matches(c, sel, key) && caseValues(c, key).includes(optionId)).length;
 
-export const filterCases = (cases: CaseStudy[], sel: Selection, q = "", documentedOnly = false) =>
-  cases.filter((c) => matches(c, sel) && matchesQuery(c, q) && (!documentedOnly || c.status === "documented"));
-
-export const sortCases = (cases: CaseStudy[], sort: "reco" | "az") =>
-  [...cases].sort((a, b) =>
-    sort === "reco" && a.status !== b.status
-      ? a.status === "documented" ? -1 : 1
-      : a.brand.localeCompare(b.brand, "fr", { numeric: true }),
-  );
+export const filterCases = (cases: CaseStudy[], sel: Selection, q = "") =>
+  cases.filter((c) => matches(c, sel) && matchesQuery(c, q));
 
 const W: Partial<Record<FacetKey, number>> = { pdv: 2, echelle: 2 };
 export const proximity = (a: CaseStudy, b: CaseStudy) => {

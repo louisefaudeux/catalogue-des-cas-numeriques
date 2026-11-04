@@ -2,7 +2,7 @@ import { Home, Share2, Megaphone, ImageIcon, ExternalLink, Info } from "lucide-r
 import type { ReactNode } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { envById, METHODS, type Family, type MethodType } from "@/data/taxonomy";
-import { GUIDE_LABEL, GUIDE_URL } from "@/data/editorial";
+import { GUIDE_LABEL, GUIDE_URL, PRECAUTIONS } from "@/data/editorial";
 import { cn } from "@/lib/utils";
 
 const FAM = {
@@ -105,6 +105,15 @@ export function GuideLink({ className, children }: { className?: string; childre
       <ExternalLink className="size-4 shrink-0" aria-hidden />
       <span className="sr-only">(s'ouvre dans un nouvel onglet)</span>
     </a>
+  );
+}
+
+/** Paragraphe « Précautions de lecture », affiché en petit texte secondaire sous un filet fin. */
+export function PrecautionsNote({ className }: { className?: string }) {
+  return (
+    <p className={cn("border-t border-border pt-4 text-sm text-muted-foreground", className)}>
+      <strong className="font-semibold text-foreground">Précautions de lecture.</strong> {PRECAUTIONS}
+    </p>
   );
 }
 

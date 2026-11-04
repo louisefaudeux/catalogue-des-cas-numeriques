@@ -7,15 +7,6 @@ export const SITE_TITLE = "Digitalisation du catalogue : la bibliothèque de cas
 export const BASELINE = "Des retours d'expérience d'enseignes, pour composer son mix.";
 export const VERSION_DATE = "21 octobre 2026";
 
-export const SURVEY_SOURCE =
-  "Questionnaire auprès de 19 enseignes GSA et GSS, Guide de la Digitalisation du Catalogue, Alliance Digitale, 2025.";
-
-export const HOME_FIGURES = deepTypo([
-  { value: "60 %", sentence: "des enseignes interrogées considèrent que le digital possède des bénéfices différenciants par rapport au papier : traçabilité, personnalisation, réactivité.", source: SURVEY_SOURCE },
-  { value: "70 %", sentence: "jugent la traçabilité et la mesure importantes à essentielles dans la digitalisation du catalogue.", source: SURVEY_SOURCE },
-  { value: "84 %", sentence: "citent le besoin d'affiner leurs méthodes de mesure (attention, drive-to-store, conversions) parmi les prochaines étapes essentielles.", source: SURVEY_SOURCE },
-]);
-
 export const CONTEXT_INTRO = deepTypo(
   "Depuis la publication du Guide de la Digitalisation du Catalogue (Alliance Digitale, 2025), le marché a évolué.",
 );
@@ -34,8 +25,8 @@ export const CONTEXT_SECTIONS = deepTypo([
     title: "1.2 Du remplacement du papier à la composition d'un mix",
     paragraphs: [
       "Cette montée en puissance ne signe pas la fin du papier, qui se recompose sous l'effet du coût du papier, de la pression réglementaire et sociétale et de la recherche de ciblage. Sur les neuf premiers mois de 2025, les recettes publicitaires des imprimés sans adresse s'élèvent à 239 M€ (−9,6 % par rapport à 2024) : le prospectus imprimé recule de 14,6 % (182 M€), le prospectus digital progresse de 11,6 % (56 M€) sans compenser ce recul (France Pub / IREP, communiqué BUMP, neuf premiers mois 2025). Le papier conserve un rôle de couverture ; la question n'est donc plus de remplacer un média, mais de composer le bon mix.",
-      "Le digital y apporte des bénéfices que le papier ne permet pas de la même façon : 60 % des enseignes interrogées pour le Guide considèrent qu'il possède des bénéfices différenciants par rapport au papier, tels que la traçabilité, la personnalisation et la réactivité (questionnaire auprès de 19 enseignes GSA et GSS, Guide de la Digitalisation du Catalogue, Alliance Digitale, 2025). Ces bénéfices se déclinent en actifs que l'enseigne peut combiner. La donnée d'abord (géolocalisée, shopper, produit) : elle permet de reproduire la couverture locale du papier, d'adapter l'offre à chaque point de vente et de tenir compte du stock. La déclinaison créative ensuite : un même catalogue peut être décliné à l'échelle de chaque point de vente ou de chaque audience. La personnalisation de l'expérience client : magasin préféré, alertes, liste de courses, lien avec le programme de fidélité. Enfin le découpage local et national : piloter à l'échelle du réseau, exécuter à celle de la zone de chalandise. Ces actifs s'activent dans trois environnements, owned, paid et shared, et c'est leur combinaison, plus que le choix d'un canal, qui compose le mix.",
-      "Passer d'une logique de distribution de masse à une logique de diffusion ciblée et personnalisée n'est pas seulement un changement technologique : il fait évoluer les process, les organisations et la relation avec les partenaires. Exploiter ces actifs suppose aussi des prérequis : une donnée structurée en amont, une expérience pensée pour le mobile et accessible, une mesure reliée aux outils de l'enseigne. La mesure en est un bon exemple : 84 % des enseignes interrogées pour le Guide citent le besoin d'affiner leurs méthodes de mesure (attention, drive-to-store, conversions…) parmi les prochaines étapes essentielles pour maximiser l'impact de leur catalogue (même questionnaire). Les enseignements de cette bibliothèque détaillent ces prérequis.",
+      "Le digital y apporte des bénéfices que le papier ne permet pas de la même façon, tels que la traçabilité, la personnalisation et la réactivité. Ces bénéfices se déclinent en actifs que l'enseigne peut combiner. La donnée d'abord (géolocalisée, shopper, produit) : elle permet de reproduire la couverture locale du papier, d'adapter l'offre à chaque point de vente et de tenir compte du stock. La déclinaison créative ensuite : un même catalogue peut être décliné à l'échelle de chaque point de vente ou de chaque audience. La personnalisation de l'expérience client : magasin préféré, alertes, liste de courses, lien avec le programme de fidélité. Enfin le découpage local et national : piloter à l'échelle du réseau, exécuter à celle de la zone de chalandise. Ces actifs s'activent dans trois environnements, owned, paid et shared, et c'est leur combinaison, plus que le choix d'un canal, qui compose le mix.",
+      "Passer d'une logique de distribution de masse à une logique de diffusion ciblée et personnalisée n'est pas seulement un changement technologique : il fait évoluer les process, les organisations et la relation avec les partenaires. Exploiter ces actifs suppose aussi des prérequis : une donnée structurée en amont, une expérience pensée pour le mobile et accessible, une mesure reliée aux outils de l'enseigne. Les enseignements de cette bibliothèque détaillent ces prérequis.",
     ],
   },
   {

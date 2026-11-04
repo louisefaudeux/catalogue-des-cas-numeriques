@@ -1,12 +1,25 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "@fontsource-variable/plus-jakarta-sans";
 
 @custom-variant dark (&:is(.dark *));
 
+/* Horizon : réservée au titre du livrable « Bibliothèque de cas — Digitalisation du catalogue ». */
+@font-face {
+  font-family: "Horizon";
+  src: url("/fonts/horizon.otf") format("opentype");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Design tokens — change the charter here only. */
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Horizon", "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body);
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -85,7 +98,7 @@
     border-color: var(--color-border);
   }
   html {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
   }
   body {
@@ -93,6 +106,10 @@
     color: var(--color-foreground);
     line-height: 1.6;
     font-size: 16px;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
   }
   :focus-visible {
     outline: 2px solid var(--color-ring);
