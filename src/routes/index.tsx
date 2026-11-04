@@ -6,7 +6,7 @@ import { Container } from "@/components/site/SiteChrome";
 import { GuideLink } from "@/components/site/ui-bits";
 import { CASES } from "@/data/cases";
 import { BASELINE, CONTEXT_INTRO, CONTEXT_SECTIONS, GUIDE_BLOCK, GUIDE_URL, SITE_TITLE } from "@/data/editorial";
-import { LESSONS } from "@/data/lessons";
+import { LESSONS, lessonAnchor } from "@/data/lessons";
 import { FREQUENCIES, PDV_TYPES, SCALES, type Option } from "@/data/taxonomy";
 import { filterCases } from "@/lib/filters";
 
@@ -21,8 +21,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
-
-export const lessonAnchor = (num: string) => `l-${num.replace(".", "-")}`;
 
 function Picker({ label, options, value, onChange }: { label: string; options: Option[]; value: string; onChange: (v: string) => void }) {
   const id = useId();

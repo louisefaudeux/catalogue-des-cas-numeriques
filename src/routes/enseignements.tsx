@@ -4,8 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Container } from "@/components/site/SiteChrome";
 import { GuideLink, Notice } from "@/components/site/ui-bits";
 import { LESSONS_INTRO, OPENING } from "@/data/editorial";
-import { DISCUSSION, LESSONS, type Lesson } from "@/data/lessons";
-import { lessonAnchor } from "./index";
+import { DISCUSSION, LESSONS, lessonAnchor, type Lesson } from "@/data/lessons";
 
 export const Route = createFileRoute("/enseignements")({
   head: () => ({

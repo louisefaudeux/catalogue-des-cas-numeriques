@@ -46,6 +46,9 @@ export const LESSONS: Lesson[] = deepTypo(
   (raw as unknown as (Omit<Lesson, "body" | "watchpoint"> & { text: string })[]).map(({ text, ...l }) => ({ ...l, ...split(text) })),
 );
 
+/** Ancre d'une carte enseignement sur /enseignements (ex. « l-3-1 »). */
+export const lessonAnchor = (num: string) => `l-${num.replace(".", "-")}`;
+
 export const DISCUSSION = deepTypo({
   text: "Décloisonner les équipes internes (e-commerce, digital, print, contenu) autour d'un même dispositif.",
   question: "Reconnaissez-vous dans vos cas le décloisonnement entre équipes comme une condition de réussite ?",
