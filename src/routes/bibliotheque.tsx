@@ -3,16 +3,15 @@ import { ChevronDown, Info, Search, SlidersHorizontal, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { CaseCard } from "@/components/site/CaseCard";
 import { Container } from "@/components/site/SiteChrome";
-import { FamilyBadge, Notice } from "@/components/site/ui-bits";
+import { FamilyBadge, PrecautionsNote } from "@/components/site/ui-bits";
 import { CASES } from "@/data/cases";
 import { FACETS, FAMILIES, findOption, type FacetKey, type Option } from "@/data/taxonomy";
-import { facetCount, filterCases, sortCases, type Selection } from "@/lib/filters";
+import { facetCount, filterCases, type Selection } from "@/lib/filters";
 
-type Search = Partial<Record<FacetKey, string | undefined>> & { q?: string | undefined; tri?: "az" | undefined; documentes?: 1 | undefined };
+type Search = Partial<Record<FacetKey, string | undefined>> & { q?: string | undefined };
 const KEYS = FACETS.map((f) => f.key);
 
 export const Route = createFileRoute("/bibliotheque")({
@@ -20,8 +19,6 @@ export const Route = createFileRoute("/bibliotheque")({
     const out: Search = {};
     for (const k of KEYS) if (typeof s[k] === "string" && s[k]) out[k] = s[k] as string;
     const q = s["q"]; if (typeof q === "string" && q) out.q = q;
-    if (s["tri"] === "az") out.tri = "az";
-    if (s["documentes"] === 1 || s["documentes"] === "1") out.documentes = 1;
     return out;
   },
   head: () => ({
@@ -37,17 +34,33 @@ export const Route = createFileRoute("/bibliotheque")({
 
 const plural = (n: number) => `${n} cas`;
 
+function SearchBar({ q, onChange, id }: { q: string; onChange: (v: string) => void; id: string }) {
+  return (
+    <div className="relative">
+      <label htmlFor={id} className="sr-only">Rechercher une enseigne, un enjeu ou un partenaire</label>
+      <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+      <input id={id} type="search" placeholder="Rechercher une enseigne, un enjeu, un partenaire" value={q}
+        onChange={(e) => onChange(e.target.value)}
+        className="h-12 w-full rounded-md border border-input bg-card pl-10 pr-10 text-base" />
+      {q && (
+        <button type="button" onClick={() => onChange("")} aria-label="Effacer la recherche"
+          className="absolute right-1 top-1/2 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground">
+          <X className="size-4" aria-hidden />
+        </button>
+      )}
+    </div>
+  );
+}
+
 function Library() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/bibliotheque" });
   const order = useRef<{ k: FacetKey; id: string }[]>([]);
-  const [infoOpen, setInfoOpen] = useState(true);
   const [sheet, setSheet] = useState(false);
 
   const sel: Selection = Object.fromEntries(KEYS.map((k) => [k, search[k]?.split(",").filter(Boolean) ?? []]));
   const activeCount = KEYS.reduce((n, k) => n + (sel[k]?.length ?? 0), 0);
-  const results = sortCases(filterCases(CASES, sel, search.q ?? "", search.documentes === 1), search.tri === "az" ? "az" : "reco");
-  const base = search.documentes === 1 ? CASES.filter((c) => c.status === "documented") : CASES;
+  const results = filterCases(CASES, sel, search.q ?? "");
 
   const setFacet = (k: FacetKey, ids: string[]) =>
     navigate({ search: (p: Search) => ({ ...p, [k]: ids.length ? ids.join(",") : undefined }), replace: false });
@@ -56,57 +69,32 @@ function Library() {
     if (cur.includes(id)) { order.current = order.current.filter((o) => !(o.k === k && o.id === id)); setFacet(k, cur.filter((x) => x !== id)); }
     else { order.current.push({ k, id }); setFacet(k, [...cur, id]); }
   };
-  const resetAll = () => { order.current = []; navigate({ search: (p: Search) => ({ q: p.q, tri: p.tri, documentes: p.documentes }) }); };
+  const resetAll = () => { order.current = []; navigate({ search: (p: Search) => ({ q: p.q }) }); };
   const removeLast = () => {
     const last = order.current.pop() ?? KEYS.flatMap((k) => (sel[k] ?? []).map((id) => ({ k, id }))).pop();
     if (last) setFacet(last.k, (sel[last.k] ?? []).filter((x) => x !== last.id));
   };
+  const setQuery = (v: string) => navigate({ search: (p: Search) => ({ ...p, q: v || undefined }), replace: true });
 
-  const filters = <FilterPanel sel={sel} toggle={toggle} base={base} />;
+  const filters = <FilterPanel sel={sel} toggle={toggle} />;
 
   return (
     <Container className="py-10 md:py-14">
       <h1 className="text-3xl font-semibold md:text-4xl">Bibliothèque de cas</h1>
       <p className="mt-2 text-muted-foreground">Retrouvez les dispositifs proches de votre situation</p>
-
-      <div className="mt-6 flex flex-col gap-3 lg:flex-row lg:items-center">
-        <div className="relative flex-1">
-          <label htmlFor="q" className="sr-only">Rechercher une enseigne, un enjeu ou un partenaire</label>
-          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-          <input id="q" type="search" placeholder="Rechercher une enseigne, un enjeu, un partenaire" defaultValue={search.q}
-            onChange={(e) => navigate({ search: (p: Search) => ({ ...p, q: e.target.value || undefined }), replace: true })}
-            className="h-12 w-full rounded-md border border-input bg-card pl-10 pr-3 text-base" />
-        </div>
-        <div className="flex flex-wrap items-center gap-4">
-          <label className="flex items-center gap-2 text-sm">
-            <span className="text-muted-foreground">Trier</span>
-            <select value={search.tri ?? "reco"} onChange={(e) => navigate({ search: (p: Search) => ({ ...p, tri: e.target.value === "az" ? "az" : undefined }) })}
-              className="h-11 rounded-md border border-input bg-card px-2">
-              <option value="reco">Recommandés</option>
-              <option value="az">Enseigne A–Z</option>
-            </select>
-          </label>
-          <label className="flex min-h-11 items-center gap-2 text-sm">
-            <Switch checked={search.documentes === 1} onCheckedChange={(v) => navigate({ search: (p: Search) => ({ ...p, documentes: v ? 1 : undefined }) })} />
-            Afficher uniquement les cas documentés
-          </label>
-        </div>
-      </div>
-
-      {infoOpen && (
-        <div className="mt-5 flex items-start gap-2">
-          <div className="flex-1"><Notice tone="accent">Dans ce prototype, seuls deux cas (Netto et Jardiland) reposent sur des contenus réels transmis par leurs contributeurs. Les autres sont fictifs et servent à tester l'interface.</Notice></div>
-          <button onClick={() => setInfoOpen(false)} aria-label="Masquer l'information" className="inline-flex size-11 items-center justify-center rounded-md hover:bg-muted"><X className="size-4" aria-hidden /></button>
-        </div>
-      )}
+      <p aria-live="polite" className="num mt-4 inline-block rounded-full bg-foreground px-3 py-1 text-sm font-semibold text-background">{plural(results.length)}</p>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[300px_1fr]">
-        <aside aria-label="Filtres" className="hidden lg:block">
-          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">{filters}</div>
+        <aside aria-label="Recherche et filtres" className="hidden lg:block">
+          <div className="sticky top-24 max-h-[calc(100vh-7rem)] space-y-6 overflow-y-auto pr-2">
+            <SearchBar id="q" q={search.q ?? ""} onChange={setQuery} />
+            {filters}
+          </div>
         </aside>
 
         <div>
-          <div className="mb-4 lg:hidden">
+          <div className="mb-4 space-y-3 lg:hidden">
+            <SearchBar id="q-mobile" q={search.q ?? ""} onChange={setQuery} />
             <Sheet open={sheet} onOpenChange={setSheet}>
               <SheetTrigger asChild>
                 <Button variant="outline" className="h-11"><SlidersHorizontal className="size-4" aria-hidden /> Filtres ({activeCount})</Button>
@@ -122,7 +110,6 @@ function Library() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <p aria-live="polite" className="mr-2 rounded-full bg-foreground px-3 py-1 text-sm font-semibold text-background num">{plural(results.length)}</p>
             {KEYS.flatMap((k) => (sel[k] ?? []).map((id) => {
               const o = findOption(k, id);
               return o ? (
@@ -157,20 +144,22 @@ function Library() {
               <Link to="/proposer-un-cas" className="mt-6 inline-block text-sm font-medium text-primary underline underline-offset-4">Votre situation n'apparaît pas ? Proposez un cas</Link>
             </div>
           )}
+
+          <PrecautionsNote className="mt-10" />
         </div>
       </div>
     </Container>
   );
 }
 
-function FilterPanel({ sel, toggle, base }: { sel: Selection; toggle: (k: FacetKey, id: string) => void; base: typeof CASES }) {
+function FilterPanel({ sel, toggle }: { sel: Selection; toggle: (k: FacetKey, id: string) => void }) {
   const [more, setMore] = useState(FACETS.some((f) => !f.primary && sel[f.key]?.length));
   const primary = FACETS.filter((f) => f.primary);
   const secondary = FACETS.filter((f) => !f.primary);
   const moreCount = secondary.reduce((n, f) => n + (sel[f.key]?.length ?? 0), 0);
   return (
     <div className="space-y-6">
-      {primary.map((f) => <Facet key={f.key} k={f.key} label={f.label} options={f.options} sel={sel} toggle={toggle} base={base} />)}
+      {primary.map((f) => <Facet key={f.key} k={f.key} label={f.label} options={f.options} sel={sel} toggle={toggle} />)}
       <div className="border-t border-border pt-4">
         <button aria-expanded={more} onClick={() => setMore(!more)} className="flex min-h-11 w-full items-center justify-between font-semibold">
           Plus de filtres{moreCount ? ` (${moreCount})` : ""}
@@ -184,12 +173,12 @@ function FilterPanel({ sel, toggle, base }: { sel: Selection; toggle: (k: FacetK
                 {FAMILIES.map((fam) => (
                   <div key={fam.id} className="mb-3">
                     <p className="mb-1 flex items-center gap-2 text-xs text-muted-foreground"><FamilyBadge family={fam.id} /> {fam.description}</p>
-                    <OptionList k="env" options={f.options.filter((o) => o.family === fam.id)} sel={sel} toggle={toggle} base={base} />
+                    <OptionList k="env" options={f.options.filter((o) => o.family === fam.id)} sel={sel} toggle={toggle} />
                   </div>
                 ))}
               </fieldset>
             ) : (
-              <Facet key={f.key} k={f.key} label={f.label} options={f.options} sel={sel} toggle={toggle} base={base} />
+              <Facet key={f.key} k={f.key} label={f.label} options={f.options} sel={sel} toggle={toggle} />
             ))}
           </div>
         )}
@@ -198,7 +187,7 @@ function FilterPanel({ sel, toggle, base }: { sel: Selection; toggle: (k: FacetK
   );
 }
 
-function Facet(p: { k: FacetKey; label: string; options: Option[]; sel: Selection; toggle: (k: FacetKey, id: string) => void; base: typeof CASES }) {
+function Facet(p: { k: FacetKey; label: string; options: Option[]; sel: Selection; toggle: (k: FacetKey, id: string) => void }) {
   return (
     <fieldset>
       <legend className="mb-2 text-sm font-semibold">{p.label}</legend>
@@ -207,12 +196,12 @@ function Facet(p: { k: FacetKey; label: string; options: Option[]; sel: Selectio
   );
 }
 
-function OptionList({ k, options, sel, toggle, base }: { k: FacetKey; options: Option[]; sel: Selection; toggle: (k: FacetKey, id: string) => void; base: typeof CASES }) {
+function OptionList({ k, options, sel, toggle }: { k: FacetKey; options: Option[]; sel: Selection; toggle: (k: FacetKey, id: string) => void }) {
   return (
     <ul className="space-y-0.5">
       {options.map((o) => {
         const checked = sel[k]?.includes(o.id) ?? false;
-        const n = facetCount(base, sel, k, o.id);
+        const n = facetCount(CASES, sel, k, o.id);
         const disabled = n === 0 && !checked;
         return (
           <li key={o.id}>
