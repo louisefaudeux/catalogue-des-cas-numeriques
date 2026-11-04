@@ -14,7 +14,7 @@ export const CONTEXT_INTRO = deepTypo(
 export const CONTEXT_SECTIONS = deepTypo([
   {
     id: "1-1",
-    title: "1.1 Du test au déploiement",
+    title: "Du test au déploiement",
     paragraphs: [
       "Le catalogue promotionnel structure depuis longtemps la promotion en magasin : il porte le calendrier des temps forts, la mise en avant des offres et du prix, et sert de support de préparation des courses. Sa digitalisation a d'abord consisté à le mettre en ligne. Elle change aujourd'hui de nature : on passe d'un document diffusé à un dispositif piloté, activé dans plusieurs environnements et alimenté par la donnée.",
       "Ce n'est plus un sujet d'expérimentation : c'est un sujet de déploiement. Les membres du Groupe de Travail observent des dispositifs qui s'installent dans la durée : moins de logique de test et davantage de fil rouge, qui permet d'ajouter de nouvelles briques ; des acteurs engagés dont les dispositifs gagnent en sophistication ; des enseignes qui avaient abandonné le print et/ou le catalogue et y reviennent, avec, pour le catalogue digital, la conviction qu'un PDF sans analytique correspond au niveau zéro de la digitalisation. Le drive-to-store digital, dont relèvent la plupart des cas de cette bibliothèque, atteint 2,1 Md€ (+33,4 % vs 2024) (Baromètre Drive-to-Store 2026, Alliance Digitale / France Pub, 20 octobre 2026).",
@@ -22,22 +22,24 @@ export const CONTEXT_SECTIONS = deepTypo([
   },
   {
     id: "1-2",
-    title: "1.2 Du remplacement du papier à la composition d'un mix",
+    title: "Du remplacement du papier à la composition d'un mix",
     paragraphs: [
       "Cette montée en puissance ne signe pas la fin du papier, qui se recompose sous l'effet du coût du papier, de la pression réglementaire et sociétale et de la recherche de ciblage. Sur les neuf premiers mois de 2025, les recettes publicitaires des imprimés sans adresse s'élèvent à 239 M€ (−9,6 % par rapport à 2024) : le prospectus imprimé recule de 14,6 % (182 M€), le prospectus digital progresse de 11,6 % (56 M€) sans compenser ce recul (France Pub / IREP, communiqué BUMP, neuf premiers mois 2025). Le papier conserve un rôle de couverture ; la question n'est donc plus de remplacer un média, mais de composer le bon mix.",
       "Le digital y apporte des bénéfices que le papier ne permet pas de la même façon, tels que la traçabilité, la personnalisation et la réactivité. Ces bénéfices se déclinent en actifs que l'enseigne peut combiner. La donnée d'abord (géolocalisée, shopper, produit) : elle permet de reproduire la couverture locale du papier, d'adapter l'offre à chaque point de vente et de tenir compte du stock. La déclinaison créative ensuite : un même catalogue peut être décliné à l'échelle de chaque point de vente ou de chaque audience. La personnalisation de l'expérience client : magasin préféré, alertes, liste de courses, lien avec le programme de fidélité. Enfin le découpage local et national : piloter à l'échelle du réseau, exécuter à celle de la zone de chalandise. Ces actifs s'activent dans trois environnements, owned, paid et shared, et c'est leur combinaison, plus que le choix d'un canal, qui compose le mix.",
       "Passer d'une logique de distribution de masse à une logique de diffusion ciblée et personnalisée n'est pas seulement un changement technologique : il fait évoluer les process, les organisations et la relation avec les partenaires. Exploiter ces actifs suppose aussi des prérequis : une donnée structurée en amont, une expérience pensée pour le mobile et accessible, une mesure reliée aux outils de l'enseigne. Les enseignements de cette bibliothèque détaillent ces prérequis.",
     ],
   },
-  {
-    id: "1-3",
-    title: "1.3 L'IA, un renfort pour les actifs du mix",
-    paragraphs: [
-      "La place de l'IA dans les dispositifs de digitalisation du catalogue est appelée à se renforcer. Elle peut enrichir plusieurs étapes : la donnée (enrichissement, détection d'anomalies), l'activation (ciblage, médiaplanning, composition du mix), la création (personnalisation et production de déclinaisons à grande échelle) et la mesure (tableaux de bord, automatisation des rapports, recommandations). Les premiers gains observés portent sur la productivité et sur ce qui n'était pas réalisable manuellement.",
-      "C'est pour documenter cette recomposition par des exemples concrets que le Groupe de Travail a constitué cette bibliothèque.",
-    ],
-  },
 ]);
+
+/** Phrase de transition entre le contexte et le module de recherche (ex-dernier paragraphe du 1.3). */
+export const CONTEXT_TRANSITION = deepTypo(
+  "C'est pour documenter cette recomposition par des exemples concrets que le Groupe de Travail a constitué cette bibliothèque.",
+);
+
+/** Premier paragraphe de l'ancien panneau 1.3, repris mot pour mot en tête de l'Ouverture. */
+export const OPENING_INTRO = deepTypo(
+  "La place de l'IA dans les dispositifs de digitalisation du catalogue est appelée à se renforcer. Elle peut enrichir plusieurs étapes : la donnée (enrichissement, détection d'anomalies), l'activation (ciblage, médiaplanning, composition du mix), la création (personnalisation et production de déclinaisons à grande échelle) et la mesure (tableaux de bord, automatisation des rapports, recommandations). Les premiers gains observés portent sur la productivité et sur ce qui n'était pas réalisable manuellement.",
+);
 
 export const OBJECTIVE = deepTypo([
   "Cette bibliothèque prolonge le Guide de la Digitalisation du Catalogue, qui posait le cadre autour de quatre enjeux enseignes : ciblage et couverture, contenu et attention, process et réactivité, mesure et pilotage. Elle réunit des retours d'expérience d'annonceurs, documentés selon une même grille, pour répondre à une question simple : qu'a-t-on mis en place, avec quels résultats, et qu'est-ce qui peut être transposé à sa propre situation ?",

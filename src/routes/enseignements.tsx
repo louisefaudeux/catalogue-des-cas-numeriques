@@ -1,9 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/site/SiteChrome";
 import { GuideLink, Notice } from "@/components/site/ui-bits";
-import { LESSONS_INTRO, OPENING } from "@/data/editorial";
+import { LESSONS_INTRO, OPENING, OPENING_INTRO } from "@/data/editorial";
 import { DISCUSSION, LESSONS, lessonAnchor, type Lesson } from "@/data/lessons";
 
 export const Route = createFileRoute("/enseignements")({
@@ -18,13 +19,13 @@ export const Route = createFileRoute("/enseignements")({
   component: Lessons,
 });
 
-function LessonCard({ l, open, onToggle }: { l: Lesson; open: boolean; onToggle: () => void }) {
+function LessonCard({ l, rank, open, onToggle }: { l: Lesson; rank: number; open: boolean; onToggle: () => void }) {
   const id = lessonAnchor(l.num);
   return (
     <li id={id} className="scroll-mt-24 rounded-xl border border-border bg-card">
       <h2>
         <button aria-expanded={open} aria-controls={`${id}-panel`} onClick={onToggle} className="flex w-full items-start gap-4 p-5 text-left md:p-6">
-          <span className="num text-2xl font-extrabold text-primary">{l.num}</span>
+          <span className="num text-2xl font-extrabold text-primary">{rank}</span>
           <span className="flex-1 text-lg font-semibold leading-snug">{l.title}</span>
           <ChevronDown className={`mt-1 size-5 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden />
         </button>
@@ -45,13 +46,12 @@ function LessonCard({ l, open, onToggle }: { l: Lesson; open: boolean; onToggle:
 function Lessons() {
   const [open, setOpen] = useState<Record<string, boolean>>({ "3.1": true });
 
-  // Ancre #l-<num> : ouvrir la carte correspondante (seule) et défiler jusqu'à elle.
+  // Ancres #l-<num> et #ouverture : ouvrir la carte concernée et défiler jusqu'à la cible.
   useEffect(() => {
     const h = window.location.hash.slice(1);
     if (!h) return;
     const target = LESSONS.find((l) => lessonAnchor(l.num) === h);
-    if (!target) return;
-    setOpen({ [target.num]: true });
+    if (target) setOpen({ [target.num]: true });
     const el = document.getElementById(h);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
@@ -64,7 +64,7 @@ function Lessons() {
       <p className="prose-ed mt-6">{LESSONS_INTRO}</p>
 
       <ul className="mt-8 max-w-4xl space-y-4">
-        {LESSONS.map((l) => (
+        {LESSONS.map((l, i) => (
           <Fragment key={l.num}>
             {l.num === "3.7" ? (
               <li key="disc" className="rounded-xl border-2 border-dashed border-input bg-card p-5 md:p-6">
@@ -74,16 +74,20 @@ function Lessons() {
                 <p className="mt-2 text-muted-foreground">{DISCUSSION.question}</p>
               </li>
             ) : null}
-            <LessonCard l={l} open={!!open[l.num]} onToggle={() => setOpen((p) => ({ ...p, [l.num]: !p[l.num] }))} />
+            <LessonCard l={l} rank={i + 1} open={!!open[l.num]} onToggle={() => setOpen((p) => ({ ...p, [l.num]: !p[l.num] }))} />
           </Fragment>
         ))}
       </ul>
 
-      <section className="mt-16 max-w-4xl border-t border-border pt-10">
+      <section id="ouverture" className="mt-16 max-w-4xl scroll-mt-24 border-t border-border pt-10">
         <h2 className="text-2xl font-semibold">Ouverture : l'IA et l'agentic commerce</h2>
+        <p className="prose-ed mt-4">{OPENING_INTRO}</p>
         {OPENING.map((p, i) => <p key={i} className="prose-ed mt-4">{p}</p>)}
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <Button asChild size="lg" className="h-12 px-6"><Link to="/bibliotheque">Explorer la bibliothèque</Link></Button>
+          <GuideLink />
+        </div>
       </section>
-      <p className="mt-10"><GuideLink /></p>
     </Container>
   );
 }

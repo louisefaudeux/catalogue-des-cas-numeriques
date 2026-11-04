@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -14,6 +14,8 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  // Sur l'accueil, le titre court du livrable répète le H1 : on le masque.
+  const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
   return (
     <>
       <a href="#contenu" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
@@ -24,10 +26,14 @@ export function SiteHeader() {
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-4 md:px-6">
           <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Alliance Digitale — Bibliothèque de cas, retour à l'accueil">
             <Logo className="h-8 md:h-10" />
-            <span aria-hidden className="h-8 w-px shrink-0 bg-border" />
-            <span className="font-display max-w-[420px] text-[11px] leading-snug tracking-wide md:text-[13px]">
-              Bibliothèque de cas<span className="hidden text-muted-foreground sm:inline"> — Digitalisation du catalogue</span>
-            </span>
+            {!isHome && (
+              <>
+                <span aria-hidden className="h-8 w-px shrink-0 bg-border" />
+                <span className="font-display max-w-[420px] text-[11px] leading-snug tracking-wide md:text-[13px]">
+                  Bibliothèque de cas<span className="hidden text-muted-foreground sm:inline"> — Digitalisation du catalogue</span>
+                </span>
+              </>
+            )}
           </Link>
           <nav aria-label="Navigation principale" className="hidden md:block">
             <ul className="flex gap-1">

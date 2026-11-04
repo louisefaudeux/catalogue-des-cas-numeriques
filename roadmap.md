@@ -1,7 +1,9 @@
-# Roadmap — Modifications lot 1 (architecture, navigation, identité visuelle)
+# Roadmap — Modifications lot 1b (landing, grille, Ouverture)
 
-- [x] Bloc A : Accueil réordonné, bloc Enseignements avec ancres, /comment-lire supprimée (redirection vers /), « Précautions de lecture » en bas de Bibliothèque et en pied de fiche cas
-- [x] Bloc B : Bibliothèque sans tri ni interrupteur « documentés », recherche en tête de colonne sticky avec effacement, bandeau prototype retiré, recherche visible sur mobile
-- [x] Bloc C : coupes des données du questionnaire (1.2, 3.6, 3.7) — vérifié : aucune occurrence restante
-- [x] Bloc D : Plus Jakarta Sans + Horizon (titre du livrable), logos Alliance Digitale (en-tête, pied de page, PDF mono), favicon, document.fonts.ready déjà en place — PDF vérifié sur 3 cas
-- [x] Vérifications : build OK, tests 6/6, navigation et ancres testées au navigateur
+- [x] E.1 Hero compact : hauteur réduite, H1 clamp(1.75rem, 3.4vw, 2.75rem) pleine largeur, titre court masqué dans l'en-tête sur l'accueil uniquement
+- [x] E.2 Contexte : chapô + deux colonnes (1.1, 1.2) sans numéros, « Lire la suite » / « Réduire » indépendants, accordéons et chapeau séparé supprimés
+- [x] E.3 Phrase de transition (ex-1.3, dernier paragraphe) puis module de recherche, marges réduites
+- [x] E.4 Bloc Enseignements compact : grille 4+8, liste 1–7 sans cartes, ligne « Ouverture » vers /enseignements#ouverture
+- [x] E.5 Numérotation 1–7 (rang calculé) sur accueil et /enseignements, ancres inchangées
+- [x] E.6 /enseignements : Ouverture en fin de page (id ouverture, ancre gérée), 1er paragraphe ex-1.3 en tête, boutons « Explorer la bibliothèque » + Guide
+- [x] Vérifications : build OK, tests 6/6, accueil et ancres (#ouverture, pliage des colonnes) testés au navigateur
