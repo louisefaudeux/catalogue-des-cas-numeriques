@@ -13,7 +13,7 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
   const truncated = c.levers.length > 2 || c.results.length > 4 || (c.lessons?.length ?? 0) > 3;
   const tags = [...c.tags.pdvType.map(labelOf), labelOf(c.tags.scale), labelOf(c.tags.frequency)];
   return (
-    <div className="relative flex flex-col overflow-hidden bg-card text-card-foreground" style={{ width: 794, height: 1123, padding: 48, fontFamily: "Inter, sans-serif" }}>
+    <div className="relative flex flex-col overflow-hidden bg-card text-card-foreground" style={{ width: 794, height: 1123, padding: 48, fontFamily: "'Plus Jakarta Sans Variable', sans-serif" }}>
       {c.status === "illustrative" && (
         <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="whitespace-nowrap text-[54px] font-extrabold text-foreground" style={{ opacity: 0.08, transform: "rotate(-35deg)" }}>
@@ -21,8 +21,12 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
           </span>
         </div>
       )}
-      <header className="flex items-center justify-between border-b-2 border-foreground pb-3 text-[12px]">
-        <span className="font-semibold">Bibliothèque de cas — Digitalisation du catalogue</span>
+      <header className="flex items-center justify-between gap-4 border-b-2 border-foreground pb-3 text-[12px]">
+        <span className="flex items-center gap-3">
+          {/* Version monochrome : lisible à l'impression en noir et blanc. */}
+          <img src="/brand/alliance-digitale-mono.png" alt="Alliance Digitale" style={{ height: 22, width: "auto" }} />
+          <span style={{ fontFamily: "'Horizon', 'Plus Jakarta Sans Variable', sans-serif", fontSize: 11 }}>Bibliothèque de cas — Digitalisation du catalogue</span>
+        </span>
         <span className="flex gap-1.5">{tags.map((t) => <span key={t} className="rounded border border-foreground/40 px-1.5 py-0.5">{t}</span>)}</span>
       </header>
 

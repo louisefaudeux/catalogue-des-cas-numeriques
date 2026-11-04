@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CaseCard, PdfButton } from "@/components/site/CaseCard";
 import { Container } from "@/components/site/SiteChrome";
-import { CreativeSlot, EnvBadge, GuideLink, KeyFigure, MethodBadge, Notice, Tag } from "@/components/site/ui-bits";
+import { CreativeSlot, EnvBadge, GuideLink, KeyFigure, MethodBadge, Notice, PrecautionsNote, Tag } from "@/components/site/ui-bits";
 import { CASES, displayBrand, getCase } from "@/data/cases";
 import { FACETS, labelOf } from "@/data/taxonomy";
 import { caseValues, similarCases } from "@/lib/filters";
@@ -177,10 +177,8 @@ function CasePage() {
               <Button asChild variant="outline" className="h-11"><Link to="/bibliotheque">Retour à la bibliothèque</Link></Button>
             </div>
             <p className="mt-5"><GuideLink>Retrouver le cadre dans le Guide 2025</GuideLink></p>
-            <p className="mt-5 text-sm text-muted-foreground">
-              Les résultats sont déclaratifs et validés par l'annonceur. Voir <Link to="/comment-lire" className="underline underline-offset-4">Comment lire la bibliothèque</Link>.
-            </p>
           </section>
+          <PrecautionsNote />
         </div>
 
         <aside aria-label="Sommaire et informations du cas" className="hidden lg:block">
