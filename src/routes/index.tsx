@@ -2,9 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/site/SiteChrome";
-import { GuideLink } from "@/components/site/ui-bits";
+import { ContextNav } from "@/components/site/ContextNav";
 import { CASES } from "@/data/cases";
-import { BASELINE, CONTEXT_INTRO, CONTEXT_SECTIONS, CONTEXT_TRANSITION, GUIDE_BLOCK, GUIDE_URL, SITE_TITLE } from "@/data/editorial";
+import { BASELINE, CONTEXT_INTRO, CONTEXT_TRANSITION, GUIDE_BLOCK, GUIDE_URL, SITE_TITLE } from "@/data/editorial";
 import { LESSONS, lessonAnchor } from "@/data/lessons";
 import { FREQUENCIES, PDV_TYPES, SCALES, type Option } from "@/data/taxonomy";
 import { filterCases } from "@/lib/filters";
@@ -35,27 +35,6 @@ function Picker({ label, options, value, onChange }: { label: string; options: O
   );
 }
 
-function ContextColumn({ section }: { section: (typeof CONTEXT_SECTIONS)[number] }) {
-  const [open, setOpen] = useState(false);
-  const [first, ...rest] = section.paragraphs;
-  const panelId = `${section.id}-suite`;
-  return (
-    <div>
-      <h3 className="text-xl font-semibold">{section.title}</h3>
-      <p className="mt-3 leading-relaxed">{first}</p>
-      <div id={panelId} hidden={!open}>
-        {rest.map((p, i) => <p key={i} className="mt-4 leading-relaxed">{p}</p>)}
-      </div>
-      {rest.length > 0 && (
-        <button type="button" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen((v) => !v)}
-          className="mt-3 font-medium text-primary underline underline-offset-4 hover:no-underline">
-          {open ? "Réduire" : "Lire la suite"}
-        </button>
-      )}
-    </div>
-  );
-}
-
 function Home() {
   const [pdv, setPdv] = useState("");
   const [echelle, setEchelle] = useState("");
@@ -80,12 +59,11 @@ function Home() {
       <Container className="mt-10 md:mt-14">
         <section aria-labelledby="contexte">
           <h2 id="contexte" className="text-3xl font-semibold">Le contexte</h2>
-          <p className="mt-4 max-w-[68ch] text-lg font-medium leading-relaxed">{CONTEXT_INTRO}</p>
-          <div className="mt-8 grid items-start gap-8 md:grid-cols-2 md:gap-10">
-            {CONTEXT_SECTIONS.map((s) => <ContextColumn key={s.id} section={s} />)}
+          <p className="mt-4 max-w-[68ch] text-balance text-lg font-medium leading-relaxed">{CONTEXT_INTRO}</p>
+          <div className="mt-8">
+            <ContextNav />
           </div>
-          <p className="mt-6 text-sm"><GuideLink /></p>
-          <p className="mt-10 max-w-[68ch] text-lg font-medium leading-relaxed">{CONTEXT_TRANSITION}</p>
+          <p className="mt-10 max-w-[68ch] text-balance text-lg font-medium leading-relaxed">{CONTEXT_TRANSITION}</p>
         </section>
       </Container>
 

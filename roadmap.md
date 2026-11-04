@@ -1,3 +1,10 @@
+# Roadmap — Modifications lot 1c (« Le contexte » en navigation verticale)
+
+- [x] F.1 Composant : onglets verticaux desktop (filet + barre d'accent, hauteur stable, clavier flèches/Début/Fin), accordéon mobile, lien Guide en bas du menu
+- [x] F.2 Découpage en cinq parties (nature, deploiement, papier, actifs, prerequis), textes mot pour mot
+- [x] F.3 Phrase de transition inchangée sous le composant, text-wrap: balance
+- [x] Vérifications : build OK, tests 6/6, clavier (flèches, Début, Fin), hauteur stable et accordéon mobile testés au navigateur
+
 # Roadmap — Modifications lot 1b (landing, grille, Ouverture)
 
 - [x] E.1 Hero compact : hauteur réduite, H1 clamp(1.75rem, 3.4vw, 2.75rem) pleine largeur, titre court masqué dans l'en-tête sur l'accueil uniquement
