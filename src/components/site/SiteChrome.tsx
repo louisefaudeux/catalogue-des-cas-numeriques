@@ -3,12 +3,12 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { VERSION_DATE } from "@/data/editorial";
+import { Logo } from "./Logo";
 import { GuideLink } from "./ui-bits";
 
 const NAV = [
   { to: "/bibliotheque", label: "Bibliothèque" },
   { to: "/enseignements", label: "Enseignements" },
-  { to: "/comment-lire", label: "Comment lire" },
   { to: "/proposer-un-cas", label: "Proposer un cas" },
 ] as const;
 
@@ -22,8 +22,12 @@ export function SiteHeader() {
       <div className="no-print bg-proto px-4 py-1.5 text-center text-xs font-medium tracking-wide text-proto-foreground">Prototype — contenus provisoires</div>
       <header className="no-print sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-4 md:px-6">
-          <Link to="/" className="text-[15px] font-semibold leading-tight">
-            Bibliothèque de cas<span className="hidden text-muted-foreground sm:inline"> · Digitalisation du catalogue</span>
+          <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Alliance Digitale — Bibliothèque de cas, retour à l'accueil">
+            <Logo className="h-8 md:h-10" />
+            <span aria-hidden className="h-8 w-px shrink-0 bg-border" />
+            <span className="font-display truncate text-[13px] leading-tight tracking-wide md:text-[15px]">
+              Bibliothèque de cas<span className="hidden text-muted-foreground sm:inline"> — Digitalisation du catalogue</span>
+            </span>
           </Link>
           <nav aria-label="Navigation principale" className="hidden md:block">
             <ul className="flex gap-1">
@@ -67,7 +71,8 @@ export function SiteFooter() {
     <footer className="no-print mt-24 border-t border-border bg-card">
       <div className="mx-auto grid max-w-[1200px] gap-4 px-4 py-10 text-sm text-muted-foreground md:grid-cols-2 md:px-6">
         <div>
-          <p className="font-medium text-foreground">Groupe de Travail Digitalisation du Catalogue — Alliance Digitale</p>
+          <Logo className="h-9" />
+          <p className="mt-3 font-medium text-foreground">Groupe de Travail Digitalisation du Catalogue — Alliance Digitale</p>
           <p>Prototype de travail non public — version du {VERSION_DATE}</p>
         </div>
         <div className="md:text-right"><GuideLink /></div>
