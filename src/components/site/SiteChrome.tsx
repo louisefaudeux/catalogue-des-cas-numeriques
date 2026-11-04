@@ -25,7 +25,7 @@ export function SiteHeader() {
           <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Alliance Digitale — Bibliothèque de cas, retour à l'accueil">
             <Logo className="h-8 md:h-10" />
             <span aria-hidden className="h-8 w-px shrink-0 bg-border" />
-            <span className="font-display truncate text-[13px] leading-tight tracking-wide md:text-[15px]">
+            <span className="font-display max-w-[420px] text-[11px] leading-snug tracking-wide md:text-[13px]">
               Bibliothèque de cas<span className="hidden text-muted-foreground sm:inline"> — Digitalisation du catalogue</span>
             </span>
           </Link>
