@@ -45,7 +45,7 @@ export const OBJECTIVE = deepTypo([
 ]);
 
 export const PRECAUTIONS = deepTypo(
-  "Précautions de lecture. Les résultats sont déclaratifs et validés par les annonceurs. Les méthodes de mesure diffèrent d'un cas à l'autre, de l'incrémentalité au comparatif avant/après, et sont précisées lorsque cela a été possible. Les cas illustrent des dispositifs réels ; ils ne constituent pas un benchmark et ne se comparent pas terme à terme.",
+  "Les résultats sont déclaratifs et validés par les annonceurs. Les méthodes de mesure diffèrent d'un cas à l'autre, de l'incrémentalité au comparatif avant/après, et sont précisées lorsque cela a été possible. Les cas illustrent des dispositifs réels ; ils ne constituent pas un benchmark et ne se comparent pas terme à terme.",
 );
 
 export const LESSONS_INTRO = deepTypo(
