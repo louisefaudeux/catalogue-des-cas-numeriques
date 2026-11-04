@@ -26,10 +26,14 @@ export function SiteHeader() {
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-4 md:px-6">
           <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Alliance Digitale — Bibliothèque de cas, retour à l'accueil">
             <Logo className="h-8 md:h-10" />
-            <span aria-hidden className="h-8 w-px shrink-0 bg-border" />
-            <span className="font-display max-w-[420px] text-[11px] leading-snug tracking-wide md:text-[13px]">
-              Bibliothèque de cas<span className="hidden text-muted-foreground sm:inline"> — Digitalisation du catalogue</span>
-            </span>
+            {!isHome && (
+              <>
+                <span aria-hidden className="h-8 w-px shrink-0 bg-border" />
+                <span className="font-display max-w-[420px] text-[11px] leading-snug tracking-wide md:text-[13px]">
+                  Bibliothèque de cas<span className="hidden text-muted-foreground sm:inline"> — Digitalisation du catalogue</span>
+                </span>
+              </>
+            )}
           </Link>
           <nav aria-label="Navigation principale" className="hidden md:block">
             <ul className="flex gap-1">
