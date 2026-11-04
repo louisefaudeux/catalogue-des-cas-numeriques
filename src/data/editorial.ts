@@ -11,21 +11,52 @@ export const CONTEXT_INTRO = deepTypo(
   "Depuis la publication du Guide de la Digitalisation du Catalogue (Alliance Digitale, 2025), le marché a évolué.",
 );
 
-export const CONTEXT_SECTIONS = deepTypo([
+export interface ContextSection {
+  id: string;
+  navLabel: string;
+  title: string;
+  paragraphs: string[];
+}
+
+/** Parties de la section « Le contexte » (navigation verticale). Paragraphes repris mot pour mot. */
+export const contextSections: ContextSection[] = deepTypo([
   {
-    id: "1-1",
-    title: "Du test au déploiement",
+    id: "nature",
+    navLabel: "Un catalogue qui change de nature",
+    title: "Du document diffusé au dispositif piloté",
     paragraphs: [
       "Le catalogue promotionnel structure depuis longtemps la promotion en magasin : il porte le calendrier des temps forts, la mise en avant des offres et du prix, et sert de support de préparation des courses. Sa digitalisation a d'abord consisté à le mettre en ligne. Elle change aujourd'hui de nature : on passe d'un document diffusé à un dispositif piloté, activé dans plusieurs environnements et alimenté par la donnée.",
+    ],
+  },
+  {
+    id: "deploiement",
+    navLabel: "Du test au déploiement",
+    title: "Du test au déploiement",
+    paragraphs: [
       "Ce n'est plus un sujet d'expérimentation : c'est un sujet de déploiement. Les membres du Groupe de Travail observent des dispositifs qui s'installent dans la durée : moins de logique de test et davantage de fil rouge, qui permet d'ajouter de nouvelles briques ; des acteurs engagés dont les dispositifs gagnent en sophistication ; des enseignes qui avaient abandonné le print et/ou le catalogue et y reviennent, avec, pour le catalogue digital, la conviction qu'un PDF sans analytique correspond au niveau zéro de la digitalisation. Le drive-to-store digital, dont relèvent la plupart des cas de cette bibliothèque, atteint 2,1 Md€ (+33,4 % vs 2024) (Baromètre Drive-to-Store 2026, Alliance Digitale / France Pub, 20 octobre 2026).",
     ],
   },
   {
-    id: "1-2",
-    title: "Du remplacement du papier à la composition d'un mix",
+    id: "papier",
+    navLabel: "Un papier qui se recompose",
+    title: "Le papier se recompose, il ne disparaît pas",
     paragraphs: [
       "Cette montée en puissance ne signe pas la fin du papier, qui se recompose sous l'effet du coût du papier, de la pression réglementaire et sociétale et de la recherche de ciblage. Sur les neuf premiers mois de 2025, les recettes publicitaires des imprimés sans adresse s'élèvent à 239 M€ (−9,6 % par rapport à 2024) : le prospectus imprimé recule de 14,6 % (182 M€), le prospectus digital progresse de 11,6 % (56 M€) sans compenser ce recul (France Pub / IREP, communiqué BUMP, neuf premiers mois 2025). Le papier conserve un rôle de couverture ; la question n'est donc plus de remplacer un média, mais de composer le bon mix.",
+    ],
+  },
+  {
+    id: "actifs",
+    navLabel: "Des bénéfices, des actifs",
+    title: "Des bénéfices qui se déclinent en actifs",
+    paragraphs: [
       "Le digital y apporte des bénéfices que le papier ne permet pas de la même façon, tels que la traçabilité, la personnalisation et la réactivité. Ces bénéfices se déclinent en actifs que l'enseigne peut combiner. La donnée d'abord (géolocalisée, shopper, produit) : elle permet de reproduire la couverture locale du papier, d'adapter l'offre à chaque point de vente et de tenir compte du stock. La déclinaison créative ensuite : un même catalogue peut être décliné à l'échelle de chaque point de vente ou de chaque audience. La personnalisation de l'expérience client : magasin préféré, alertes, liste de courses, lien avec le programme de fidélité. Enfin le découpage local et national : piloter à l'échelle du réseau, exécuter à celle de la zone de chalandise. Ces actifs s'activent dans trois environnements, owned, paid et shared, et c'est leur combinaison, plus que le choix d'un canal, qui compose le mix.",
+    ],
+  },
+  {
+    id: "prerequis",
+    navLabel: "Des prérequis à réunir",
+    title: "Des prérequis à réunir",
+    paragraphs: [
       "Passer d'une logique de distribution de masse à une logique de diffusion ciblée et personnalisée n'est pas seulement un changement technologique : il fait évoluer les process, les organisations et la relation avec les partenaires. Exploiter ces actifs suppose aussi des prérequis : une donnée structurée en amont, une expérience pensée pour le mobile et accessible, une mesure reliée aux outils de l'enseigne. Les enseignements de cette bibliothèque détaillent ces prérequis.",
     ],
   },
