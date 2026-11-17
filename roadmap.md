@@ -7,6 +7,9 @@
 - [x] Acteurs différenciés : enseigne et apporteur du cas mis en avant, autres partenaires et période en dessous ; emplacement logo prêt (`src/data/logos.ts`)
 - [x] Chiffre mis en avant retiré du début de la fiche et du PDF (conservé sur les tuiles de la bibliothèque) ; la fiche PDF montre jusqu'à 3 leviers et 8 résultats
 - [x] Lien vers le Guide retiré de la colonne de droite
+- [x] Sommaire remonté au niveau de la synthèse, avec l'ancre « Synthèse » (acteurs et tags) en première entrée
+- [x] Synthèse en fiche technique : filet dégradé, filets fins, sans cadres blancs ; étiquettes blanches pour le contraste
+- [x] Coopérative U : Nanotera en apporteur uniquement
 - [ ] Logos des enseignes et des apporteurs à recevoir
 
 # Roadmap — Cas réels, réponses du 17/11

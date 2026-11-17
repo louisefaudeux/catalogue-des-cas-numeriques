@@ -33,8 +33,8 @@ export function EnvBadge({ id }: { id: string }) {
   );
 }
 
-export function Tag({ children }: { children: ReactNode }) {
-  return <span className="inline-flex items-center rounded-md bg-tag px-2 py-0.5 text-xs font-medium text-tag-foreground">{children}</span>;
+export function Tag({ children, className }: { children: ReactNode; className?: string }) {
+  return <span className={cn("inline-flex items-center rounded-md bg-tag px-2 py-0.5 text-xs font-medium text-tag-foreground", className)}>{children}</span>;
 }
 
 /**
@@ -48,11 +48,11 @@ export const FACET_TAG = {
 } as const;
 export type TaggedFacet = keyof typeof FACET_TAG;
 
-export function FacetTag({ facet, children }: { facet: TaggedFacet; children: ReactNode }) {
+export function FacetTag({ facet, children, className }: { facet: TaggedFacet; children: ReactNode; className?: string }) {
   const t = FACET_TAG[facet];
   const label = FACETS.find((f) => f.key === facet)?.label ?? "";
   return (
-    <span title={label} className={cn("inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium", t.cls)}>
+    <span title={label} className={cn("inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium", t.cls, className)}>
       <t.Icon className="size-3.5 shrink-0" aria-hidden />
       <span className="sr-only">{label} : </span>
       {children}
