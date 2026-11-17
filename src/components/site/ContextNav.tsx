@@ -1,12 +1,54 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useId, useRef, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { contextSections } from "@/data/editorial";
+import { contextSections, type ContextBlock } from "@/data/editorial";
 import { cn } from "@/lib/utils";
-import { GuideLink } from "./ui-bits";
+import { RichText } from "./RichText";
+
+/** Paragraphes et listes d'une partie du contexte. */
+function Blocks({ blocks, size = "md" }: { blocks: ContextBlock[]; size?: "md" | "sm" }) {
+  const gap = size === "md" ? "mt-4" : "mt-3";
+  return (
+    <>
+      {blocks.map((b, j) =>
+        typeof b === "string" ? (
+          <p key={j} className={cn(gap, "max-w-[68ch] text-[17px] leading-[1.7]")}><RichText text={b} /></p>
+        ) : (
+          <ul key={j} className={cn(gap, "max-w-[68ch] list-disc space-y-2 pl-6 text-[17px] leading-[1.7] marker:text-primary")}>
+            {b.list.map((item, k) => <li key={k}><RichText text={item} /></li>)}
+          </ul>
+        ),
+      )}
+    </>
+  );
+}
+
+/** Pagineur « 1 / N » avec flèches précédent / suivant. */
+function Pager({ index, onGo }: { index: number; onGo: (i: number) => void }) {
+  const last = contextSections.length - 1;
+  const prev = contextSections[index - 1];
+  const next = contextSections[index + 1];
+  const btn =
+    "inline-flex size-10 items-center justify-center rounded-full border border-input bg-card text-foreground transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-40";
+  return (
+    <div className="mt-8 flex items-center gap-3">
+      <span className="num text-sm text-muted-foreground" aria-hidden>{index + 1} / {last + 1}</span>
+      <button type="button" className={btn} disabled={!prev} onClick={() => onGo(index - 1)}
+        aria-label={prev ? `Partie précédente : ${prev.navLabel}` : "Partie précédente"}>
+        <ArrowLeft className="size-4" aria-hidden />
+      </button>
+      <button type="button" className={btn} disabled={!next} onClick={() => onGo(index + 1)}
+        aria-label={next ? `Partie suivante : ${next.navLabel}` : "Partie suivante"}>
+        <ArrowRight className="size-4" aria-hidden />
+      </button>
+    </div>
+  );
+}
 
 /**
  * Section « Le contexte » : onglets verticaux sur desktop, accordéon sur mobile.
  * Pilotée uniquement par contextSections (2 à 7 parties sans changement de code).
+ * Le panneau prend la hauteur de son contenu (au minimum celle du menu, par la grille).
  */
 export function ContextNav() {
   const [active, setActive] = useState(0);
@@ -34,14 +76,6 @@ export function ContextNav() {
     }
   };
 
-  const nextLink = (i: number, onNext: () => void) =>
-    i < last ? (
-      <button type="button" onClick={onNext}
-        className="mt-6 font-medium text-primary underline underline-offset-4 hover:no-underline">
-        Suivant : {contextSections[i + 1]?.navLabel}
-      </button>
-    ) : null;
-
   return (
     <>
       {/* Desktop : onglets verticaux */}
@@ -64,20 +98,15 @@ export function ContextNav() {
               </button>
             ))}
           </div>
-          <p className="mt-6 pl-4 text-sm"><GuideLink /></p>
         </div>
-        <div className="grid md:col-span-8">
+        <div className="md:col-span-8">
           {contextSections.map((s, i) => (
-            <section key={s.id} role="tabpanel" id={panelId(s.id)} aria-labelledby={tabId(s.id)}
-              inert={i !== active}
-              className={cn("col-start-1 row-start-1", i !== active && "invisible")}>
+            <section key={s.id} role="tabpanel" id={panelId(s.id)} aria-labelledby={tabId(s.id)} hidden={i !== active}>
               <h3 className="text-[22px] font-bold">{s.title}</h3>
-              {s.paragraphs.map((p, j) => (
-                <p key={j} className="mt-4 max-w-[68ch] text-[17px] leading-[1.7]">{p}</p>
-              ))}
-              {nextLink(i, () => select(i + 1, true))}
+              <Blocks blocks={s.paragraphs} />
             </section>
           ))}
+          <Pager index={active} onGo={(i) => select(i)} />
         </div>
       </div>
 
@@ -89,15 +118,12 @@ export function ContextNav() {
               <AccordionTrigger className="min-h-11 py-3 text-left text-base font-semibold">{s.navLabel}</AccordionTrigger>
               <AccordionContent>
                 <h3 className="text-lg font-bold">{s.title}</h3>
-                {s.paragraphs.map((p, j) => (
-                  <p key={j} className="mt-3 text-[17px] leading-[1.7]">{p}</p>
-                ))}
-                {nextLink(i, () => setOpenItem(contextSections[i + 1]?.id ?? ""))}
+                <Blocks blocks={s.paragraphs} size="sm" />
+                <Pager index={i} onGo={(k) => setOpenItem(contextSections[k]?.id ?? "")} />
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
-        <p className="mt-6 text-sm"><GuideLink /></p>
       </div>
     </>
   );

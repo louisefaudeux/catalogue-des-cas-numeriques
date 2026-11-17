@@ -56,11 +56,13 @@
   --color-tag-foreground: var(--tag-foreground);
   --color-proto: var(--proto);
   --color-proto-foreground: var(--proto-foreground);
+  --color-line: var(--line);
 }
 
 :root {
   --radius: 12px;
-  --background: #fafaf9;
+  /* Fond blanc cassé commun aux publications Alliance Digitale (lot 1d). */
+  --background: #efefe7;
   --foreground: #1a1a2e;
   --card: #ffffff;
   --card-foreground: #1a1a2e;
@@ -89,8 +91,13 @@
   --warning-foreground: #6b4300;
   --tag: #f0eff3;
   --tag-foreground: #3a3a4a;
-  --proto: #1a1a2e;
-  --proto-foreground: #fafaf9;
+  /* Bandeau prototype discret, supprimé à la publication. */
+  --proto: #e6e1f3;
+  --proto-foreground: #4b2fbf;
+  /* Filet de l'en-tête. */
+  --line: #d9d4e8;
+  /* Dégradé violet → mauve de la Digitalisation du Catalogue (contraste ≥ 3,8:1 sur le fond). */
+  --accent-gradient: linear-gradient(90deg, #4b2fbf 0%, #8a3fc6 55%, #b04fbf 100%);
 }
 
 @layer base {
@@ -132,6 +139,25 @@
   max-width: 68ch;
   font-size: 1.0625rem;
   line-height: 1.7;
+}
+/* Texte rempli du dégradé d'accent, avec repli en violet uni. */
+@utility text-gradient {
+  color: var(--color-primary);
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+/* Barre d'accent au-dessus des titres de section de la landing. */
+@utility accent-bar {
+  display: block;
+  width: 56px;
+  height: 4px;
+  border-radius: 2px;
+  background-image: var(--accent-gradient);
+  margin-bottom: 16px;
 }
 
 @media print {

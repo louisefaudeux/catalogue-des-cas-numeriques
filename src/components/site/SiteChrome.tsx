@@ -6,11 +6,15 @@ import { VERSION_DATE } from "@/data/editorial";
 import { Logo } from "./Logo";
 import { GuideLink } from "./ui-bits";
 
+// Les enseignements vivent sur la landing (section #enseignements) depuis le lot 1d.
 const NAV = [
-  { to: "/bibliotheque", label: "Bibliothèque" },
-  { to: "/enseignements", label: "Enseignements" },
-  { to: "/proposer-un-cas", label: "Proposer un cas" },
+  { to: "/bibliotheque", hash: undefined, label: "Bibliothèque" },
+  { to: "/", hash: "enseignements", label: "Enseignements" },
+  { to: "/proposer-un-cas", hash: undefined, label: "Proposer un cas" },
 ] as const;
+
+const NAV_LINK =
+  "inline-flex h-11 items-center px-3 text-sm font-semibold text-foreground decoration-primary decoration-2 underline-offset-[6px] hover:underline";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -21,8 +25,8 @@ export function SiteHeader() {
       <a href="#contenu" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Aller au contenu
       </a>
-      <div className="no-print bg-proto px-4 py-1.5 text-center text-xs font-medium tracking-wide text-proto-foreground">Prototype — contenus provisoires</div>
-      <header className="no-print sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
+      <div className="no-print flex h-7 items-center justify-center bg-proto px-4 text-center text-xs font-medium text-proto-foreground">Prototype — contenus provisoires</div>
+      <header className="no-print sticky top-0 z-40 border-b border-line bg-background/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-4 md:px-6">
           <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Alliance Digitale — Bibliothèque de cas, retour à l'accueil">
             <Logo className="h-8 md:h-10" />
@@ -38,9 +42,10 @@ export function SiteHeader() {
           <nav aria-label="Navigation principale" className="hidden md:block">
             <ul className="flex gap-1">
               {NAV.map((n) => (
-                <li key={n.to}>
-                  <Link to={n.to} className="inline-flex h-11 items-center rounded-md px-3 text-sm font-medium text-muted-foreground hover:text-foreground"
-                    activeProps={{ className: "text-foreground bg-accent", "aria-current": "page" }}>
+                <li key={n.label}>
+                  <Link to={n.to} {...(n.hash ? { hash: n.hash } : {})} className={NAV_LINK}
+                    activeOptions={{ includeHash: true }}
+                    activeProps={{ className: "underline", "aria-current": "page" }}>
                     {n.label}
                   </Link>
                 </li>
@@ -58,8 +63,8 @@ export function SiteHeader() {
               <nav aria-label="Navigation mobile" className="px-4">
                 <ul className="flex flex-col gap-1">
                   {NAV.map((n) => (
-                    <li key={n.to}>
-                      <Link to={n.to} onClick={() => setOpen(false)} className="flex h-12 items-center rounded-md px-3 font-medium hover:bg-accent">{n.label}</Link>
+                    <li key={n.label}>
+                      <Link to={n.to} {...(n.hash ? { hash: n.hash } : {})} onClick={() => setOpen(false)} className="flex h-12 items-center rounded-md px-3 font-semibold hover:bg-accent">{n.label}</Link>
                     </li>
                   ))}
                 </ul>

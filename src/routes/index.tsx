@@ -1,11 +1,17 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ExternalLink } from "lucide-react";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/site/SiteChrome";
 import { ContextNav } from "@/components/site/ContextNav";
+import { LessonsSection } from "@/components/site/LessonsSection";
+import { RichText } from "@/components/site/RichText";
+import { PrecautionsNote } from "@/components/site/ui-bits";
 import { CASES } from "@/data/cases";
-import { BASELINE, CONTEXT_INTRO, CONTEXT_TRANSITION, GUIDE_BLOCK, GUIDE_URL, SITE_TITLE } from "@/data/editorial";
-import { LESSONS, lessonAnchor } from "@/data/lessons";
+import {
+  CONTEXT_INTRO, CONTRIBUTE, CONTRIBUTE_LINK, GUIDE_BLOCK, GUIDE_INLINE, GUIDE_URL, HERO, META_DESCRIPTION,
+  OBJECTIVE, OBJECTIVE_TITLE, OPENING, OPENING_TITLE, SITE_TITLE,
+} from "@/data/editorial";
 import { FREQUENCIES, PDV_TYPES, SCALES, type Option } from "@/data/taxonomy";
 import { filterCases } from "@/lib/filters";
 
@@ -13,9 +19,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: SITE_TITLE },
-      { name: "description", content: BASELINE },
+      { name: "description", content: META_DESCRIPTION },
       { property: "og:title", content: SITE_TITLE },
-      { property: "og:description", content: BASELINE },
+      { property: "og:description", content: META_DESCRIPTION },
     ],
   }),
   component: Home,
@@ -35,6 +41,25 @@ function Picker({ label, options, value, onChange }: { label: string; options: O
   );
 }
 
+/** Titre de section de la landing, précédé de la barre d'accent. */
+function SectionTitle({ id, children, className }: { id: string; children: React.ReactNode; className?: string }) {
+  return (
+    <>
+      <span className="accent-bar" aria-hidden />
+      <h2 id={id} className={`text-3xl font-bold ${className ?? ""}`}>{children}</h2>
+    </>
+  );
+}
+
+/** Insère un lien à la place d'un segment de texte (première occurrence). */
+function withLink(text: string, segment: string, render: (s: string) => React.ReactNode) {
+  const k = text.indexOf(segment);
+  if (k < 0) return text;
+  return <>{text.slice(0, k)}{render(segment)}{text.slice(k + segment.length)}</>;
+}
+
+const SECTION = "mt-14 md:mt-20";
+
 function Home() {
   const [pdv, setPdv] = useState("");
   const [echelle, setEchelle] = useState("");
@@ -45,84 +70,102 @@ function Home() {
 
   return (
     <>
-      <section className="border-b border-border bg-accent/60">
-        <Container className="py-8 md:py-12">
-          <h1 className="font-display max-w-none leading-[1.1] tracking-tight" style={{ fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)" }}>{SITE_TITLE}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground md:text-xl">{BASELINE}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
+      {/* Hero */}
+      <section>
+        <Container className="pt-16 pb-12 md:pt-24 md:pb-16">
+          <p className="text-sm font-bold uppercase tracking-[0.08em] text-muted-foreground">{HERO.eyebrow}</p>
+          <h1 className="mt-5">
+            <span className="font-display text-gradient block uppercase leading-none" style={{ fontSize: "clamp(1.75rem, 7.6vw, 5.5rem)" }}>
+              {HERO.title}
+            </span>
+            <span className="sr-only"> : </span>
+            <span className="mt-4 block font-heading font-extrabold leading-tight text-foreground" style={{ fontSize: "clamp(1.75rem, 3.2vw, 2.75rem)" }}>
+              {HERO.subtitle}
+            </span>
+          </h1>
+          <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="h-12 px-6"><Link to="/bibliotheque">Explorer la bibliothèque</Link></Button>
-            <Button asChild size="lg" variant="outline" className="h-12 px-6"><Link to="/enseignements">Lire les enseignements</Link></Button>
+            <Button asChild size="lg" variant="outline" className="h-12 px-6"><Link to="/" hash="enseignements">Lire les enseignements</Link></Button>
           </div>
         </Container>
       </section>
 
-      <Container className="mt-10 md:mt-14">
-        <section aria-labelledby="contexte">
-          <h2 id="contexte" className="text-3xl font-semibold">Le contexte</h2>
-          <p className="mt-4 max-w-[68ch] text-balance text-lg font-medium leading-relaxed">{CONTEXT_INTRO}</p>
+      {/* Le contexte */}
+      <Container>
+        <section aria-labelledby="contexte" id="contexte-section" className="scroll-mt-28">
+          <SectionTitle id="contexte">Le contexte</SectionTitle>
+          <p className="mt-4 max-w-[75ch] text-balance text-lg font-medium leading-relaxed">
+            {withLink(CONTEXT_INTRO, GUIDE_INLINE, (s) => (
+              <a href={GUIDE_URL} target="_blank" rel="noopener noreferrer"
+                className="underline decoration-primary decoration-1 underline-offset-[3px] hover:decoration-2">
+                {s}
+                <ExternalLink className="ml-1 inline size-3.5 align-[-1px] text-primary" aria-hidden />
+                <span className="sr-only"> (s'ouvre dans un nouvel onglet)</span>
+              </a>
+            ))}
+          </p>
           <div className="mt-8">
             <ContextNav />
           </div>
-          <p className="mt-10 max-w-[68ch] text-balance text-lg font-medium leading-relaxed">{CONTEXT_TRANSITION}</p>
         </section>
       </Container>
 
-      <Container className="mt-8 md:mt-10">
-        <section aria-labelledby="situation" className="rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
-          <h2 id="situation" className="text-2xl font-semibold">Trouvez les cas proches de votre situation</h2>
-          <form className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end"
-            onSubmit={(e) => { e.preventDefault(); if (n) navigate({ to: "/bibliotheque", search: { pdv: pdv || undefined, echelle: echelle || undefined, frequence: frequence || undefined } }); }}>
-            <Picker label="Type de point de vente" options={PDV_TYPES} value={pdv} onChange={setPdv} />
-            <Picker label="Échelle du dispositif" options={SCALES} value={echelle} onChange={setEchelle} />
-            <Picker label="Fréquence" options={FREQUENCIES} value={frequence} onChange={setFrequence} />
-            <Button type="submit" size="lg" className="h-12 px-6" disabled={!n}>Voir les {n} cas</Button>
-          </form>
-          <p aria-live="polite" className="mt-4 text-sm text-muted-foreground">
-            {n ? <><strong className="num text-foreground">{n}</strong> {n > 1 ? "cas correspondent" : "cas correspond"} à votre situation.</>
-              : "Aucun cas ne correspond à cette combinaison. Essayez d'élargir un critère."}
+      {/* Objectif de la bibliothèque, puis le module de recherche */}
+      <Container className={SECTION}>
+        <section aria-labelledby="objectif">
+          <SectionTitle id="objectif">{OBJECTIVE_TITLE}</SectionTitle>
+          {OBJECTIVE.map((p, i) => <p key={i} className="prose-ed mt-4">{p}</p>)}
+
+          <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
+            <h3 id="situation" className="text-2xl font-semibold">Trouvez les cas proches de votre situation</h3>
+            <form className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end" aria-labelledby="situation"
+              onSubmit={(e) => { e.preventDefault(); if (n) navigate({ to: "/bibliotheque", search: { pdv: pdv || undefined, echelle: echelle || undefined, frequence: frequence || undefined } }); }}>
+              <Picker label="Type de point de vente" options={PDV_TYPES} value={pdv} onChange={setPdv} />
+              <Picker label="Échelle du dispositif" options={SCALES} value={echelle} onChange={setEchelle} />
+              <Picker label="Fréquence" options={FREQUENCIES} value={frequence} onChange={setFrequence} />
+              <Button type="submit" size="lg" className="h-12 px-6" disabled={!n}>Voir les {n} cas</Button>
+            </form>
+            <p aria-live="polite" className="mt-4 text-sm text-muted-foreground">
+              {n ? <><strong className="num text-foreground">{n}</strong> {n > 1 ? "cas correspondent" : "cas correspond"} à votre situation.</>
+                : "Aucun cas ne correspond à cette combinaison. Essayez d'élargir un critère."}
+            </p>
+          </div>
+
+          <p className="prose-ed mt-6">
+            {withLink(CONTRIBUTE, CONTRIBUTE_LINK, (s) => (
+              <Link to="/proposer-un-cas" className="font-medium text-primary underline underline-offset-4 hover:no-underline">{s}</Link>
+            ))}
           </p>
+          <PrecautionsNote className="mt-6 max-w-[68ch]" />
         </section>
       </Container>
 
-      <Container className="mt-10 md:mt-14">
-        <section aria-labelledby="enseignements-accueil" className="grid gap-8 md:grid-cols-12 md:gap-10">
-          <div className="md:col-span-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <h2 id="enseignements-accueil" className="text-3xl font-semibold">Les enseignements de la bibliothèque</h2>
-              <span className="inline-block rounded-md border border-warning-foreground/20 bg-warning px-2 py-0.5 text-xs font-semibold text-warning-foreground">En cours de validation</span>
+      {/* Enseignements */}
+      <Container className={SECTION}>
+        <section aria-labelledby="enseignements-titre" id="enseignements" className="scroll-mt-28">
+          <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
+            <div>
+              <SectionTitle id="enseignements-titre">Les enseignements de la bibliothèque</SectionTitle>
             </div>
-            <p className="prose-ed mt-4">{LESSONS.length} enseignements tirés des cas réunis et des échanges du Groupe de Travail.</p>
-            <Button asChild size="lg" className="mt-6 h-12 px-6"><Link to="/enseignements">Lire les enseignements</Link></Button>
+            <span className="mb-1.5 inline-block rounded-md border border-warning-foreground/20 bg-warning px-2 py-0.5 text-xs font-semibold text-warning-foreground">En cours de validation</span>
           </div>
-          <div className="md:col-span-8">
-            <ol className="divide-y divide-border border-y border-border">
-              {LESSONS.map((l, i) => (
-                <li key={l.num}>
-                  <Link to="/enseignements" hash={lessonAnchor(l.num)}
-                    className="flex min-h-11 items-baseline gap-4 py-2.5 hover:bg-accent/60">
-                    <span className="num w-6 shrink-0 text-lg font-extrabold text-primary">{i + 1}</span>
-                    <span className="font-medium leading-snug">{l.title}</span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-            <div className="mt-0 flex min-h-11 items-baseline gap-4 border-t border-dashed border-input py-2.5">
-              <span className="w-6 shrink-0" aria-hidden />
-              <p>
-                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Ouverture</span>
-                <span aria-hidden className="mx-2 text-muted-foreground">—</span>
-                <Link to="/enseignements" hash="ouverture" className="font-medium text-primary underline underline-offset-4 hover:no-underline">
-                  L'IA et l'agentic commerce
-                </Link>
-              </p>
-            </div>
-          </div>
+          <LessonsSection />
         </section>
       </Container>
 
-      <Container className="mt-10 md:mt-14">
-        <section className="rounded-xl bg-accent p-8 md:p-10">
-          <h2 className="text-2xl font-semibold">Aller plus loin avec le Guide</h2>
+      {/* Ouverture */}
+      <Container className={SECTION}>
+        <section aria-labelledby="ouverture-titre" id="ouverture" className="scroll-mt-28">
+          <SectionTitle id="ouverture-titre">Ouverture</SectionTitle>
+          <h3 className="mt-3 max-w-[40ch] text-xl font-semibold leading-snug text-muted-foreground md:text-2xl">{OPENING_TITLE}</h3>
+          {OPENING.map((p, i) => <p key={i} className="prose-ed mt-4"><RichText text={p} /></p>)}
+        </section>
+      </Container>
+
+      {/* Guide */}
+      <Container className={SECTION}>
+        <section aria-labelledby="guide" className="rounded-xl bg-accent p-8 md:p-10">
+          <SectionTitle id="guide" className="text-2xl">Aller plus loin avec le Guide</SectionTitle>
           <p className="prose-ed mt-3">{GUIDE_BLOCK}</p>
           <Button asChild className="mt-6 h-12 px-6">
             <a href={GUIDE_URL} target="_blank" rel="noopener noreferrer">

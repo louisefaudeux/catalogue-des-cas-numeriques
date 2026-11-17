@@ -1,3 +1,15 @@
+# Roadmap — Modifications lot 1d (branding, intro, enseignements sur la landing) et textes du Word du 17/11
+
+- [x] A. Fond #efefe7 sur tout le site, dégradé violet → mauve, filet d'en-tête, bandeau prototype discret
+- [x] A. Hero : surtitre, « DIGITALISATION DU CATALOGUE » en Horizon et en dégradé, « Bibliothèque de cas » en 800, phrase d'accroche supprimée, un seul H1
+- [x] A. Barres d'accent au-dessus des H2 de la landing ; navigation en 600 avec soulignement d'accent
+- [x] B. Intro en 4 parties (Évolution, Déploiement, Papier et digital, Bénéfices et actifs) avec les textes du Word, lien Guide dans le chapô, pagineur « 1 / 4 » à flèches, liste à puces avec gras, hauteur du panneau = contenu
+- [x] C. Section « Objectif de la bibliothèque » (2. du Word) juste avant le module de recherche, appel à contributions avec lien, précautions de lecture ; espacement régulier entre sections
+- [x] D. Enseignements sur la landing : 4 étapes en intertitres, numérotation 1 à 7, accordéons, ancres #l-3-x ; carte « En discussion » retirée ; `/enseignements` redirigé
+- [x] D. Ouverture « Le commerce agentique… » (4. du Word) visible après les enseignements
+- [x] Vérifications : types, build, tests 10/10 (dont contenus), navigation clavier et ancres, captures desktop et mobile
+- [ ] Hors lot : fiches de cas, cas Mobsuccess et retrait des cas fictifs (en attente des retours sur les fiches)
+
 # Roadmap — Modifications lot 1c (« Le contexte » en navigation verticale)
 
 - [x] F.1 Composant : onglets verticaux desktop (filet + barre d'accent, hauteur stable, clavier flèches/Début/Fin), accordéon mobile, lien Guide en bas du menu
