@@ -10,8 +10,8 @@
 - [x] Sommaire remonté au niveau de la synthèse, avec l'ancre « Synthèse » (acteurs et tags) en première entrée
 - [x] Synthèse en fiche technique : filet dégradé, filets fins, sans cadres blancs ; étiquettes blanches pour le contraste
 - [x] Coopérative U : Nanotera en apporteur uniquement
-- [x] Emplacements logos pour l'enseigne, l'apporteur et les autres partenaires (fiche, PDF) et pour l'enseigne sur les tuiles ; testés avec des logos factices (large, carré, étroit), non commités
-- [ ] Logos à recevoir : 7 enseignes, 5 apporteurs, 7 partenaires
+- [x] Logos pour l'enseigne et l'apporteur uniquement (fiche, PDF, tuiles pour l'enseigne), posés sur le fond de page sans cartouche ; testés avec des logos factices, non commités
+- [ ] Logos à recevoir : 7 enseignes, 5 apporteurs (fond transparent)
 
 # Roadmap — Cas réels, réponses du 17/11
 

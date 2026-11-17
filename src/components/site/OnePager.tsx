@@ -54,13 +54,7 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
           {c.partners.length > 0 && <span>Autres partenaires :</span>}
           {c.partners.map((x) => {
             const { name, role } = splitPartner(x);
-            const logo = logoOf(name);
-            return (
-              <span key={name} className="flex items-center gap-1.5">
-                {logo && <img src={logo} alt="" style={{ height: 16, width: "auto", maxWidth: 56, objectFit: "contain" }} />}
-                <span><span className="font-semibold text-foreground">{name}</span>{role ? ` (${role})` : ""}</span>
-              </span>
-            );
+            return <span key={name}><span className="font-semibold text-foreground">{name}</span>{role ? ` (${role})` : ""}</span>;
           })}
           <span>Période : {c.period}</span>
         </div>
