@@ -58,7 +58,10 @@ function withLink(text: string, segment: string, render: (s: string) => React.Re
   return <>{text.slice(0, k)}{render(segment)}{text.slice(k + segment.length)}</>;
 }
 
-const SECTION = "mt-14 md:mt-20";
+/** Écart unique entre les sections de la landing : 64 px mobile, 96 px desktop. */
+const SECTION = "mt-16 md:mt-24";
+/** Carte (module de recherche, Guide) : même rembourrage partout. */
+const CARD = "rounded-xl p-6 md:p-10";
 
 function Home() {
   const [pdv, setPdv] = useState("");
@@ -72,7 +75,7 @@ function Home() {
     <>
       {/* Hero */}
       <section>
-        <Container className="pt-16 pb-12 md:pt-24 md:pb-16">
+        <Container className="pt-16 md:pt-24">
           <p className="text-sm font-bold uppercase tracking-[0.08em] text-muted-foreground">{HERO.eyebrow}</p>
           <h1 className="mt-5">
             <span className="font-display text-gradient block uppercase leading-none" style={{ fontSize: "clamp(1.75rem, 7.6vw, 5.5rem)" }}>
@@ -91,10 +94,10 @@ function Home() {
       </section>
 
       {/* Le contexte */}
-      <Container>
+      <Container className={SECTION}>
         <section aria-labelledby="contexte" id="contexte-section" className="scroll-mt-28">
           <SectionTitle id="contexte">Le contexte</SectionTitle>
-          <p className="mt-4 max-w-[75ch] text-balance text-lg font-medium leading-relaxed">
+          <p className="measure mt-4 text-balance text-lg font-medium leading-relaxed">
             {withLink(CONTEXT_INTRO, GUIDE_INLINE, (s) => (
               <a href={GUIDE_URL} target="_blank" rel="noopener noreferrer"
                 className="underline decoration-primary decoration-1 underline-offset-[3px] hover:decoration-2">
@@ -111,9 +114,9 @@ function Home() {
       </Container>
 
       {/* Module de recherche, remonté juste après le contexte (lot 1e) */}
-      <Container className="mt-12 md:mt-14">
-        <section aria-labelledby="situation" className="rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
-          <h2 id="situation" className="text-2xl font-semibold">Trouvez les cas proches de votre situation</h2>
+      <Container className={SECTION}>
+        <section aria-labelledby="situation" className={`${CARD} border border-border bg-card shadow-sm`}>
+          <h2 id="situation" className="text-2xl font-bold">Trouvez les cas proches de votre situation</h2>
           <form className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end" aria-labelledby="situation"
             onSubmit={(e) => { e.preventDefault(); if (n) navigate({ to: "/bibliotheque", search: { pdv: pdv || undefined, echelle: echelle || undefined, frequence: frequence || undefined } }); }}>
             <Picker label="Type de point de vente" options={PDV_TYPES} value={pdv} onChange={setPdv} />
@@ -138,7 +141,7 @@ function Home() {
               <Link to="/proposer-un-cas" className="font-medium text-primary underline underline-offset-4 hover:no-underline">{s}</Link>
             ))}
           </p>
-          <PrecautionsNote className="mt-6 max-w-[68ch]" />
+          <PrecautionsNote className="measure mt-8" />
         </section>
       </Container>
 
@@ -153,17 +156,17 @@ function Home() {
       {/* Ouverture */}
       <Container className={SECTION}>
         <section aria-labelledby="ouverture-titre" id="ouverture" className="scroll-mt-28">
-          <SectionTitle id="ouverture-titre" className="max-w-[30ch] leading-tight">{OPENING_TITLE}</SectionTitle>
+          <SectionTitle id="ouverture-titre" className="measure leading-tight">{OPENING_TITLE}</SectionTitle>
           {OPENING.map((p, i) => <p key={i} className="prose-ed mt-4"><RichText text={p} /></p>)}
         </section>
       </Container>
 
       {/* Guide */}
       <Container className={SECTION}>
-        <section aria-labelledby="guide" className="rounded-xl bg-accent p-8 md:p-10">
-          <SectionTitle id="guide" className="text-2xl">Aller plus loin avec le Guide</SectionTitle>
-          <p className="prose-ed mt-3">{GUIDE_BLOCK}</p>
-          <Button asChild className="mt-6 h-12 px-6">
+        <section aria-labelledby="guide" className={`${CARD} bg-accent`}>
+          <h2 id="guide" className="text-2xl font-bold">Aller plus loin avec le Guide</h2>
+          <p className="prose-ed mt-4">{GUIDE_BLOCK}</p>
+          <Button asChild className="mt-8 h-12 px-6">
             <a href={GUIDE_URL} target="_blank" rel="noopener noreferrer">
               Consulter le Guide 2025<span className="sr-only"> (s'ouvre dans un nouvel onglet)</span>
             </a>

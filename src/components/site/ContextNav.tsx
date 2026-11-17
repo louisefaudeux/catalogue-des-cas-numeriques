@@ -12,9 +12,9 @@ function Blocks({ blocks, size = "md" }: { blocks: ContextBlock[]; size?: "md" |
     <>
       {blocks.map((b, j) =>
         typeof b === "string" ? (
-          <p key={j} className={cn(gap, "max-w-[68ch] text-[17px] leading-[1.7]")}><RichText text={b} /></p>
+          <p key={j} className={cn(gap, "measure text-[17px] leading-[1.7]")}><RichText text={b} /></p>
         ) : (
-          <ul key={j} className={cn(gap, "max-w-[68ch] list-disc space-y-2 pl-6 text-[17px] leading-[1.7] marker:text-primary")}>
+          <ul key={j} className={cn(gap, "measure list-disc space-y-2 pl-6 text-[17px] leading-[1.7] marker:text-primary")}>
             {b.list.map((item, k) => <li key={k}><RichText text={item} /></li>)}
           </ul>
         ),

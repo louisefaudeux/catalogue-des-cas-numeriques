@@ -98,6 +98,8 @@
   --line: #d9d4e8;
   /* Dégradé violet → mauve de la Digitalisation du Catalogue (contraste ≥ 3,8:1 sur le fond). */
   --accent-gradient: linear-gradient(90deg, #4b2fbf 0%, #8a3fc6 55%, #b04fbf 100%);
+  /* Largeur de lecture unique des textes éditoriaux (≈ colonne principale des fiches). */
+  --measure: 720px;
 }
 
 @layer base {
@@ -135,8 +137,11 @@
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
 }
+@utility measure {
+  max-width: var(--measure);
+}
 @utility prose-ed {
-  max-width: 68ch;
+  max-width: var(--measure);
   font-size: 1.0625rem;
   line-height: 1.7;
 }

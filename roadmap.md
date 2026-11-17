@@ -1,3 +1,9 @@
+# Roadmap — Modifications lot 1f (homogénéité des marges)
+
+- [x] Écart unique de 96 px (64 px mobile) entre toutes les sections de la landing, du hero au pied de page
+- [x] Largeur de lecture unique de 720 px (`--measure`, utilitaires `measure` et `prose-ed`) pour tous les textes, l'intro, les enseignements et les précautions
+- [x] Cartes (module de recherche, Guide) au même rembourrage (40 px desktop) et aux mêmes titres ; barres d'accent réservées aux sections
+
 # Roadmap — Modifications lot 1e (retours du 17/11 sur la landing)
 
 - [x] Module de recherche remonté juste après le contexte ; « Objectif de la bibliothèque » placé dessous

@@ -19,7 +19,7 @@ function LessonItem({ l, rank, open, onToggle }: { l: Lesson; rank: number; open
       </h4>
       <div id={`${id}-panel`} hidden={!open} className="pb-6 pl-10">
         <p className="prose-ed">{l.body}</p>
-        <div className="mt-5 max-w-[68ch] rounded-lg border-l-4 border-warning-foreground/60 bg-warning p-4 text-warning-foreground">
+        <div className="mt-5 rounded-lg border-l-4 border-warning-foreground/60 bg-warning p-4 text-warning-foreground">
           <p className="text-sm font-semibold">Point de vigilance</p>
           <p className="mt-1">{l.watchpoint}</p>
         </div>
@@ -50,7 +50,7 @@ export function LessonsSection() {
   return (
     <>
       <p className="prose-ed mt-4">{LESSONS_INTRO}</p>
-      <div className="mt-8 max-w-4xl space-y-10">
+      <div className="measure mt-8 space-y-10">
         {LESSON_STEPS.map((step) => {
           const items = LESSONS.filter((l) => l.family === step.id);
           if (!items.length) return null;
