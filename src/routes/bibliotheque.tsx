@@ -8,11 +8,12 @@ import { CaseCard } from "@/components/site/CaseCard";
 import { Container } from "@/components/site/SiteChrome";
 import { FamilyBadge, PrecautionsNote } from "@/components/site/ui-bits";
 import { CASES } from "@/data/cases";
-import { FACETS, FAMILIES, findOption, type FacetKey, type Option } from "@/data/taxonomy";
+import { FAMILIES, LIBRARY_FILTERS, findOption, type FacetKey, type Option } from "@/data/taxonomy";
 import { facetCount, filterCases, type Selection } from "@/lib/filters";
 
 type Search = Partial<Record<FacetKey, string | undefined>> & { q?: string | undefined };
-const KEYS = FACETS.map((f) => f.key);
+// Seules les facettes filtrables sont lues dans l'URL (un ancien lien avec format= ou data= est ignoré).
+const KEYS = LIBRARY_FILTERS.map((f) => f.key);
 
 export const Route = createFileRoute("/bibliotheque")({
   validateSearch: (s: Record<string, unknown>): Search => {
@@ -153,9 +154,9 @@ function Library() {
 }
 
 function FilterPanel({ sel, toggle }: { sel: Selection; toggle: (k: FacetKey, id: string) => void }) {
-  const [more, setMore] = useState(FACETS.some((f) => !f.primary && sel[f.key]?.length));
-  const primary = FACETS.filter((f) => f.primary);
-  const secondary = FACETS.filter((f) => !f.primary);
+  const [more, setMore] = useState(LIBRARY_FILTERS.some((f) => !f.primary && sel[f.key]?.length));
+  const primary = LIBRARY_FILTERS.filter((f) => f.primary);
+  const secondary = LIBRARY_FILTERS.filter((f) => !f.primary);
   const moreCount = secondary.reduce((n, f) => n + (sel[f.key]?.length ?? 0), 0);
   return (
     <div className="space-y-6">

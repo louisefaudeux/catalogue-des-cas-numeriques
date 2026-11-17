@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { CASES } from "@/data/cases";
+import { FACETS, LIBRARY_FILTERS } from "@/data/taxonomy";
 import { facetCount, filterCases, similarCases } from "./filters";
 
 describe("filters", () => {
@@ -17,6 +18,10 @@ describe("filters", () => {
   });
   it("facet counts ignore the facet's own selection", () => {
     expect(facetCount(CASES, { pdv: ["gsa"] }, "pdv", "gss")).toBe(5);
+  });
+  it("library filters exclude catalogue format and data sources (tags kept on cases)", () => {
+    expect(LIBRARY_FILTERS.map((f) => f.key)).toEqual(["pdv", "echelle", "frequence", "kpi", "env"]);
+    expect(FACETS.map((f) => f.key)).toContain("format");
   });
   it("similar cases exclude the case itself", () => {
     const s = similarCases(CASES[0]!, CASES);

@@ -99,15 +99,22 @@ export const METHODS: Record<MethodType, { label: string; definition: string }> 
 
 export type FacetKey = "pdv" | "echelle" | "frequence" | "kpi" | "env" | "format" | "data";
 
-export const FACETS: { key: FacetKey; label: string; options: Option[]; primary: boolean; help: string }[] = [
-  { key: "pdv", label: "Type de point de vente", options: PDV_TYPES, primary: true, help: "Le format de magasins concerné : alimentaire (GSA), spécialisé (GSS) ou autre." },
-  { key: "echelle", label: "Échelle du dispositif", options: SCALES, primary: true, help: "Le périmètre géographique de l'opération : un magasin, plusieurs zones ou tout le réseau." },
-  { key: "frequence", label: "Fréquence du dispositif", options: FREQUENCIES, primary: true, help: "Présence continue (fil rouge), opération isolée, ou combinaison des deux." },
-  { key: "kpi", label: "KPI principal", options: KPIS, primary: true, help: "L'indicateur unique retenu pour juger de la réussite du dispositif." },
-  { key: "env", label: "Environnement(s) de déploiement", options: ENVIRONMENTS, primary: false, help: "Les espaces où le catalogue est diffusé, regroupés en owned, shared et paid." },
-  { key: "format", label: "Format d'expérience catalogue", options: FORMATS, primary: false, help: "La forme sous laquelle le consommateur découvre le catalogue." },
-  { key: "data", label: "Source(s) de données exploitées", options: DATA_SOURCES, primary: false, help: "Les données mobilisées pour cibler, personnaliser ou mesurer." },
+/**
+ * Tags des cas. Tous restent affichés sur les fiches et comptent pour les « cas proches » ;
+ * `filterable` dit s'ils servent de filtre dans la bibliothèque (format et data retirés le 17/11).
+ */
+export const FACETS: { key: FacetKey; label: string; options: Option[]; primary: boolean; filterable: boolean; help: string }[] = [
+  { key: "pdv", label: "Type de point de vente", options: PDV_TYPES, primary: true, filterable: true, help: "Le format de magasins concerné : alimentaire (GSA), spécialisé (GSS) ou autre." },
+  { key: "echelle", label: "Échelle du dispositif", options: SCALES, primary: true, filterable: true, help: "Le périmètre géographique de l'opération : un magasin, plusieurs zones ou tout le réseau." },
+  { key: "frequence", label: "Fréquence du dispositif", options: FREQUENCIES, primary: true, filterable: true, help: "Présence continue (fil rouge), opération isolée, ou combinaison des deux." },
+  { key: "kpi", label: "KPI principal", options: KPIS, primary: true, filterable: true, help: "L'indicateur unique retenu pour juger de la réussite du dispositif." },
+  { key: "env", label: "Environnement(s) de déploiement", options: ENVIRONMENTS, primary: false, filterable: true, help: "Les espaces où le catalogue est diffusé, regroupés en owned, shared et paid." },
+  { key: "format", label: "Format d'expérience catalogue", options: FORMATS, primary: false, filterable: false, help: "La forme sous laquelle le consommateur découvre le catalogue." },
+  { key: "data", label: "Source(s) de données exploitées", options: DATA_SOURCES, primary: false, filterable: false, help: "Les données mobilisées pour cibler, personnaliser ou mesurer." },
 ];
+
+/** Facettes proposées comme filtres dans la bibliothèque. */
+export const LIBRARY_FILTERS = FACETS.filter((f) => f.filterable);
 
 const ALL = [...PDV_TYPES, ...SCALES, ...FREQUENCIES, ...KPIS, ...ENVIRONMENTS, ...FORMATS, ...DATA_SOURCES];
 export const findOption = (facet: FacetKey, id: string) => FACETS.find((f) => f.key === facet)?.options.find((o) => o.id === id);

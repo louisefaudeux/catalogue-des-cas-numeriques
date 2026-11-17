@@ -20,3 +20,4 @@
 - Lessons are grouped by `LESSON_STEPS` (Donnée, Création & expérience, Activation, Mesure & optimisation) through their `family` field; display numbers are computed (1 to 7). Why: the order is set by the working group (récurrence last).
 - Page background `#efefe7`, accent gradient `--accent-gradient` (violet → mauve) and the `accent-bar` / `text-gradient` utilities are in `src/styles.css`. Why: harmonised with the other Alliance Digitale publications (Panorama In-Store).
 - Header navigation: two reading links (Bibliothèque, Enseignements) plus « Proposer un cas » as a filled button (lot 1e). Why: the contribution call is an action, not a reading section.
+- Library filters come from `LIBRARY_FILTERS` (facets with `filterable: true`); catalogue format and data sources are tags only, not filters (17/11). Why: the working group judged them not useful as entry points; they still show on case pages and weigh in similar cases.

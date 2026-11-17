@@ -1,3 +1,7 @@
+# Roadmap — Modifications lot 1g (filtres de la bibliothèque)
+
+- [x] Filtres « Format d'expérience catalogue » et « Source(s) de données exploitées » retirés de la bibliothèque (champ `filterable` dans `FACETS`) ; tags conservés sur les fiches et dans le calcul des cas proches
+
 # Roadmap — Modifications lot 1f (homogénéité des marges)
 
 - [x] Écart unique de 96 px (64 px mobile) entre toutes les sections de la landing, du hero au pied de page
