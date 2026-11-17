@@ -368,11 +368,12 @@ const raw: CaseStudy[] = [
   },
   {
     // Nanotera. Rédaction du contributeur conservée telle quelle (17/11), sauf l'enjeu (titre) reformulé.
+    // Nanotera en apporteur uniquement, pas en partenaire (17/11).
     slug: "cooperative-u",
     status: "documented",
     brand: "Coopérative U",
-    partners: ["Nanotera"],
-    contributor: "Nanotera x Client",
+    partners: [],
+    contributor: "Nanotera",
     period: "Menu traiteur fin d'année 2025",
     tags: {
       pdvType: ids("GSA"), scale: slugify("Multilocal"), pdvCount: "368 magasins - Région Ouest",
