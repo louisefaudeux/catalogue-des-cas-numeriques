@@ -32,7 +32,7 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
 
       <section className="mt-6">
         <p className="text-[22px] font-bold">{displayBrand(c)}</p>
-        <p className="text-[12px] text-muted-foreground">Partenaires : {c.partners.join(", ")} · Contributeur : {c.contributor} · {c.period}</p>
+        <p className="text-[12px] text-muted-foreground">{c.partners.length ? `Partenaires : ${c.partners.join(", ")} · ` : ""}Contributeur : {c.contributor} · {c.period}</p>
         <h1 className="mt-3 text-[24px] font-semibold leading-tight">{c.challenge}</h1>
       </section>
 

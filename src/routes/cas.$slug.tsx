@@ -75,7 +75,7 @@ function CasePage() {
         <p className="text-sm font-semibold uppercase tracking-wider text-primary">{eyebrow}</p>
         <h1 className="mt-3 text-3xl font-semibold leading-tight md:text-[44px]">{c.challenge}</h1>
         <p className="mt-4 text-muted-foreground">
-          Enseigne : {displayBrand(c)}. Partenaires : {c.partners.join(", ")}. Contributeur : {c.contributor}. Période : {c.period.charAt(0).toLowerCase() + c.period.slice(1)}.
+          Enseigne : {displayBrand(c)}.{c.partners.length ? ` Partenaires : ${c.partners.join(", ")}.` : ""} Contributeur : {c.contributor}. Période : {c.period.charAt(0).toLowerCase() + c.period.slice(1)}.
         </p>
         {c.status === "illustrative" && <div className="mt-5"><Notice>Cas illustratif — données fictives, pour test de l'interface</Notice></div>}
         <div className="mt-6 flex flex-wrap gap-3">

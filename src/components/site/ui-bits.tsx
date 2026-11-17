@@ -102,7 +102,7 @@ export function KeyFigure({ value, sentence, source, note, size = "lg" }: { valu
   );
 }
 
-const RATIO: Record<string, string> = { "1:1": "1 / 1", "16:9": "16 / 9", "728:90": "728 / 90", "9:16": "9 / 16", "4:5": "4 / 5" };
+const RATIO: Record<string, string> = { "1:1": "1 / 1", "16:9": "16 / 9", "728:90": "728 / 90", "9:16": "9 / 16", "4:5": "4 / 5", "4:3": "4 / 3" };
 export function CreativeSlot({ label, ratio, src, caption }: { label: string; ratio: string; src?: string; caption?: string }) {
   return (
     <figure className="w-full">

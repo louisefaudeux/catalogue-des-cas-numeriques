@@ -1,5 +1,5 @@
 export type Family = "owned" | "shared" | "paid";
-export type MethodType = "control_group" | "third_party" | "simple_comparison";
+export type MethodType = "control_group" | "third_party" | "simple_comparison" | "campaign_metrics";
 
 export interface Option {
   id: string;
@@ -94,6 +94,11 @@ export const METHODS: Record<MethodType, { label: string; definition: string }> 
     label: "Comparatif simple",
     definition:
       "Comparaison entre deux périodes, ou avec une référence (papier, année précédente), sans groupe de contrôle. Informatif, mais n'isole pas l'effet propre du dispositif.",
+  },
+  campaign_metrics: {
+    label: "Indicateurs de campagne",
+    definition:
+      "Indicateurs de diffusion ou de conversion remontés par les outils de campagne, sans groupe de contrôle ni comparaison : ils décrivent l'activité du dispositif, pas son effet propre.",
   },
 };
 

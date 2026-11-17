@@ -1,3 +1,13 @@
+# Roadmap — Chargement des cas réels (classeur du 17/11, 15 h 40)
+
+- [x] 8 cas réels chargés : Netto (Azira), Jardiland (DeepReach), Azerion, 4 cas Mobsuccess, Nanotera ; les 8 cas fictifs restent jusqu'à la refonte des fiches
+- [x] Enseignes non confirmées comme nommables anonymisées (aucun nom réel dans les données ni à l'écran) ; Netto et Jardiland nommés
+- [x] Créas Jardiland intégrées (`public/cases/jardiland/`) ; visuels Mobsuccess non utilisés tant que les cas sont anonymisés (logos)
+- [x] Nouveau type de méthode « Indicateurs de campagne » (`campaign_metrics`) pour les cas sans mesure d'effet ; format de visuel 4:3
+- [x] Tests de cohérence des données : identifiants de tags valides, slugs uniques, pas de nom réel sur les cas anonymisés, chiffre clé aligné sur le premier résultat
+- [ ] Azerion : résultats chiffrés en attente du contributeur
+- [ ] Logos d'enseignes, refonte des fiches, retrait des cas fictifs
+
 # Roadmap — Modifications lot 1h (vue Bibliothèque, retours du 17/11)
 
 - [x] En-tête identique sur toutes les pages : logo et navigation, sans titre court du livrable
