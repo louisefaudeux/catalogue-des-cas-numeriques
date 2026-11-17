@@ -28,13 +28,6 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
   const tags = [...c.tags.pdvType.map(labelOf), labelOf(c.tags.scale), labelOf(c.tags.frequency)];
   return (
     <div className="relative flex flex-col overflow-hidden bg-card text-card-foreground" style={{ width: 794, height: 1123, padding: 48, fontFamily: "'Plus Jakarta Sans Variable', sans-serif" }}>
-      {c.status === "illustrative" && (
-        <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <span className="whitespace-nowrap text-[54px] font-extrabold text-foreground" style={{ opacity: 0.08, transform: "rotate(-35deg)" }}>
-            CAS ILLUSTRATIF — DONNÉES FICTIVES
-          </span>
-        </div>
-      )}
       <header className="flex items-center justify-between gap-4 border-b-2 border-foreground pb-3 text-[12px]">
         <span className="flex items-center gap-3">
           {/* Version monochrome : lisible à l'impression en noir et blanc. */}
@@ -100,7 +93,6 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
         <div>
           {c.keyFigure && <p>Sources des chiffres : {c.keyFigure.source}{c.keyFigure.note ? ` (${c.keyFigure.note.charAt(0).toLowerCase()}${c.keyFigure.note.slice(1)})` : ""}</p>}
           <p>Les résultats sont déclaratifs et validés par l'annonceur.</p>
-          {c.status === "illustrative" && <p className="font-semibold text-foreground">Cas illustratif : toutes les données de cette fiche sont fictives et servent uniquement à tester l'interface.</p>}
           <p className="mt-1">Pour aller plus loin : Guide de la Digitalisation du Catalogue, Alliance Digitale, 2025</p>
           <p className="break-all">{GUIDE_URL}</p>
           <p className="mt-1">Fiche générée le {date} · Prototype — contenus provisoires</p>

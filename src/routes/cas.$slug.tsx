@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CaseCard, PdfButton } from "@/components/site/CaseCard";
 import { CaseSynthesis } from "@/components/site/CaseHeader";
 import { Container } from "@/components/site/SiteChrome";
-import { CreativeSlot, EnvBadge, GuideLink, MethodBadge, Notice, PrecautionsNote, Tag } from "@/components/site/ui-bits";
+import { CreativeSlot, EnvBadge, GuideLink, MethodBadge, PrecautionsNote, Tag } from "@/components/site/ui-bits";
 import { CASES, displayBrand, getCase } from "@/data/cases";
 import { labelOf } from "@/data/taxonomy";
 import { similarCases } from "@/lib/filters";
@@ -68,7 +68,6 @@ function CasePage() {
 
       <header className="mt-4 max-w-[860px]">
         <h1 className="text-3xl font-semibold leading-tight md:text-[44px]">{c.challenge}</h1>
-        {c.status === "illustrative" && <div className="mt-5"><Notice>Cas illustratif — données fictives, pour test de l'interface</Notice></div>}
       </header>
 
       <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,720px)_280px] lg:justify-between">

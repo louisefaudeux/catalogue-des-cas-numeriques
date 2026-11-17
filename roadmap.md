@@ -1,3 +1,9 @@
+# Roadmap — Retrait des cas fictifs (17/11)
+
+- [x] 8 cas fictifs retirés : la bibliothèque compte les 8 cas réels ; badge, bandeau et filigrane PDF « cas illustratif » supprimés
+- [x] Options de filtre sans cas (Local, Hybride, CTR, Coût par visite site) laissées visibles et grisées
+- [ ] 3 à 5 cas réels supplémentaires à intégrer ; logos à recevoir
+
 # Roadmap — Dispositif : leviers fidèles au classeur (17/11)
 
 - [x] Un levier par colonne de l'Excel : Feu Vert 3 (Meta, Display, Demand Gen), Carrefour 3 (Meta, YouTube, CTV), au lieu d'un levier fusionné

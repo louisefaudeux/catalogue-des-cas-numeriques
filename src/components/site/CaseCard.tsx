@@ -8,7 +8,7 @@ import { logoOf } from "@/data/logos";
 import { labelOf } from "@/data/taxonomy";
 import { downloadCasePdf } from "@/lib/pdf";
 import { cn } from "@/lib/utils";
-import { EnvBadge, FacetTag, IllustrativeBadge, Tag } from "./ui-bits";
+import { EnvBadge, FacetTag, Tag } from "./ui-bits";
 
 export function PdfIconButton({ c }: { c: CaseStudy }) {
   const [busy, setBusy] = useState(false);
@@ -37,7 +37,6 @@ export function CaseCard({ c, large, footnote }: { c: CaseStudy; large?: boolean
         {c.tags.pdvType.map((p) => <FacetTag key={p} facet="pdv">{labelOf(p)}</FacetTag>)}
         <FacetTag facet="echelle">{labelOf(c.tags.scale)}</FacetTag>
         <FacetTag facet="frequence">{labelOf(c.tags.frequency)}</FacetTag>
-        {c.status === "illustrative" && <span className="ml-auto"><IllustrativeBadge /></span>}
       </div>
       {/* Logo de l'enseigne s'il est déclaré (src/data/logos.ts), sinon son nom. */}
       {!c.anonymous && logoOf(c.brand)

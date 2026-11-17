@@ -60,19 +60,6 @@ export function FacetTag({ facet, children, className }: { facet: TaggedFacet; c
   );
 }
 
-export function IllustrativeBadge() {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <span tabIndex={0} className="relative z-10 inline-flex items-center rounded-md border border-dashed border-warning-foreground/50 bg-warning px-2 py-0.5 text-xs font-semibold text-warning-foreground">
-          Cas illustratif
-        </span>
-      </TooltipTrigger>
-      <TooltipContent>Données fictives, pour tester l'interface</TooltipContent>
-    </Tooltip>
-  );
-}
-
 export function MethodBadge({ type }: { type: MethodType }) {
   const m = METHODS[type];
   return (

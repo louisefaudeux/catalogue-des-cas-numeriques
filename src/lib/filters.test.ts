@@ -32,6 +32,10 @@ describe("filters", () => {
 });
 
 describe("case data", () => {
+  it("holds only real cases (fictional cases removed on 17/11)", () => {
+    expect(CASES).toHaveLength(8);
+    expect(CASES.some((c) => /illustrati|fictiv/i.test(`${c.slug} ${c.brand} ${c.contributor}`))).toBe(false);
+  });
   it("has unique slugs", () => {
     const slugs = CASES.map((c) => c.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
@@ -50,7 +54,7 @@ describe("case data", () => {
     }
   });
   it("keeps anonymised cases free of real brand names", () => {
-    for (const c of CASES.filter((x) => x.anonymous && x.status === "documented")) {
+    for (const c of CASES.filter((x) => x.anonymous)) {
       expect(c.brand).toBe("Enseigne anonymisée");
     }
   });
@@ -61,7 +65,7 @@ describe("case data", () => {
     for (const [slug, n] of Object.entries(expected)) expect(CASES.find((c) => c.slug === slug)?.levers.length, slug).toBe(n);
   });
   it("gives every lever an environment that is also tagged on the case", () => {
-    for (const c of CASES.filter((x) => x.status === "documented")) {
+    for (const c of CASES) {
       for (const l of c.levers) {
         expect(l.environments.length, `${c.slug} : ${l.title}`).toBeGreaterThan(0);
         for (const e of l.environments) expect(c.tags.environments, `${c.slug} : ${l.title} → ${e}`).toContain(e);
