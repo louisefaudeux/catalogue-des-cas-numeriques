@@ -54,6 +54,20 @@ describe("case data", () => {
       expect(c.brand).toBe("Enseigne anonymisée");
     }
   });
+  it("keeps one lever per LEVIER column of the workbook, never merged (classeur du 17/11)", () => {
+    const expected: Record<string, number> = {
+      netto: 1, jardiland: 1, "gsa-display-drive-to-store": 1, "feu-vert": 3, carrefour: 3, but: 4, "brico-depot": 1, "cooperative-u": 4,
+    };
+    for (const [slug, n] of Object.entries(expected)) expect(CASES.find((c) => c.slug === slug)?.levers.length, slug).toBe(n);
+  });
+  it("gives every lever an environment that is also tagged on the case", () => {
+    for (const c of CASES.filter((x) => x.status === "documented")) {
+      for (const l of c.levers) {
+        expect(l.environments.length, `${c.slug} : ${l.title}`).toBeGreaterThan(0);
+        for (const e of l.environments) expect(c.tags.environments, `${c.slug} : ${l.title} → ${e}`).toContain(e);
+      }
+    }
+  });
   it("splits partners into a name and an optional role", () => {
     expect(splitPartner("Zenith (agence média)")).toEqual({ name: "Zenith", role: "agence média" });
     expect(splitPartner("Nanotera")).toEqual({ name: "Nanotera" });

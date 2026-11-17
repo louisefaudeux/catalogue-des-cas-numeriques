@@ -71,7 +71,7 @@ const raw: CaseStudy[] = [
       situation: "Embarquer les points de vente dans la digitalisation des prospectus, dans un contexte de stratégie digitale à 360°.",
     },
     levers: [{
-      title: "Display géolocalisé avec sélection de produits dynamique (DCO)",
+      title: "Formats display web et mobile (DCO)",
       format: "Formats display web et mobile mettant en avant une sélection de produits dynamique ainsi que l'adresse du point de vente (DCO).",
       environments: ids("Display / Programmatique"),
       data: "Donnée géolocalisée propriétaire régie",
@@ -121,8 +121,7 @@ const raw: CaseStudy[] = [
       trigger: "La volonté d'avoir des indicateurs par magasin afin d'obtenir des résultats au point de vente et d'optimiser les performances locales.",
     },
     levers: [{
-      title: "Ciblage géolocalisé par magasin (zones IRIS)",
-      format: "Facebook, Instagram, display programmatique",
+      title: "Facebook, Instagram, display programmatique",
       environments: ids("Social Ads", "Display / Programmatique"),
       data: "Géolocalisation hyperlocale, données socio-démographiques",
       howItWorks: [
@@ -176,7 +175,7 @@ const raw: CaseStudy[] = [
       situation: "Réduction des volumes papier liée au Stop Pub / Oui Pub et hausse des coûts d'impression : créer des campagnes drive-to-store pour générer du trafic en magasin, dans une stratégie multilocale.",
     },
     levers: [{
-      title: "Display web et mobile avec sélection de produits dynamique (DCO)",
+      title: "Formats display web et mobile (DCO)",
       format: "Formats display web et mobile mettant en avant une sélection de produits dynamique ainsi que l'adresse du point de vente (DCO).",
       environments: ids("Display / Programmatique"),
       data: "Données géolocalisées en isochrone, triangulées domicile, travail et loisirs",
@@ -207,13 +206,11 @@ const raw: CaseStudy[] = [
       otherSpecified: { pdvType: "Centres auto", mainKpi: "Coût par lecture" },
     },
     challenge: "Comment uniformiser la communication au local d'un réseau national de 330 points de vente fractionné entre succursales et franchisés ?",
-    levers: [{
-      title: "Diffusion de l'e-catalogue dans la zone de chaque magasin (Meta, Display, Demand Gen)",
-      environments: ids("Social Ads", "Display / Programmatique"),
-      data: "Zones géographiques (IRIS), intentionnistes promophiles",
-      kpis: ["Coût par vue catalogue", "Temps passé"],
-      howItWorks: ["Diffusion de l'e-catalogue dans la zone personnalisée de chaque magasin, sur trois leviers : Meta, Display et Demand Gen."],
-    }],
+    levers: [
+      { title: "Meta", environments: ids("Social Ads"), data: "Zones géographiques (IRIS)", kpis: ["Coût par vue catalogue", "Temps passé"], howItWorks: ["Diffusion de l'e-catalogue dans la zone personnalisée de chaque magasin."] },
+      { title: "Display", environments: ids("Display / Programmatique"), data: "Zones géographiques (IRIS)", kpis: ["Coût par vue catalogue", "Temps passé"], howItWorks: ["Diffusion de l'e-catalogue dans la zone personnalisée de chaque magasin."] },
+      { title: "Demand Gen", environments: ids("Display / Programmatique"), data: "Zones géographiques (IRIS)", kpis: ["Coût par vue catalogue", "Temps passé"], howItWorks: ["Diffusion de l'e-catalogue dans la zone personnalisée de chaque magasin."] },
+    ],
     keyFigure: {
       value: "≈ 0,20 €",
       sentence: "de coût par consultation du catalogue, pour un temps passé de 30 à 60 secondes.",
@@ -248,16 +245,11 @@ const raw: CaseStudy[] = [
     },
     challenge: "Comment remplacer le prospectus papier et maintenir la performance locale sur des centaines de magasins, avec un haut niveau de personnalisation ?",
     context: { situation: "57 magasins actifs sur 1 à 6 opérations hebdomadaires." },
-    levers: [{
-      title: "Budget calibré par magasin et bascule automatique entre leviers par IA (Meta, YouTube, CTV)",
-      environments: ids("Social Ads", "Display / Programmatique", "CTV"),
-      data: "Zones géographiques (IRIS)",
-      kpis: ["Reach", "CPM"],
-      howItWorks: [
-        "Budget calibré au niveau de chaque magasin.",
-        "Bascule automatique entre les leviers, pilotée par une IA, pour assurer le delivery.",
-      ],
-    }],
+    levers: [
+      { title: "Meta", environments: ids("Social Ads"), data: "Zones géographiques (IRIS)", kpis: ["Reach", "CPM"], howItWorks: ["Budget calibré au magasin et bascule automatique par levier via IA pour assurer le delivery."] },
+      { title: "YouTube", environments: ids("Display / Programmatique"), data: "Zones géographiques (IRIS)", kpis: ["Reach", "CPM"], howItWorks: ["Budget calibré au magasin et bascule automatique par levier via IA pour assurer le delivery."] },
+      { title: "CTV", environments: ids("CTV"), data: "Zones géographiques (IRIS)", kpis: ["Reach", "CPM"], howItWorks: ["Budget calibré au magasin et bascule automatique par levier via IA pour assurer le delivery."] },
+    ],
     keyFigure: {
       value: "1,5 à 2 M",
       sentence: "de personnes touchées par opération hebdomadaire sur Meta, contre 350 à 800 K sur YouTube et 140 à 200 K sur CTV.",
@@ -297,7 +289,7 @@ const raw: CaseStudy[] = [
     levers: [
       { title: "Meta", environments: ids("Social Ads"), data: "Intentionnistes cuisines et zone IRIS", kpis: ["CPC : 0,36 €"], howItWorks: [] },
       { title: "Display", environments: ids("Display / Programmatique"), data: "Visiteurs de cuisinistes concurrents et zone IRIS", kpis: ["CPC : 0,77 €"], howItWorks: [] },
-      { title: "Demand Gen", environments: ids("Social Ads"), data: "Intentionnistes cuisines et zone IRIS", kpis: ["CPC : 0,09 €"], howItWorks: [] },
+      { title: "Demand Gen", environments: ids("Display / Programmatique"), data: "Intentionnistes cuisines et zone IRIS", kpis: ["CPC : 0,09 €"], howItWorks: [] },
       { title: "Agrégateurs", environments: ids("Agrégateur catalogue"), data: "Appétants catalogues et zone IRIS", kpis: ["CPC : 0,09 €"], howItWorks: [] },
     ],
     keyFigure: {
@@ -338,10 +330,10 @@ const raw: CaseStudy[] = [
     },
     challenge: "Comment améliorer la visibilité et la consultation des offres relayées via le catalogue sur les zones dédiées, et générer du trafic en dépôts en s'appuyant sur un mix média par magasin, piloté directement par une IA propriétaire ?",
     levers: [{
-      title: "Mix média par magasin piloté par une IA propriétaire (Meta)",
+      title: "Meta",
       environments: ids("Social Ads"),
       data: "Intentionnistes bricolage (magasins de bricolage, magasins de jardinage, bricolage, propriétaires), lookalike, broad, zones IRIS",
-      kpis: ["Visites", "Coût par visite"],
+      kpis: ["Visites", "CPV"],
       howItWorks: [],
     }],
     keyFigure: {

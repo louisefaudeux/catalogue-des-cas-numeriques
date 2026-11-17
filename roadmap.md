@@ -1,3 +1,11 @@
+# Roadmap — Dispositif : leviers fidèles au classeur (17/11)
+
+- [x] Un levier par colonne de l'Excel : Feu Vert 3 (Meta, Display, Demand Gen), Carrefour 3 (Meta, YouTube, CTV), au lieu d'un levier fusionné
+- [x] Titres de levier repris de la cellule LEVIER (Jardiland, Brico Dépôt, Netto, Azerion) ; KPI Brico Dépôt tels que saisis
+- [x] Demand Gen rattaché à Display / Programmatique (Feu Vert et BUT, comme YouTube)
+- [x] Plus d'intitulé « Fonctionnement » vide (BUT, Brico Dépôt) ; dans le PDF, data et KPI à la place
+- [x] Tests : nombre de leviers par cas, badges de levier cohérents avec les tags du cas
+
 # Roadmap — Fiches de cas, retours du 17/11
 
 - [x] Boutons « Prévisualiser » et « Imprimer » retirés ; téléchargement PDF en bas de page, juste avant « Autres cas », et sous le sommaire

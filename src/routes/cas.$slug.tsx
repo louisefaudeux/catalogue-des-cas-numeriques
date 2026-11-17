@@ -96,10 +96,14 @@ function CasePage() {
                   <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[140px_1fr]">
                     {l.format && <><dt className="font-medium text-muted-foreground">Format</dt><dd>{l.format}</dd></>}
                     {l.data && <><dt className="font-medium text-muted-foreground">Data activée</dt><dd>{l.data}</dd></>}
-                    {l.kpis?.length ? <><dt className="font-medium text-muted-foreground">KPI suivis</dt><dd className="flex flex-wrap gap-1">{l.kpis.map((k) => <Tag key={k}>{k}</Tag>)}</dd></> : null}
+                    {l.kpis?.length ? <><dt className="font-medium text-muted-foreground">KPI suivis</dt><dd className="flex flex-wrap gap-1">{l.kpis.map((k) => <Tag key={k} className="bg-card text-foreground ring-1 ring-line">{k}</Tag>)}</dd></> : null}
                   </dl>
-                  <h4 className="mt-4 text-sm font-semibold">Fonctionnement</h4>
-                  <ul className="mt-2 list-disc space-y-1.5 pl-5">{l.howItWorks.map((h, j) => <li key={j}>{h}</li>)}</ul>
+                  {l.howItWorks.length > 0 && (
+                    <>
+                      <h4 className="mt-4 text-sm font-semibold">Fonctionnement</h4>
+                      <ul className="mt-2 list-disc space-y-1.5 pl-5">{l.howItWorks.map((h, j) => <li key={j}>{h}</li>)}</ul>
+                    </>
+                  )}
                 </li>
               ))}
             </ol>

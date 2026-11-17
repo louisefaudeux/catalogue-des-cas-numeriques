@@ -66,7 +66,7 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
           {levers.map((l, i) => (
             <li key={i} className="text-[13px]">
               <p className="font-semibold">Levier {i + 1} · {l.title}</p>
-              <p className="line-clamp-2 text-muted-foreground">{l.howItWorks.join(" ")}</p>
+              <p className="line-clamp-2 text-muted-foreground">{l.howItWorks.length ? l.howItWorks.join(" ") : [l.data && `Data : ${l.data}`, l.kpis?.length && `KPI : ${l.kpis.join(", ")}`].filter(Boolean).join(" · ")}</p>
               <div className="mt-1 flex flex-wrap gap-1">{l.environments.map((e) => <EnvBadge key={e} id={e} />)}</div>
             </li>
           ))}
