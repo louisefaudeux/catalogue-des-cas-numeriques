@@ -159,7 +159,7 @@ function CasePage() {
 
           {c.creatives.length > 0 && (
             <Section id="creas" title="Créas">
-              <div className="grid gap-6 sm:grid-cols-2">{c.creatives.map((cr, i) => <div key={i} className={cr.ratio === "728:90" ? "sm:col-span-2" : ""}><CreativeSlot {...cr} /></div>)}</div>
+              <div className="grid gap-6 sm:grid-cols-2">{c.creatives.map((cr, i) => <div key={i} className={cr.ratio === "728:90" || cr.ratio === "auto" ? "sm:col-span-2" : ""}><CreativeSlot {...cr} /></div>)}</div>
             </Section>
           )}
 

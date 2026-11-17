@@ -102,8 +102,21 @@ export function KeyFigure({ value, sentence, source, note, size = "lg" }: { valu
   );
 }
 
+// "auto" = planche fournie par le contributeur (plusieurs créas sur une image) : proportions d'origine, pas de recadrage.
 const RATIO: Record<string, string> = { "1:1": "1 / 1", "16:9": "16 / 9", "728:90": "728 / 90", "9:16": "9 / 16", "4:5": "4 / 5", "4:3": "4 / 3" };
 export function CreativeSlot({ label, ratio, src, caption }: { label: string; ratio: string; src?: string; caption?: string }) {
+  if (src && ratio === "auto") {
+    return (
+      <figure className="w-full">
+        <a href={src} target="_blank" rel="noopener" className="block rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+          <img src={src} alt={caption ?? label} loading="lazy" className="h-auto w-full rounded-lg border border-line bg-white" />
+        </a>
+        <figcaption className="mt-2 text-sm text-muted-foreground">
+          {caption ?? label} · <a href={src} target="_blank" rel="noopener" className="underline decoration-primary underline-offset-[3px]">Voir en taille réelle<span className="sr-only"> (nouvel onglet)</span></a>
+        </figcaption>
+      </figure>
+    );
+  }
   return (
     <figure className="w-full">
       {src ? (

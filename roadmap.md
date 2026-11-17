@@ -1,3 +1,12 @@
+# Roadmap — Cas réels, réponses du 17/11
+
+- [x] Feu Vert, Carrefour, BUT, Brico Dépôt et Coopérative U nommés (slugs `feu-vert`, `carrefour`, `but`, `brico-depot`, `cooperative-u`) ; seul Azerion reste anonymisé
+- [x] Planches de créas Mobsuccess intégrées (`public/cases/<slug>/creas.jpg`, format « auto », lien vers la taille réelle)
+- [x] Azerion : KPI principal « Coût par visite magasin » (coût par visite incrémentale), 1 800 magasins
+- [x] Carrefour : Social Ads conservé ; Brico Dépôt : « trafic en dépôts » conservé
+- [x] Coopérative U : rédaction de Nanotera conservée (résultats 4 000 000 d'impressions et 2 millions de personnes touchées, 45 000 commandes dans les résultats qualitatifs), titre reformulé
+- [ ] Azerion : résultats chiffrés à clarifier avec le contributeur
+
 # Roadmap — Chargement des cas réels (classeur du 17/11, 15 h 40)
 
 - [x] 8 cas réels chargés : Netto (Azira), Jardiland (DeepReach), Azerion, 4 cas Mobsuccess, Nanotera ; les 8 cas fictifs restent jusqu'à la refonte des fiches

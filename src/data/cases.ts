@@ -41,7 +41,8 @@ export interface CaseStudy {
   qualitative?: string[];
   lessons?: string[];
   nextSteps?: string;
-  creatives: { label: string; ratio: "1:1" | "16:9" | "728:90" | "9:16" | "4:5" | "4:3"; src?: string; caption?: string }[];
+  // ratio "auto" : planche de plusieurs créas fournie telle quelle (affichée pleine largeur, sans recadrage).
+  creatives: { label: string; ratio: "1:1" | "16:9" | "728:90" | "9:16" | "4:5" | "4:3" | "auto"; src?: string; caption?: string }[];
 }
 
 const ids = (...l: string[]) => l.map(slugify);
@@ -50,7 +51,7 @@ const FSRC = "Données fictives, pour test de l'interface.";
 
 const raw: CaseStudy[] = [
   // ───────────── Cas réels. Source : classeur « Bibliotheque_Cas_Template_DigitPro », version du 17/11/2026 (15 h 40).
-  // Enseignes non confirmées comme nommables : anonymisées (brand conservé en interne, affichage « Enseigne anonymisée »).
+  // Seul le cas Azerion est anonymisé (enseigne non nommée par le contributeur) ; les autres enseignes sont nommées (validé le 17/11).
   {
     slug: "netto",
     status: "documented",
@@ -163,8 +164,9 @@ const raw: CaseStudy[] = [
     contributor: "Azerion",
     period: "Fil rouge",
     tags: {
-      pdvType: ids("GSA"), scale: slugify("Multilocal"), pdvCount: "Plus de 1 500 magasins",
-      frequency: slugify("Fil rouge"), mainKpi: slugify("ROI"),
+      pdvType: ids("GSA"), scale: slugify("Multilocal"), pdvCount: "1 800 magasins",
+      // KPI retenu le 17/11 : coût par visite incrémentale (CPVI), rattaché à « Coût par visite magasin ».
+      frequency: slugify("Fil rouge"), mainKpi: slugify("Coût par visite magasin"),
       environments: ids("Display / Programmatique"),
       formats: ids("Bannière avec expérience intégrée", "Bannière avec redirection vers catalogue enseigne"),
       dataSources: ids("Donnée géolocalisée propriétaire régie", "Zones géographiques (IRIS, isochrones, zones de chalandise)"),
@@ -190,15 +192,14 @@ const raw: CaseStudy[] = [
   },
   {
     // Mobsuccess 1.
-    slug: "centres-auto-reseau-mixte",
+    slug: "feu-vert",
     status: "documented",
-    brand: "Enseigne anonymisée",
-    anonymous: true,
+    brand: "Feu Vert",
     partners: [],
     contributor: "Mobsuccess",
     period: "Fil rouge annuel depuis 2024",
     tags: {
-      pdvType: ids("Autre (préciser)"), scale: slugify("Multilocal"), pdvCount: "330 magasins (succursales et franchisés)",
+      pdvType: ids("Autre (préciser)"), scale: slugify("Multilocal"), pdvCount: "330 magasins",
       frequency: slugify("Fil rouge"), mainKpi: slugify("Autre"),
       environments: ids("Agrégateur catalogue", "Social Ads", "Display / Programmatique"),
       formats: ids("Bannière avec redirection vers catalogue enseigne", "Stories / Carrousels / Formats natifs social"),
@@ -225,14 +226,15 @@ const raw: CaseStudy[] = [
     method: { type: "campaign_metrics", detail: "Pas d'élément de comparaison avec le catalogue papier." },
     lessons: ["La digitalisation du catalogue peut prendre la forme de kits digitaux proposés via une plateforme de commande, pour rendre les magasins autonomes dans la prise de commande."],
     nextSteps: "Extension du fil rouge pour 2027. Travail sur l'animation commerciale pour augmenter les taux d'adhésion.",
-    creatives: [],
+    creatives: [
+      { label: "Planche des créas : Meta (post catalogue), Display (300×600 et interstitiel), Demand Gen", ratio: "auto", src: "/cases/feu-vert/creas.jpg" },
+    ],
   },
   {
-    // Mobsuccess 2.
-    slug: "gsa-bascule-ia-multi-leviers",
+    // Mobsuccess 2. Social Ads coché (levier Meta) : validé le 17/11.
+    slug: "carrefour",
     status: "documented",
-    brand: "Enseigne anonymisée",
-    anonymous: true,
+    brand: "Carrefour",
     partners: ["Aristid (flux produit)"],
     contributor: "Mobsuccess",
     period: "Fil rouge annuel depuis 2025",
@@ -269,14 +271,15 @@ const raw: CaseStudy[] = [
     method: { type: "campaign_metrics" },
     lessons: ["La partie créative peut s'avérer complexe et nécessite une véritable expertise en fonction des leviers activés."],
     nextSteps: "Extension du fil rouge pour 2027 en cours de confirmation.",
-    creatives: [],
+    creatives: [
+      { label: "Planche des créas : Meta (carrousel), YouTube (vidéo 16:9), CTV (spot TV)", ratio: "auto", src: "/cases/carrefour/creas.jpg" },
+    ],
   },
   {
     // Mobsuccess 3.
-    slug: "ameublement-operation-sans-prospectus",
+    slug: "but",
     status: "documented",
-    brand: "Enseigne anonymisée",
-    anonymous: true,
+    brand: "BUT",
     partners: ["Adsquare (mesure)"],
     contributor: "Mobsuccess",
     period: "Du 24 septembre au 28 octobre 2024",
@@ -289,7 +292,7 @@ const raw: CaseStudy[] = [
     },
     challenge: "Comment compenser 85 % de la contactabilité papier et générer du trafic en magasin sur une opération menée sans distribution de prospectus ?",
     context: {
-      situation: "L'enseigne recherche une alternative comparable à la performance des prospectus papier. Le sujet est devenu un enjeu sociétal, avec une forte augmentation du prix du papier liée à l'inflation. Il s'agit de la première opération cuisines menée sans distribution de prospectus. Objectifs : compenser 85 % de la contactabilité papier ; assurer la visibilité et la consultation des offres cuisines sur les zones dédiées via le catalogue ; générer du trafic en magasin.",
+      situation: "BUT recherche une alternative comparable à la performance des prospectus papier. Le sujet est devenu un enjeu sociétal, avec une forte augmentation du prix du papier liée à l'inflation. Il s'agit de la première opération But Cuisines menée sans distribution de prospectus. Objectifs de l'opération : compenser 85 % de la contactabilité papier ; assurer la visibilité et la consultation des offres But Cuisines sur les zones dédiées via le catalogue ; générer du trafic en magasin.",
     },
     levers: [
       { title: "Meta", environments: ids("Social Ads"), data: "Intentionnistes cuisines et zone IRIS", kpis: ["CPC : 0,36 €"], howItWorks: [] },
@@ -314,14 +317,15 @@ const raw: CaseStudy[] = [
       detail: "Coût par visite et uplift de visites mesurés par un tiers mesureur indépendant, Adsquare. Reach, coût par clic et coût par lecture comparés au catalogue papier.",
     },
     lessons: ["L'approche omnicanale est clé pour maximiser l'impact d'un point de vente dans sa zone de chalandise. Ce cas montre la capacité à activer et centraliser plusieurs leviers pour chaque magasin au sein d'une même campagne (Meta, Display, Google, agrégateurs)."],
-    creatives: [],
+    creatives: [
+      { label: "Planche des créas : Meta (vidéo), Display (MPU 300×250 et interstitiel)", ratio: "auto", src: "/cases/but/creas.jpg" },
+    ],
   },
   {
-    // Mobsuccess 4.
-    slug: "bricolage-mix-media-ia-par-magasin",
+    // Mobsuccess 4. « Trafic en dépôts » : terme de l'enseigne, conservé (17/11).
+    slug: "brico-depot",
     status: "documented",
-    brand: "Enseigne anonymisée",
-    anonymous: true,
+    brand: "Brico Dépôt",
     partners: ["Adsquare (mesure)"],
     contributor: "Mobsuccess",
     period: "Semaine 9, 2025",
@@ -332,7 +336,7 @@ const raw: CaseStudy[] = [
       formats: ids("Liseuse / catalogue feuilletable hébergé sur site/app enseigne", "Bannière avec redirection vers catalogue enseigne"),
       dataSources: ids("Donnée géolocalisée propriétaire régie", "Zones géographiques (IRIS, isochrones, zones de chalandise)", "Data d'intention"),
     },
-    challenge: "Comment améliorer la visibilité et la consultation des offres relayées via le catalogue sur les zones dédiées, et générer du trafic en magasin en s'appuyant sur un mix média par magasin, piloté directement par une IA propriétaire ?",
+    challenge: "Comment améliorer la visibilité et la consultation des offres relayées via le catalogue sur les zones dédiées, et générer du trafic en dépôts en s'appuyant sur un mix média par magasin, piloté directement par une IA propriétaire ?",
     levers: [{
       title: "Mix média par magasin piloté par une IA propriétaire (Meta)",
       environments: ids("Social Ads"),
@@ -358,20 +362,21 @@ const raw: CaseStudy[] = [
       detail: "Visites en magasin mesurées par un tiers mesureur indépendant, Adsquare. La base de comparaison « campagne sans IA » n'est pas précisée.",
     },
     lessons: ["Le media trading et l'implémentation d'agents IA performants sont clés pour atteindre les meilleures performances possibles dans le pilotage des campagnes."],
-    creatives: [],
+    creatives: [
+      { label: "Planche des créas : Meta, trois vidéos produits (abri, perceuse, tondeuse)", ratio: "auto", src: "/cases/brico-depot/creas.jpg" },
+    ],
   },
   {
-    // Nanotera.
-    slug: "gsa-menu-traiteur-fin-d-annee",
+    // Nanotera. Rédaction du contributeur conservée telle quelle (17/11), sauf l'enjeu (titre) reformulé.
+    slug: "cooperative-u",
     status: "documented",
-    brand: "Enseigne anonymisée",
-    anonymous: true,
-    partners: [],
-    contributor: "Nanotera",
-    period: "Fin d'année 2025 (menu traiteur)",
+    brand: "Coopérative U",
+    partners: ["Nanotera"],
+    contributor: "Nanotera x Client",
+    period: "Menu traiteur fin d'année 2025",
     tags: {
-      pdvType: ids("GSA"), scale: slugify("Multilocal"), pdvCount: "368 magasins (région Ouest)",
-      frequency: slugify("Opération ponctuelle"), frequencyDetail: "Opération annuelle, reconduite chaque fin d'année",
+      pdvType: ids("GSA"), scale: slugify("Multilocal"), pdvCount: "368 magasins - Région Ouest",
+      frequency: slugify("Opération ponctuelle"), frequencyDetail: "Annuelle",
       mainKpi: slugify("Ventes incrémentales"),
       environments: [
         ...ids("Site/App Enseigne", "WhatsApp/Messenger/RCS", "Emailing", "Page Social (fb)"),
@@ -386,55 +391,54 @@ const raw: CaseStudy[] = [
         "Catalogue intégré liste de courses",
       ),
       dataSources: ids("Flux produit (PIM / DAM / ERP)", "Zones géographiques (IRIS, isochrones, zones de chalandise)", "CRM / Programme de fidélité enseigne"),
-      otherSpecified: { environments: "Notifications webpush" },
+      otherSpecified: { environments: "Webpush notification" },
     },
     challenge: "Comment augmenter les commandes du menu traiteur de fin d'année sur le site de l'enseigne ?",
-    context: { situation: "Opération récurrente de fin d'année, avec un dispositif régional pour un tiers du parc magasins (630 magasins)." },
+    context: { situation: "Opération récurrente de fin d'année avec dispositif régional pour 1/3 du parc magasins (630 magasins)." },
     levers: [
       {
-        title: "Meta (Facebook, Instagram) : 5 carrousels et 3 vidéos",
+        title: "Meta (Facebook, Instagram) : 5 carrousels, 3 vidéos",
         environments: ids("Social Ads"),
         data: "Géolocalisation à l'IRIS",
-        kpis: ["Impressions", "Couverture", "Clics", "Répétition", "CTR", "CPM"],
+        kpis: ["Impression", "Couverture", "Clic", "Répétition", "CTR", "CPM"],
         howItWorks: ["Capitaliser sur le comportement d'achat sur les réseaux sociaux ainsi que sur la géolocalisation des réseaux sociaux."],
       },
       {
         title: "Display : 9 bannières HTML5",
         environments: ids("Display / Programmatique"),
         data: "Géolocalisation à l'IRIS",
-        kpis: ["Impressions", "Couverture", "Clics", "Répétition", "CTR", "CPM"],
+        kpis: ["Impression", "Couverture", "Clic", "Répétition", "CTR", "CPM"],
         howItWorks: ["Capitaliser sur la géolocalisation."],
       },
       {
-        title: "Notifications webpush : 15 bannières différentes",
+        title: "Webpush notification : 15 bannières différentes",
         environments: ["paid-autre"],
         data: "Géolocalisation au code postal",
-        kpis: ["Envois", "Ouvertures", "Clics", "Taux d'ouverture", "Taux de clic"],
-        howItWorks: ["Capitaliser sur la qualité de la base de contacts et sur la géolocalisation."],
+        kpis: ["Envoi", "Ouverture", "Clic", "Taux d'ouverture", "Taux de clic"],
+        howItWorks: ["Capitaliser sur la qualité de la base de contacts et la géolocalisation."],
       },
       {
-        title: "Google Performance Max : 12 bannières et 2 vidéos",
+        title: "Google Performance Max : 12 bannières, 2 vidéos",
         environments: ids("Search"),
         data: "Géolocalisation au code postal et comportement de l'utilisateur",
-        kpis: ["Impressions", "Clics", "Taux de clic", "Conversions"],
+        kpis: ["Impression", "Clic", "Taux de clic", "Conversion"],
         howItWorks: ["Capitaliser sur le comportement de l'utilisateur dans l'environnement Google ainsi que sur la géolocalisation."],
       },
     ],
     adjustments: "Tout est optimisé en direct en fonction de la diffusion.",
     keyFigure: {
-      value: "45 000+",
-      sentence: "commandes web du menu traiteur de fin d'année, en complément des commandes en magasin.",
-      source: "Nanotera. Tracking des campagnes et du site, nombre de commandes.",
+      value: "4 000 000",
+      sentence: "d'impressions et 2 millions de personnes touchées.",
+      source: "Nanotera. Tracking campagne et site, nombre de commandes.",
     },
     results: [
-      { value: "45 000+", label: "commandes web, en complément des commandes en magasin" },
-      { value: "4 M", label: "d'impressions" },
-      { value: "2 M", label: "de personnes touchées" },
+      { value: "4 000 000", label: "d'impressions" },
+      { value: "2 millions", label: "de personnes touchées" },
     ],
-    method: { type: "campaign_metrics", detail: "Tracking des campagnes et du site, nombre de commandes." },
-    qualitative: ["Résultats quantitatifs et retours des points de vente très positifs, qui conduisent à renouveler le dispositif cette année."],
-    lessons: ["Le mix média est une solution optimisée pour diffuser l'offre promotionnelle : il permet d'allier couverture, impressions et clics en fonction des canaux activés, et d'optimiser le budget."],
-    nextSteps: "Optimisation et ajout de nouveaux canaux et formats pour l'édition 2026.",
+    method: { type: "campaign_metrics", detail: "Tracking campagne + site et nombre de commandes." },
+    qualitative: ["Opération 2025 dont les résultats quantitatifs et les retours PDV sont très positifs, ce qui conduit à renouveler le dispositif cette année (+ de 45 000 commandes web en complément des commandes instore)."],
+    lessons: ["Le mix média est une solution optimisée pour diffuser l'offre promo : cela permet d'allier couverture, impression et clic en fonction des canaux activés → optimisation budget."],
+    nextSteps: "Optimisation et ajout de nouveaux canaux et formats à l'édition 2026.",
     creatives: [],
   },
   {
