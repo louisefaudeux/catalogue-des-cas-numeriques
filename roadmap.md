@@ -5,6 +5,7 @@
 - [x] Demand Gen rattaché à Display / Programmatique (Feu Vert et BUT, comme YouTube)
 - [x] Plus d'intitulé « Fonctionnement » vide (BUT, Brico Dépôt) ; dans le PDF, data et KPI à la place
 - [x] Tests : nombre de leviers par cas, badges de levier cohérents avec les tags du cas
+- [x] « Autres résultats » et « Résultats qualitatifs » empilés en pleine largeur (un bloc seul n'occupait que la moitié) ; contrôlé sur les 16 cas, desktop et mobile
 
 # Roadmap — Fiches de cas, retours du 17/11
 

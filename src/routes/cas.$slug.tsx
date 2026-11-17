@@ -127,7 +127,7 @@ function CasePage() {
               {c.method.detail && <p className="mt-3 text-sm">{c.method.detail}</p>}
             </div>
             {(c.otherResults?.length || c.qualitative?.length) ? (
-              <div className="mt-6 grid gap-6 sm:grid-cols-2">
+              <div className="mt-6 space-y-6">
                 {c.otherResults?.length ? <div><h3 className="font-semibold">Autres résultats</h3><ul className="mt-2 list-disc space-y-1 pl-5">{c.otherResults.map((o, i) => <li key={i}>{o}</li>)}</ul></div> : null}
                 {c.qualitative?.length ? <div><h3 className="font-semibold">Résultats qualitatifs</h3><ul className="mt-2 list-disc space-y-1 pl-5">{c.qualitative.map((o, i) => <li key={i}>{o}</li>)}</ul></div> : null}
               </div>
