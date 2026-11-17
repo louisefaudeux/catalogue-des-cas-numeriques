@@ -1,7 +1,7 @@
 import { Store } from "lucide-react";
 import type { ReactNode } from "react";
 import { displayBrand, splitPartner, type CaseStudy } from "@/data/cases";
-import { logoOf } from "@/data/logos";
+import { LOGO_BOX, logoOf, logoSize } from "@/data/logos";
 import { FACETS, labelOf, type FacetKey } from "@/data/taxonomy";
 import { cn } from "@/lib/utils";
 import { EnvBadge, FacetTag, Tag } from "./ui-bits";
@@ -13,28 +13,29 @@ const LABEL = "text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-
 const CHIP = "bg-card text-foreground ring-1 ring-line";
 
 /**
- * Logo de l'enseigne ou de l'apporteur, posé directement sur le fond de page (pas de cartouche) : hauteur fixe,
- * largeur selon le format du logo. Le nom reste écrit à côté : le logo est décoratif (alt vide).
+ * Enseigne ou apporteur du cas : intitulé, puis le logo s'il est déclaré dans `src/data/logos.ts` (il porte le nom :
+ * alt = nom), sinon le nom en toutes lettres. Le logo est posé sur le fond de page, à surface visuelle constante,
+ * centré dans une zone de 56 px de haut pour que les deux colonnes restent alignées.
  */
-function Logo({ src }: { src: string }) {
-  return <img src={src} alt="" className="h-12 w-auto max-w-[160px] shrink-0 object-contain" />;
-}
-
-/** Enseigne ou apporteur du cas : logo si déclaré dans `src/data/logos.ts`, sinon le nom seul. */
 function Actor({ role, name, anonymous, className }: { role: string; name: string; anonymous?: boolean; className?: string }) {
   const logo = anonymous ? undefined : logoOf(name);
   return (
-    <div className={cn("flex min-w-0 items-center gap-4 py-5", className)}>
-      {logo && <Logo src={logo} />}
-      {anonymous && (
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground" aria-hidden>
-          <Store className="size-6" />
-        </span>
+    <div className={cn("min-w-0 py-5", className)}>
+      <p className={LABEL}>{role}</p>
+      {logo ? (
+        <div className="mt-3 flex h-14 items-center">
+          <img src={logo.src} alt={name} {...logoSize(logo.ratio, LOGO_BOX.synthesis)} className="shrink-0 object-contain" />
+        </div>
+      ) : (
+        <div className="mt-3 flex min-h-14 items-center gap-3">
+          {anonymous && (
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground" aria-hidden>
+              <Store className="size-5" />
+            </span>
+          )}
+          <p className={cn("text-2xl font-semibold leading-tight", anonymous && "text-muted-foreground")}>{name}</p>
+        </div>
       )}
-      <div className="min-w-0">
-        <p className={LABEL}>{role}</p>
-        <p className={cn("mt-1.5 text-2xl font-semibold leading-tight", anonymous && "text-muted-foreground")}>{name}</p>
-      </div>
     </div>
   );
 }

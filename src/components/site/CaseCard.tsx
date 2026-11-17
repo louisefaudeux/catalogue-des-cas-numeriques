@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { displayBrand, type CaseStudy } from "@/data/cases";
-import { logoOf } from "@/data/logos";
+import { LOGO_BOX, logoOf, logoSize } from "@/data/logos";
 import { labelOf } from "@/data/taxonomy";
 import { downloadCasePdf } from "@/lib/pdf";
 import { cn } from "@/lib/utils";
@@ -39,9 +39,12 @@ export function CaseCard({ c, large, footnote }: { c: CaseStudy; large?: boolean
         <FacetTag facet="frequence">{labelOf(c.tags.frequency)}</FacetTag>
       </div>
       {/* Logo de l'enseigne s'il est déclaré (src/data/logos.ts), sinon son nom. */}
-      {!c.anonymous && logoOf(c.brand)
-        ? <img src={logoOf(c.brand)} alt={c.brand} loading="lazy" className="mt-4 h-7 w-auto max-w-[140px] object-contain object-left" />
-        : <p className="mt-4 text-sm font-medium text-muted-foreground">{displayBrand(c)}</p>}
+      {(() => {
+        const logo = c.anonymous ? undefined : logoOf(c.brand);
+        return logo
+          ? <div className="mt-4 flex h-9 items-center"><img src={logo.src} alt={c.brand} loading="lazy" {...logoSize(logo.ratio, LOGO_BOX.tile)} className="object-contain" /></div>
+          : <p className="mt-4 text-sm font-medium text-muted-foreground">{displayBrand(c)}</p>;
+      })()}
       <h3 className={cn("mt-1 line-clamp-4 font-semibold leading-snug", large ? "text-xl md:text-2xl" : "text-lg")}>
         <Link to="/cas/$slug" params={{ slug: c.slug }} className="after:absolute after:inset-0 after:rounded-xl focus:outline-none">
           {c.challenge}

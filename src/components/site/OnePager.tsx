@@ -1,6 +1,6 @@
 import { QRCodeSVG } from "qrcode.react";
 import { displayBrand, splitPartner, type CaseStudy } from "@/data/cases";
-import { logoOf } from "@/data/logos";
+import { LOGO_BOX, logoOf, logoSize } from "@/data/logos";
 import { GUIDE_URL } from "@/data/editorial";
 import { labelOf, METHODS } from "@/data/taxonomy";
 import { EnvBadge } from "./ui-bits";
@@ -10,11 +10,12 @@ const MORE = "… à retrouver dans la fiche en ligne";
 function Actor({ role, name, anonymous }: { role: string; name: string; anonymous?: boolean }) {
   const logo = anonymous ? undefined : logoOf(name);
   return (
-    <div className="flex items-center gap-3">
-      {logo && <img src={logo} alt="" style={{ height: 36, width: "auto", maxWidth: 120, objectFit: "contain" }} />}
-      <div>
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{role}</p>
-        <p className="text-[20px] font-bold leading-tight">{name}</p>
+    <div>
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{role}</p>
+      <div className="mt-1 flex items-center" style={{ height: 44 }}>
+        {logo
+          ? <img src={logo.src} alt={name} {...logoSize(logo.ratio, LOGO_BOX.pdf)} style={{ objectFit: "contain" }} />
+          : <p className="text-[20px] font-bold leading-tight">{name}</p>}
       </div>
     </div>
   );

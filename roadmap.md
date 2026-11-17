@@ -2,7 +2,8 @@
 
 - [x] 8 cas fictifs retirés : la bibliothèque compte les 8 cas réels ; badge, bandeau et filigrane PDF « cas illustratif » supprimés
 - [x] Options de filtre sans cas (Local, Hybride, CTR, Coût par visite site) laissées visibles et grisées
-- [ ] 3 à 5 cas réels supplémentaires à intégrer ; logos à recevoir
+- [x] 12 logos intégrés (7 enseignes, 5 apporteurs) : rognés, fonds transparents conservés, SVG nettoyés ; affichés à surface visuelle égale, à la place du nom
+- [ ] 3 à 5 cas réels supplémentaires à intégrer (et leurs logos)
 
 # Roadmap — Dispositif : leviers fidèles au classeur (17/11)
 
@@ -26,7 +27,7 @@
 - [x] Synthèse en fiche technique : filet dégradé, filets fins, sans cadres blancs ; étiquettes blanches pour le contraste
 - [x] Coopérative U : Nanotera en apporteur uniquement
 - [x] Logos pour l'enseigne et l'apporteur uniquement (fiche, PDF, tuiles pour l'enseigne), posés sur le fond de page sans cartouche ; testés avec des logos factices, non commités
-- [ ] Logos à recevoir : 7 enseignes, 5 apporteurs (fond transparent)
+- [x] Logos reçus et intégrés (17/11)
 
 # Roadmap — Cas réels, réponses du 17/11
 
@@ -45,7 +46,7 @@
 - [x] Nouveau type de méthode « Indicateurs de campagne » (`campaign_metrics`) pour les cas sans mesure d'effet ; format de visuel 4:3
 - [x] Tests de cohérence des données : identifiants de tags valides, slugs uniques, pas de nom réel sur les cas anonymisés, chiffre clé aligné sur le premier résultat
 - [ ] Azerion : résultats chiffrés en attente du contributeur
-- [ ] Logos d'enseignes, refonte des fiches, retrait des cas fictifs
+- [x] Logos d'enseignes, refonte des fiches, retrait des cas fictifs (17/11)
 
 # Roadmap — Modifications lot 1h (vue Bibliothèque, retours du 17/11)
 
