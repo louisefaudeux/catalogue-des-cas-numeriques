@@ -1,3 +1,10 @@
+# Roadmap — Modifications lot 1e (retours du 17/11 sur la landing)
+
+- [x] Module de recherche remonté juste après le contexte ; « Objectif de la bibliothèque » placé dessous
+- [x] Titre de l'ouverture : « Le commerce agentique… » directement, sans le mot « Ouverture »
+- [x] Étiquette « En cours de validation » retirée de la section Enseignements
+- [x] « Proposer un cas » en bouton dans l'en-tête (desktop et menu mobile), distinct des deux rubriques
+
 # Roadmap — Modifications lot 1d (branding, intro, enseignements sur la landing) et textes du Word du 17/11
 
 - [x] A. Fond #efefe7 sur tout le site, dégradé violet → mauve, filet d'en-tête, bandeau prototype discret

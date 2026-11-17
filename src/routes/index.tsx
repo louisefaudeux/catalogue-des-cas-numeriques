@@ -110,28 +110,30 @@ function Home() {
         </section>
       </Container>
 
-      {/* Objectif de la bibliothèque, puis le module de recherche */}
+      {/* Module de recherche, remonté juste après le contexte (lot 1e) */}
+      <Container className="mt-12 md:mt-14">
+        <section aria-labelledby="situation" className="rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <h2 id="situation" className="text-2xl font-semibold">Trouvez les cas proches de votre situation</h2>
+          <form className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end" aria-labelledby="situation"
+            onSubmit={(e) => { e.preventDefault(); if (n) navigate({ to: "/bibliotheque", search: { pdv: pdv || undefined, echelle: echelle || undefined, frequence: frequence || undefined } }); }}>
+            <Picker label="Type de point de vente" options={PDV_TYPES} value={pdv} onChange={setPdv} />
+            <Picker label="Échelle du dispositif" options={SCALES} value={echelle} onChange={setEchelle} />
+            <Picker label="Fréquence" options={FREQUENCIES} value={frequence} onChange={setFrequence} />
+            <Button type="submit" size="lg" className="h-12 px-6" disabled={!n}>Voir les {n} cas</Button>
+          </form>
+          <p aria-live="polite" className="mt-4 text-sm text-muted-foreground">
+            {n ? <><strong className="num text-foreground">{n}</strong> {n > 1 ? "cas correspondent" : "cas correspond"} à votre situation.</>
+              : "Aucun cas ne correspond à cette combinaison. Essayez d'élargir un critère."}
+          </p>
+        </section>
+      </Container>
+
+      {/* Objectif de la bibliothèque, sous le module de recherche */}
       <Container className={SECTION}>
         <section aria-labelledby="objectif">
           <SectionTitle id="objectif">{OBJECTIVE_TITLE}</SectionTitle>
           {OBJECTIVE.map((p, i) => <p key={i} className="prose-ed mt-4">{p}</p>)}
-
-          <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
-            <h3 id="situation" className="text-2xl font-semibold">Trouvez les cas proches de votre situation</h3>
-            <form className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end" aria-labelledby="situation"
-              onSubmit={(e) => { e.preventDefault(); if (n) navigate({ to: "/bibliotheque", search: { pdv: pdv || undefined, echelle: echelle || undefined, frequence: frequence || undefined } }); }}>
-              <Picker label="Type de point de vente" options={PDV_TYPES} value={pdv} onChange={setPdv} />
-              <Picker label="Échelle du dispositif" options={SCALES} value={echelle} onChange={setEchelle} />
-              <Picker label="Fréquence" options={FREQUENCIES} value={frequence} onChange={setFrequence} />
-              <Button type="submit" size="lg" className="h-12 px-6" disabled={!n}>Voir les {n} cas</Button>
-            </form>
-            <p aria-live="polite" className="mt-4 text-sm text-muted-foreground">
-              {n ? <><strong className="num text-foreground">{n}</strong> {n > 1 ? "cas correspondent" : "cas correspond"} à votre situation.</>
-                : "Aucun cas ne correspond à cette combinaison. Essayez d'élargir un critère."}
-            </p>
-          </div>
-
-          <p className="prose-ed mt-6">
+          <p className="prose-ed mt-4">
             {withLink(CONTRIBUTE, CONTRIBUTE_LINK, (s) => (
               <Link to="/proposer-un-cas" className="font-medium text-primary underline underline-offset-4 hover:no-underline">{s}</Link>
             ))}
@@ -143,12 +145,7 @@ function Home() {
       {/* Enseignements */}
       <Container className={SECTION}>
         <section aria-labelledby="enseignements-titre" id="enseignements" className="scroll-mt-28">
-          <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
-            <div>
-              <SectionTitle id="enseignements-titre">Les enseignements de la bibliothèque</SectionTitle>
-            </div>
-            <span className="mb-1.5 inline-block rounded-md border border-warning-foreground/20 bg-warning px-2 py-0.5 text-xs font-semibold text-warning-foreground">En cours de validation</span>
-          </div>
+          <SectionTitle id="enseignements-titre">Les enseignements de la bibliothèque</SectionTitle>
           <LessonsSection />
         </section>
       </Container>
@@ -156,8 +153,7 @@ function Home() {
       {/* Ouverture */}
       <Container className={SECTION}>
         <section aria-labelledby="ouverture-titre" id="ouverture" className="scroll-mt-28">
-          <SectionTitle id="ouverture-titre">Ouverture</SectionTitle>
-          <h3 className="mt-3 max-w-[40ch] text-xl font-semibold leading-snug text-muted-foreground md:text-2xl">{OPENING_TITLE}</h3>
+          <SectionTitle id="ouverture-titre" className="max-w-[30ch] leading-tight">{OPENING_TITLE}</SectionTitle>
           {OPENING.map((p, i) => <p key={i} className="prose-ed mt-4"><RichText text={p} /></p>)}
         </section>
       </Container>

@@ -7,11 +7,12 @@ import { Logo } from "./Logo";
 import { GuideLink } from "./ui-bits";
 
 // Les enseignements vivent sur la landing (section #enseignements) depuis le lot 1d.
+// « Proposer un cas » est un bouton à part (appel à l'action), distinct des deux rubriques de lecture.
 const NAV = [
   { to: "/bibliotheque", hash: undefined, label: "Bibliothèque" },
   { to: "/", hash: "enseignements", label: "Enseignements" },
-  { to: "/proposer-un-cas", hash: undefined, label: "Proposer un cas" },
 ] as const;
+const CTA = { to: "/proposer-un-cas", label: "Proposer un cas" } as const;
 
 const NAV_LINK =
   "inline-flex h-11 items-center px-3 text-sm font-semibold text-foreground decoration-primary decoration-2 underline-offset-[6px] hover:underline";
@@ -40,7 +41,7 @@ export function SiteHeader() {
             )}
           </Link>
           <nav aria-label="Navigation principale" className="hidden md:block">
-            <ul className="flex gap-1">
+            <ul className="flex items-center gap-1">
               {NAV.map((n) => (
                 <li key={n.label}>
                   <Link to={n.to} {...(n.hash ? { hash: n.hash } : {})} className={NAV_LINK}
@@ -50,6 +51,13 @@ export function SiteHeader() {
                   </Link>
                 </li>
               ))}
+              <li className="ml-3">
+                <Link to={CTA.to}
+                  className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                  activeProps={{ "aria-current": "page" }}>
+                  {CTA.label}
+                </Link>
+              </li>
             </ul>
           </nav>
           <Sheet open={open} onOpenChange={setOpen}>
@@ -67,6 +75,12 @@ export function SiteHeader() {
                       <Link to={n.to} {...(n.hash ? { hash: n.hash } : {})} onClick={() => setOpen(false)} className="flex h-12 items-center rounded-md px-3 font-semibold hover:bg-accent">{n.label}</Link>
                     </li>
                   ))}
+                  <li className="mt-3">
+                    <Link to={CTA.to} onClick={() => setOpen(false)}
+                      className="flex h-12 items-center justify-center rounded-md bg-primary px-4 font-semibold text-primary-foreground hover:bg-primary/90">
+                      {CTA.label}
+                    </Link>
+                  </li>
                 </ul>
               </nav>
             </SheetContent>
