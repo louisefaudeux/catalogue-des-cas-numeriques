@@ -1,13 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Eye, Printer } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { CaseCard, PdfButton } from "@/components/site/CaseCard";
+import { CaseActors, CaseTags } from "@/components/site/CaseHeader";
 import { Container } from "@/components/site/SiteChrome";
-import { CreativeSlot, EnvBadge, GuideLink, KeyFigure, MethodBadge, Notice, PrecautionsNote, Tag } from "@/components/site/ui-bits";
+import { CreativeSlot, EnvBadge, GuideLink, MethodBadge, Notice, PrecautionsNote, Tag } from "@/components/site/ui-bits";
 import { CASES, displayBrand, getCase } from "@/data/cases";
-import { FACETS, labelOf } from "@/data/taxonomy";
-import { caseValues, similarCases } from "@/lib/filters";
+import { labelOf } from "@/data/taxonomy";
+import { similarCases } from "@/lib/filters";
 
 export const Route = createFileRoute("/cas/$slug")({
   loader: ({ params }) => {
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/cas/$slug")({
     const c = loaderData && getCase(loaderData.slug);
     if (!c) return { meta: [{ title: "Cas introuvable" }] };
     const t = `${displayBrand(c)} — ${c.challenge}`;
-    return { meta: [{ title: t }, { name: "description", content: c.keyFigure?.sentence ?? c.challenge }, { property: "og:title", content: t }, { property: "og:description", content: c.challenge }] };
+    return { meta: [{ title: t }, { name: "description", content: c.challenge }, { property: "og:title", content: t }, { property: "og:description", content: c.challenge }] };
   },
   component: CasePage,
 });
@@ -40,7 +40,6 @@ function CasePage() {
   const ctxParts = [["Situation de départ", ctx.situation], ["Déclencheur", ctx.trigger], ["Contraintes opérationnelles", ctx.constraints]].filter(([, v]) => v) as [string, string][];
 
   const sections = [
-    c.keyFigure && { id: "chiffre-cle", title: "Chiffre clé" },
     ctxParts.length && { id: "contexte", title: "Contexte et point de départ" },
     { id: "dispositif", title: "Le dispositif mis en place" },
     c.adjustments && { id: "ajustements", title: "Ce qui a été ajusté en cours de route" },
@@ -48,7 +47,7 @@ function CasePage() {
     c.lessons?.length && { id: "enseignements", title: "Les enseignements transposables" },
     c.nextSteps && { id: "prochaines-etapes", title: "Les prochaines étapes" },
     c.creatives.length && { id: "creas", title: "Créas" },
-    { id: "cas-proches", title: "Cas proches" },
+    { id: "autres-cas", title: "Autres cas" },
   ].filter(Boolean) as { id: string; title: string }[];
 
   const [active, setActive] = useState(sections[0]?.id ?? "");
@@ -58,43 +57,23 @@ function CasePage() {
     return () => obs.disconnect();
   }, [slug]);
 
-  const eyebrow = [displayBrand(c), ...c.tags.pdvType.map(labelOf), labelOf(c.tags.scale), labelOf(c.tags.frequency)].join(" · ");
   const similar = similarCases(c, CASES);
 
   return (
     <Container className="py-8 md:py-12">
-      <nav aria-label="Fil d'Ariane" className="text-sm text-muted-foreground">
-        <ol className="flex flex-wrap gap-1.5">
-          <li><Link to="/bibliotheque" className="underline underline-offset-4 hover:text-foreground">Bibliothèque</Link></li>
-          <li aria-hidden>›</li>
-          <li aria-current="page" className="text-foreground">{displayBrand(c)}</li>
-        </ol>
-      </nav>
+      <Link to="/bibliotheque" className="-ml-1 inline-flex h-11 items-center gap-2 rounded-md px-1 text-sm font-semibold text-primary hover:underline">
+        <ArrowLeft className="size-4" aria-hidden /> Retour à la bibliothèque
+      </Link>
 
-      <header className="mt-6 max-w-[860px]">
-        <p className="text-sm font-semibold uppercase tracking-wider text-primary">{eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight md:text-[44px]">{c.challenge}</h1>
-        <p className="mt-4 text-muted-foreground">
-          Enseigne : {displayBrand(c)}.{c.partners.length ? ` Partenaires : ${c.partners.join(", ")}.` : ""} Contributeur : {c.contributor}. Période : {c.period.charAt(0).toLowerCase() + c.period.slice(1)}.
-        </p>
+      <header className="mt-4 max-w-[860px]">
+        <h1 className="text-3xl font-semibold leading-tight md:text-[44px]">{c.challenge}</h1>
         {c.status === "illustrative" && <div className="mt-5"><Notice>Cas illustratif — données fictives, pour test de l'interface</Notice></div>}
-        <div className="mt-6 flex flex-wrap gap-3">
-          <PdfButton c={c} />
-          <Button asChild variant="outline" className="h-11"><Link to="/cas/$slug/fiche" params={{ slug }}><Eye className="size-4" aria-hidden /> Prévisualiser</Link></Button>
-          <Button asChild variant="outline" className="h-11"><Link to="/cas/$slug/fiche" params={{ slug }} search={{ imprimer: 1 }}><Printer className="size-4" aria-hidden /> Imprimer</Link></Button>
-          <Button asChild variant="ghost" className="h-11"><Link to="/bibliotheque"><ArrowLeft className="size-4" aria-hidden /> Retour à la bibliothèque</Link></Button>
-        </div>
+        <CaseActors c={c} className="mt-8" />
+        <CaseTags c={c} className="mt-4" />
       </header>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,720px)_280px] lg:justify-between">
         <div className="space-y-12">
-          {c.keyFigure && (
-            <section id="chiffre-cle" aria-label="Chiffre clé" className="scroll-mt-28 rounded-xl border border-border bg-card p-6 md:p-8">
-              <KeyFigure {...c.keyFigure} />
-              <div className="mt-5"><MethodBadge type={c.method.type} /></div>
-            </section>
-          )}
-
           {ctxParts.length > 0 && (
             <Section id="contexte" title="Contexte et point de départ">
               <div className="space-y-5">
@@ -136,6 +115,7 @@ function CasePage() {
                 </li>
               ))}
             </ul>
+            {c.keyFigure?.note && <p className="mt-3 text-sm text-muted-foreground">À noter : {c.keyFigure.note.charAt(0).toLowerCase() + c.keyFigure.note.slice(1)}.</p>}
             <div className="mt-6 rounded-lg bg-muted p-5">
               <h3 className="font-semibold">Méthode de mesure</h3>
               <div className="mt-2"><MethodBadge type={c.method.type} /></div>
@@ -163,7 +143,13 @@ function CasePage() {
             </Section>
           )}
 
-          <Section id="cas-proches" title="Cas proches">
+          <section aria-label="Télécharger la fiche" className="rounded-xl bg-accent p-6 md:p-8">
+            <PdfButton c={c} />
+            <p className="mt-3 text-sm text-muted-foreground">Fiche d'une page au format A4, à partager ou à imprimer.</p>
+            <p className="mt-4"><GuideLink>Retrouver le cadre dans le Guide 2025</GuideLink></p>
+          </section>
+
+          <Section id="autres-cas" title="Autres cas">
             <div className="grid gap-5 md:grid-cols-3">
               {similar.map(({ c: s, shared }) => (
                 <CaseCard key={s.slug} c={s} footnote={`Point commun : ${[...new Set(shared)].slice(0, 4).map(labelOf).join(", ") || "aucun"}`} />
@@ -171,17 +157,10 @@ function CasePage() {
             </div>
           </Section>
 
-          <section className="rounded-xl bg-accent p-6 md:p-8">
-            <div className="flex flex-wrap gap-3">
-              <PdfButton c={c} />
-              <Button asChild variant="outline" className="h-11"><Link to="/bibliotheque">Retour à la bibliothèque</Link></Button>
-            </div>
-            <p className="mt-5"><GuideLink>Retrouver le cadre dans le Guide 2025</GuideLink></p>
-          </section>
           <PrecautionsNote />
         </div>
 
-        <aside aria-label="Sommaire et informations du cas" className="hidden lg:block">
+        <aside aria-label="Sommaire du cas" className="hidden lg:block">
           <div className="sticky top-24 space-y-6">
             <nav aria-label="Sommaire">
               <p className="text-sm font-semibold">Sommaire</p>
@@ -196,20 +175,7 @@ function CasePage() {
                 ))}
               </ul>
             </nav>
-            <div>
-              <p className="text-sm font-semibold">Tags du cas</p>
-              <dl className="mt-2 space-y-2 text-sm">
-                {FACETS.map((f) => (
-                  <div key={f.key}><dt className="text-xs text-muted-foreground">{f.label}</dt>
-                    <dd className="mt-0.5 flex flex-wrap gap-1">{f.key === "env" ? caseValues(c, f.key).map((v) => <EnvBadge key={v} id={v} />) : caseValues(c, f.key).map((v) => <Tag key={v}>{labelOf(v)}</Tag>)}</dd></div>
-                ))}
-                <div><dt className="text-xs text-muted-foreground">Nombre de PDV</dt><dd>{c.tags.pdvCount}</dd></div>
-                {c.tags.frequencyDetail && <div><dt className="text-xs text-muted-foreground">Détail de fréquence</dt><dd>{c.tags.frequencyDetail}</dd></div>}
-                {c.tags.otherSpecified && Object.values(c.tags.otherSpecified).map((v) => <div key={v}><dt className="text-xs text-muted-foreground">Précision « Autre »</dt><dd>{v}</dd></div>)}
-              </dl>
-            </div>
             <PdfButton c={c} variant="outline" />
-            <p className="text-sm"><GuideLink /></p>
           </div>
         </aside>
       </div>

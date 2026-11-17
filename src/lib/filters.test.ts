@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CASES } from "@/data/cases";
+import { CASES, splitPartner } from "@/data/cases";
 import { DATA_SOURCES, ENVIRONMENTS, FACETS, FORMATS, FREQUENCIES, KPIS, LIBRARY_FILTERS, METHODS, PDV_TYPES, SCALES } from "@/data/taxonomy";
 import { caseValues, facetCount, filterCases, similarCases } from "./filters";
 
@@ -53,6 +53,11 @@ describe("case data", () => {
     for (const c of CASES.filter((x) => x.anonymous && x.status === "documented")) {
       expect(c.brand).toBe("Enseigne anonymisée");
     }
+  });
+  it("splits partners into a name and an optional role", () => {
+    expect(splitPartner("Zenith (agence média)")).toEqual({ name: "Zenith", role: "agence média" });
+    expect(splitPartner("Nanotera")).toEqual({ name: "Nanotera" });
+    for (const c of CASES) for (const p of c.partners) expect(splitPartner(p).name.length, `${c.slug} : ${p}`).toBeGreaterThan(1);
   });
   it("keeps the key figure aligned with the first result shown on cards", () => {
     for (const c of CASES.filter((x) => x.keyFigure)) expect(c.results[0]?.value, c.slug).toBe(c.keyFigure!.value);

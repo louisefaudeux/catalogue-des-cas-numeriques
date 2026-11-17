@@ -1,3 +1,14 @@
+# Roadmap — Fiches de cas, retours du 17/11
+
+- [x] Boutons « Prévisualiser » et « Imprimer » retirés ; téléchargement PDF en bas de page, juste avant « Autres cas », et sous le sommaire
+- [x] « Retour à la bibliothèque » en haut de page (à la place du fil d'Ariane)
+- [x] « Cas proches » renommé « Autres cas »
+- [x] Tags du cas en haut, sous les acteurs (plus dans la colonne de droite) ; précisions « Autre » affichées
+- [x] Acteurs différenciés : enseigne et apporteur du cas mis en avant, autres partenaires et période en dessous ; emplacement logo prêt (`src/data/logos.ts`)
+- [x] Chiffre mis en avant retiré du début de la fiche et du PDF (conservé sur les tuiles de la bibliothèque) ; la fiche PDF montre jusqu'à 3 leviers et 8 résultats
+- [x] Lien vers le Guide retiré de la colonne de droite
+- [ ] Logos des enseignes et des apporteurs à recevoir
+
 # Roadmap — Cas réels, réponses du 17/11
 
 - [x] Feu Vert, Carrefour, BUT, Brico Dépôt et Coopérative U nommés (slugs `feu-vert`, `carrefour`, `but`, `brico-depot`, `cooperative-u`) ; seul Azerion reste anonymisé

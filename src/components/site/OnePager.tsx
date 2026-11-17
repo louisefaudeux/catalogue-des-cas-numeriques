@@ -1,16 +1,30 @@
 import { QRCodeSVG } from "qrcode.react";
-import { displayBrand, type CaseStudy } from "@/data/cases";
+import { displayBrand, splitPartner, type CaseStudy } from "@/data/cases";
+import { logoOf } from "@/data/logos";
 import { GUIDE_URL } from "@/data/editorial";
 import { labelOf, METHODS } from "@/data/taxonomy";
 import { EnvBadge } from "./ui-bits";
 
 const MORE = "… à retrouver dans la fiche en ligne";
 
+function Actor({ role, name, anonymous }: { role: string; name: string; anonymous?: boolean }) {
+  const logo = anonymous ? undefined : logoOf(name);
+  return (
+    <div className="flex items-center gap-3">
+      {logo && <img src={logo} alt="" style={{ height: 32, width: "auto", maxWidth: 110, objectFit: "contain" }} />}
+      <div>
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{role}</p>
+        <p className="text-[20px] font-bold leading-tight">{name}</p>
+      </div>
+    </div>
+  );
+}
+
 export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
-  const levers = c.levers.slice(0, 2);
-  const results = c.results.slice(0, 4);
+  const levers = c.levers.slice(0, 3);
+  const results = c.results.slice(0, 8);
   const lessons = c.lessons?.slice(0, 3);
-  const truncated = c.levers.length > 2 || c.results.length > 4 || (c.lessons?.length ?? 0) > 3;
+  const truncated = c.levers.length > 3 || c.results.length > 8 || (c.lessons?.length ?? 0) > 3;
   const tags = [...c.tags.pdvType.map(labelOf), labelOf(c.tags.scale), labelOf(c.tags.frequency)];
   return (
     <div className="relative flex flex-col overflow-hidden bg-card text-card-foreground" style={{ width: 794, height: 1123, padding: 48, fontFamily: "'Plus Jakarta Sans Variable', sans-serif" }}>
@@ -27,22 +41,19 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
           <img src="/brand/alliance-digitale-mono.png" alt="Alliance Digitale" style={{ height: 22, width: "auto" }} />
           <span style={{ fontFamily: "'Horizon', 'Plus Jakarta Sans Variable', sans-serif", fontSize: 11 }}>Bibliothèque de cas — Digitalisation du catalogue</span>
         </span>
-        <span className="flex gap-1.5">{tags.map((t) => <span key={t} className="rounded border border-foreground/40 px-1.5 py-0.5">{t}</span>)}</span>
+        <span className="flex gap-1.5">{tags.map((t) => <span key={t} className="whitespace-nowrap rounded border border-foreground/40 px-1.5 py-0.5">{t}</span>)}</span>
       </header>
 
       <section className="mt-6">
-        <p className="text-[22px] font-bold">{displayBrand(c)}</p>
-        <p className="text-[12px] text-muted-foreground">{c.partners.length ? `Partenaires : ${c.partners.join(", ")} · ` : ""}Contributeur : {c.contributor} · {c.period}</p>
-        <h1 className="mt-3 text-[24px] font-semibold leading-tight">{c.challenge}</h1>
+        <h1 className="text-[24px] font-semibold leading-tight">{c.challenge}</h1>
+        <div className="mt-4 flex gap-10 border-t border-border pt-3">
+          <Actor role="Enseigne" name={displayBrand(c)} anonymous={!!c.anonymous} />
+          <Actor role="Apporteur du cas" name={c.contributor} />
+        </div>
+        <p className="mt-2 text-[12px] text-muted-foreground">
+          {c.partners.length ? `Autres partenaires : ${c.partners.map((x) => { const { name, role } = splitPartner(x); return role ? `${name} (${role})` : name; }).join(", ")} · ` : ""}Période : {c.period}
+        </p>
       </section>
-
-      {c.keyFigure && (
-        <section className="mt-5 rounded-lg border-l-4 border-primary bg-accent px-5 py-4">
-          <p className="num text-[52px] font-extrabold leading-none text-primary">{c.keyFigure.value}</p>
-          <p className="mt-2 text-[14px]">{c.keyFigure.sentence}</p>
-          <p className="mt-1 text-[11px] italic text-muted-foreground">Source : {c.keyFigure.source}{c.keyFigure.note ? ` (${c.keyFigure.note})` : ""}</p>
-        </section>
-      )}
 
       <section className="mt-5">
         <h2 className="text-[13px] font-bold uppercase tracking-wider">Le dispositif en bref</h2>
@@ -82,7 +93,7 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
 
       <footer className="mt-auto flex items-end justify-between gap-6 border-t border-border pt-3 text-[10px] leading-relaxed text-muted-foreground">
         <div>
-          {c.keyFigure && <p>Sources des chiffres : {c.keyFigure.source}</p>}
+          {c.keyFigure && <p>Sources des chiffres : {c.keyFigure.source}{c.keyFigure.note ? ` (${c.keyFigure.note.charAt(0).toLowerCase()}${c.keyFigure.note.slice(1)})` : ""}</p>}
           <p>Les résultats sont déclaratifs et validés par l'annonceur.</p>
           {c.status === "illustrative" && <p className="font-semibold text-foreground">Cas illustratif : toutes les données de cette fiche sont fictives et servent uniquement à tester l'interface.</p>}
           <p className="mt-1">Pour aller plus loin : Guide de la Digitalisation du Catalogue, Alliance Digitale, 2025</p>

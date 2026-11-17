@@ -592,3 +592,9 @@ const raw: CaseStudy[] = [
 export const CASES: CaseStudy[] = deepTypo(raw);
 export const getCase = (slug: string) => CASES.find((c) => c.slug === slug);
 export const displayBrand = (c: CaseStudy) => (c.anonymous ? "Enseigne anonymisée" : c.brand);
+
+/** « Zenith (agence média) » → { name: "Zenith", role: "agence média" } ; sans parenthèse finale, pas de rôle. */
+export const splitPartner = (p: string): { name: string; role?: string } => {
+  const m = /^(.*?)\s*\(([^()]+)\)\s*$/.exec(p);
+  return m ? { name: m[1]!, role: m[2]! } : { name: p.trim() };
+};
