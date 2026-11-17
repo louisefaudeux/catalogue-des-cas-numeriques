@@ -12,19 +12,27 @@ const LABEL = "text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-
 // Sur le fond de page, les étiquettes grises manquent de contraste : fond blanc et filet léger dans la synthèse.
 const CHIP = "bg-card text-foreground ring-1 ring-line";
 
-/** Enseigne ou apporteur du cas : logo si fourni (`src/data/logos.ts`), sinon le nom seul. */
+/**
+ * Emplacement logo (enseigne, apporteur, partenaire) : cartouche blanc de taille fixe, logo contenu sans déformation,
+ * quel que soit son format (large, carré, étroit). Le nom reste écrit à côté : le logo est décoratif (alt vide).
+ */
+function LogoBox({ src, size }: { src: string; size: "lg" | "sm" }) {
+  return (
+    <span className={cn("flex shrink-0 items-center justify-center rounded-md bg-white ring-1 ring-line", size === "lg" ? "h-16 w-36 p-2.5" : "h-10 w-24 p-1.5")}>
+      <img src={src} alt="" loading="lazy" className="max-h-full max-w-full object-contain" />
+    </span>
+  );
+}
+
+/** Enseigne ou apporteur du cas : logo si déclaré dans `src/data/logos.ts`, sinon le nom seul. */
 function Actor({ role, name, anonymous, className }: { role: string; name: string; anonymous?: boolean; className?: string }) {
   const logo = anonymous ? undefined : logoOf(name);
   return (
     <div className={cn("flex min-w-0 items-center gap-4 py-5", className)}>
-      {logo && (
-        <span className="flex h-12 w-24 shrink-0 items-center justify-center rounded-md bg-white p-2 ring-1 ring-line">
-          <img src={logo} alt="" className="max-h-full max-w-full object-contain" />
-        </span>
-      )}
+      {logo && <LogoBox src={logo} size="lg" />}
       {anonymous && (
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground" aria-hidden>
-          <Store className="size-5" />
+        <span className="flex size-16 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground" aria-hidden>
+          <Store className="size-6" />
         </span>
       )}
       <div className="min-w-0">
@@ -54,7 +62,7 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
 }
 
 /**
- * Synthèse du cas, en tête de fiche : acteurs (enseigne et apporteur mis en avant, autres partenaires et période dessous)
+ * Synthèse du cas, en tête de fiche : acteurs (enseigne et apporteur mis en avant, autres partenaires et période dessous ; logos des trois)
  * puis tags de classification. Mise en page de fiche technique : filets, pas de cadre, sur le fond de page.
  */
 export function CaseSynthesis({ c, className }: { c: CaseStudy; className?: string }) {
@@ -75,14 +83,19 @@ export function CaseSynthesis({ c, className }: { c: CaseStudy; className?: stri
         {partners.length > 0 && (
           <div>
             <dt className={LABEL}>Autres partenaires</dt>
-            <dd className="mt-1.5">
-              {partners.map((p, i) => (
-                <span key={p.name}>
-                  {i > 0 && <span className="px-2 text-muted-foreground" aria-hidden>·</span>}
-                  <span className="font-semibold">{p.name}</span>
-                  {p.role && <span className="text-muted-foreground"> ({p.role})</span>}
-                </span>
-              ))}
+            <dd className="mt-2 flex flex-wrap gap-x-8 gap-y-3">
+              {partners.map((p) => {
+                const logo = logoOf(p.name);
+                return (
+                  <span key={p.name} className="flex items-center gap-2.5">
+                    {logo && <LogoBox src={logo} size="sm" />}
+                    <span className="leading-tight">
+                      <span className="block font-semibold">{p.name}</span>
+                      {p.role && <span className="block text-xs text-muted-foreground">{sentenceCase(p.role)}</span>}
+                    </span>
+                  </span>
+                );
+              })}
             </dd>
           </div>
         )}

@@ -11,7 +11,7 @@ function Actor({ role, name, anonymous }: { role: string; name: string; anonymou
   const logo = anonymous ? undefined : logoOf(name);
   return (
     <div className="flex items-center gap-3">
-      {logo && <img src={logo} alt="" style={{ height: 32, width: "auto", maxWidth: 110, objectFit: "contain" }} />}
+      {logo && <img src={logo} alt="" style={{ height: 36, width: "auto", maxWidth: 120, objectFit: "contain" }} />}
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{role}</p>
         <p className="text-[20px] font-bold leading-tight">{name}</p>
@@ -50,9 +50,20 @@ export function OnePager({ c, date }: { c: CaseStudy; date: string }) {
           <Actor role="Enseigne" name={displayBrand(c)} anonymous={!!c.anonymous} />
           <Actor role="Apporteur du cas" name={c.contributor} />
         </div>
-        <p className="mt-2 text-[12px] text-muted-foreground">
-          {c.partners.length ? `Autres partenaires : ${c.partners.map((x) => { const { name, role } = splitPartner(x); return role ? `${name} (${role})` : name; }).join(", ")} · ` : ""}Période : {c.period}
-        </p>
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] text-muted-foreground">
+          {c.partners.length > 0 && <span>Autres partenaires :</span>}
+          {c.partners.map((x) => {
+            const { name, role } = splitPartner(x);
+            const logo = logoOf(name);
+            return (
+              <span key={name} className="flex items-center gap-1.5">
+                {logo && <img src={logo} alt="" style={{ height: 16, width: "auto", maxWidth: 56, objectFit: "contain" }} />}
+                <span><span className="font-semibold text-foreground">{name}</span>{role ? ` (${role})` : ""}</span>
+              </span>
+            );
+          })}
+          <span>Période : {c.period}</span>
+        </div>
       </section>
 
       <section className="mt-5">
