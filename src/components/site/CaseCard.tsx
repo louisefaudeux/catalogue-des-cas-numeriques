@@ -7,7 +7,7 @@ import { displayBrand, type CaseStudy } from "@/data/cases";
 import { labelOf } from "@/data/taxonomy";
 import { downloadCasePdf } from "@/lib/pdf";
 import { cn } from "@/lib/utils";
-import { EnvBadge, IllustrativeBadge, Tag } from "./ui-bits";
+import { EnvBadge, FacetTag, IllustrativeBadge, Tag } from "./ui-bits";
 
 export function PdfIconButton({ c }: { c: CaseStudy }) {
   const [busy, setBusy] = useState(false);
@@ -33,13 +33,13 @@ export function CaseCard({ c, large, footnote }: { c: CaseStudy; large?: boolean
   return (
     <article className={cn("group relative flex flex-col rounded-xl border border-border bg-card p-5 shadow-[0_1px_2px_rgba(26,26,46,0.04)] transition-shadow focus-within:ring-2 focus-within:ring-ring hover:shadow-md", large && "md:p-7")}>
       <div className="flex flex-wrap items-center gap-1.5">
-        {c.tags.pdvType.map((p) => <Tag key={p}>{labelOf(p)}</Tag>)}
-        <Tag>{labelOf(c.tags.scale)}</Tag>
-        <Tag>{labelOf(c.tags.frequency)}</Tag>
+        {c.tags.pdvType.map((p) => <FacetTag key={p} facet="pdv">{labelOf(p)}</FacetTag>)}
+        <FacetTag facet="echelle">{labelOf(c.tags.scale)}</FacetTag>
+        <FacetTag facet="frequence">{labelOf(c.tags.frequency)}</FacetTag>
         {c.status === "illustrative" && <span className="ml-auto"><IllustrativeBadge /></span>}
       </div>
       <p className="mt-4 text-sm font-medium text-muted-foreground">{displayBrand(c)}</p>
-      <h3 className={cn("mt-1 line-clamp-3 font-semibold leading-snug", large ? "text-xl md:text-2xl" : "text-lg")}>
+      <h3 className={cn("mt-1 line-clamp-4 font-semibold leading-snug", large ? "text-xl md:text-2xl" : "text-lg")}>
         <Link to="/cas/$slug" params={{ slug: c.slug }} className="after:absolute after:inset-0 after:rounded-xl focus:outline-none">
           {c.challenge}
         </Link>

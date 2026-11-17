@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { CaseCard } from "@/components/site/CaseCard";
 import { Container } from "@/components/site/SiteChrome";
-import { FamilyBadge, PrecautionsNote } from "@/components/site/ui-bits";
+import { FACET_TAG, FamilyBadge, PrecautionsNote, type TaggedFacet } from "@/components/site/ui-bits";
 import { CASES } from "@/data/cases";
 import { FAMILIES, LIBRARY_FILTERS, findOption, type FacetKey, type Option } from "@/data/taxonomy";
 import { facetCount, filterCases, type Selection } from "@/lib/filters";
@@ -81,7 +81,7 @@ function Library() {
 
   return (
     <Container className="py-10 md:py-14">
-      <h1 className="text-3xl font-semibold md:text-4xl">Bibliothèque de cas</h1>
+      <h1 className="font-display text-gradient uppercase leading-none" style={{ fontSize: "clamp(1.75rem, 4.2vw, 3.25rem)" }}>Bibliothèque de cas</h1>
       <p className="mt-2 text-muted-foreground">Retrouvez les dispositifs proches de votre situation</p>
       <p aria-live="polite" className="num mt-4 inline-block rounded-full bg-foreground px-3 py-1 text-sm font-semibold text-background">{plural(results.length)}</p>
 
@@ -124,14 +124,15 @@ function Library() {
               <TooltipTrigger asChild>
                 <button className="ml-auto inline-flex min-h-9 items-center gap-1 text-sm text-muted-foreground"><Info className="size-4" aria-hidden /> Légende des environnements</button>
               </TooltipTrigger>
-              <TooltipContent className="max-w-xs space-y-2 p-3">
+              <TooltipContent className="max-w-xs space-y-2 border border-border bg-card p-3 text-foreground shadow-md">
                 {FAMILIES.map((f) => <p key={f.id} className="flex items-center gap-2"><FamilyBadge family={f.id} /> {f.description}</p>)}
               </TooltipContent>
             </Tooltip>
           </div>
 
+          {/* Deux colonnes : en trois, les tuiles (218 px) coupaient tous les titres. */}
           {results.length ? (
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-6 grid gap-5 sm:grid-cols-2">
               {results.map((c) => <CaseCard key={c.slug} c={c} />)}
             </div>
           ) : (
@@ -189,9 +190,14 @@ function FilterPanel({ sel, toggle }: { sel: Selection; toggle: (k: FacetKey, id
 }
 
 function Facet(p: { k: FacetKey; label: string; options: Option[]; sel: Selection; toggle: (k: FacetKey, id: string) => void }) {
+  // Même icône que le tag correspondant sur les tuiles (type de PDV, échelle, fréquence).
+  const tag = p.k in FACET_TAG ? FACET_TAG[p.k as TaggedFacet] : null;
   return (
     <fieldset>
-      <legend className="mb-2 text-sm font-semibold">{p.label}</legend>
+      <legend className="mb-2 flex items-center gap-1.5 text-sm font-semibold">
+        {tag && <tag.Icon className="size-4 text-muted-foreground" aria-hidden />}
+        {p.label}
+      </legend>
       <OptionList {...p} />
     </fieldset>
   );

@@ -1,3 +1,12 @@
+# Roadmap — Modifications lot 1h (vue Bibliothèque, retours du 17/11)
+
+- [x] En-tête identique sur toutes les pages : logo et navigation, sans titre court du livrable
+- [x] H1 « Bibliothèque de cas » en Horizon (dégradé, comme le hero)
+- [x] Légende des environnements en carte claire (fond blanc, bordure, ombre) au lieu du violet plein
+- [x] Grille des tuiles en 2 colonnes et titres limités à 4 lignes : 0 titre coupé sur 10 (contre 10 sur 10 en 3 colonnes)
+- [x] Tags des tuiles différenciés par facette (icône + style + libellé accessible) : type de PDV, échelle, fréquence ; mêmes icônes devant les filtres
+- [ ] Plus tard (avec les fiches) : logos d'enseignes à la place du nom en haut de tuile, chiffres d'illustration
+
 # Roadmap — Modifications lot 1g (filtres de la bibliothèque)
 
 - [x] Filtres « Format d'expérience catalogue » et « Source(s) de données exploitées » retirés de la bibliothèque (champ `filterable` dans `FACETS`) ; tags conservés sur les fiches et dans le calcul des cas proches

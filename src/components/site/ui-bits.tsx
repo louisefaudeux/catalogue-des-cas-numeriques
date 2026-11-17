@@ -1,7 +1,7 @@
-import { Home, Share2, Megaphone, ImageIcon, ExternalLink, Info } from "lucide-react";
+import { Home, Share2, Megaphone, ImageIcon, ExternalLink, Info, Store, MapPin, Repeat } from "lucide-react";
 import type { ReactNode } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { envById, METHODS, type Family, type MethodType } from "@/data/taxonomy";
+import { envById, FACETS, METHODS, type Family, type MethodType } from "@/data/taxonomy";
 import { GUIDE_LABEL, GUIDE_URL, PRECAUTIONS } from "@/data/editorial";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +35,29 @@ export function EnvBadge({ id }: { id: string }) {
 
 export function Tag({ children }: { children: ReactNode }) {
   return <span className="inline-flex items-center rounded-md bg-tag px-2 py-0.5 text-xs font-medium text-tag-foreground">{children}</span>;
+}
+
+/**
+ * Tags de classification des tuiles : chaque facette a son icône et son style
+ * (le sens ne repose jamais sur la couleur seule). Mêmes icônes dans les filtres.
+ */
+export const FACET_TAG = {
+  pdv: { Icon: Store, cls: "bg-accent text-accent-foreground" },
+  echelle: { Icon: MapPin, cls: "bg-tag text-tag-foreground" },
+  frequence: { Icon: Repeat, cls: "border border-input bg-card text-foreground" },
+} as const;
+export type TaggedFacet = keyof typeof FACET_TAG;
+
+export function FacetTag({ facet, children }: { facet: TaggedFacet; children: ReactNode }) {
+  const t = FACET_TAG[facet];
+  const label = FACETS.find((f) => f.key === facet)?.label ?? "";
+  return (
+    <span title={label} className={cn("inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium", t.cls)}>
+      <t.Icon className="size-3.5 shrink-0" aria-hidden />
+      <span className="sr-only">{label} : </span>
+      {children}
+    </span>
+  );
 }
 
 export function IllustrativeBadge() {

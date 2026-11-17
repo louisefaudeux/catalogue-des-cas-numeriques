@@ -21,3 +21,5 @@
 - Page background `#efefe7`, accent gradient `--accent-gradient` (violet → mauve) and the `accent-bar` / `text-gradient` utilities are in `src/styles.css`. Why: harmonised with the other Alliance Digitale publications (Panorama In-Store).
 - Header navigation: two reading links (Bibliothèque, Enseignements) plus « Proposer un cas » as a filled button (lot 1e). Why: the contribution call is an action, not a reading section.
 - Library filters come from `LIBRARY_FILTERS` (facets with `filterable: true`); catalogue format and data sources are tags only, not filters (17/11). Why: the working group judged them not useful as entry points; they still show on case pages and weigh in similar cases.
+- Case card classification tags use `FacetTag` (`src/components/site/ui-bits.tsx`): one icon and style per facet (Store = type de PDV, MapPin = échelle, Repeat = fréquence), reused in front of the matching filter legends. Why: the three tags are different filters and must be told apart without relying on colour.
+- Library grid is 2 columns with titles clamped to 4 lines. Why: at 3 columns (218 px cards) every title was cut.
