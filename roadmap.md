@@ -1,3 +1,7 @@
+# Roadmap — Marges de la landing (18/11)
+
+- [x] Objectif, Enseignements et Ouverture sur la grille du contexte : titre à gauche (4/12, collant), texte à droite (8/12) aligné sur le panneau du contexte ; largeur de lecture 720 px conservée ; mobile inchangé
+
 # Roadmap — Retrait des cas fictifs (17/11)
 
 - [x] 8 cas fictifs retirés : la bibliothèque compte les 8 cas réels ; badge, bandeau et filigrane PDF « cas illustratif » supprimés

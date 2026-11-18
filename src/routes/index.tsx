@@ -42,12 +42,30 @@ function Picker({ label, options, value, onChange }: { label: string; options: O
 }
 
 /** Titre de section de la landing, précédé de la barre d'accent. */
-function SectionTitle({ id, children, className }: { id: string; children: React.ReactNode; className?: string }) {
+function SectionTitle({ id, children, className }: { id: string; children: React.ReactNode; className?: string | undefined }) {
   return (
     <>
       <span className="accent-bar" aria-hidden />
       <h2 id={id} className={`text-3xl font-bold ${className ?? ""}`}>{children}</h2>
     </>
+  );
+}
+
+/**
+ * Section éditoriale en deux colonnes, alignée sur la grille de « Le contexte » (4/12 et 8/12) :
+ * titre à gauche (collant au défilement sur desktop), texte à droite à largeur de lecture.
+ * Sur mobile, le titre reste au-dessus du texte.
+ */
+function SplitSection({ id, labelId, title, titleClassName, children }: {
+  id?: string; labelId: string; title: React.ReactNode; titleClassName?: string; children: React.ReactNode;
+}) {
+  return (
+    <section aria-labelledby={labelId} id={id} className="scroll-mt-28 md:grid md:grid-cols-12 md:gap-10">
+      <div className="md:col-span-4 md:sticky md:top-28 md:self-start">
+        <SectionTitle id={labelId} className={titleClassName}>{title}</SectionTitle>
+      </div>
+      <div className="md:col-span-8 md:[&>*:first-child]:mt-0">{children}</div>
+    </section>
   );
 }
 
@@ -133,8 +151,7 @@ function Home() {
 
       {/* Objectif de la bibliothèque, sous le module de recherche */}
       <Container className={SECTION}>
-        <section aria-labelledby="objectif">
-          <SectionTitle id="objectif">{OBJECTIVE_TITLE}</SectionTitle>
+        <SplitSection labelId="objectif" title={OBJECTIVE_TITLE}>
           {OBJECTIVE.map((p, i) => <p key={i} className="prose-ed mt-4">{p}</p>)}
           <p className="prose-ed mt-4">
             {withLink(CONTRIBUTE, CONTRIBUTE_LINK, (s) => (
@@ -142,23 +159,21 @@ function Home() {
             ))}
           </p>
           <PrecautionsNote className="measure mt-8" />
-        </section>
+        </SplitSection>
       </Container>
 
       {/* Enseignements */}
       <Container className={SECTION}>
-        <section aria-labelledby="enseignements-titre" id="enseignements" className="scroll-mt-28">
-          <SectionTitle id="enseignements-titre">Les enseignements de la bibliothèque</SectionTitle>
+        <SplitSection id="enseignements" labelId="enseignements-titre" title="Les enseignements de la bibliothèque">
           <LessonsSection />
-        </section>
+        </SplitSection>
       </Container>
 
       {/* Ouverture */}
       <Container className={SECTION}>
-        <section aria-labelledby="ouverture-titre" id="ouverture" className="scroll-mt-28">
-          <SectionTitle id="ouverture-titre" className="measure leading-tight">{OPENING_TITLE}</SectionTitle>
+        <SplitSection id="ouverture" labelId="ouverture-titre" title={OPENING_TITLE} titleClassName="leading-tight">
           {OPENING.map((p, i) => <p key={i} className="prose-ed mt-4"><RichText text={p} /></p>)}
-        </section>
+        </SplitSection>
       </Container>
 
       {/* Guide */}
