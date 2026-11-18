@@ -2,7 +2,8 @@
 
 - [x] 9e cas : RONA, apporté par Aristid ; titre proposé (enjeu non renseigné) ; 3 leviers = 3 colonnes (phases du projet), textes des lignes data et KPI repris dans « Fonctionnement »
 - [x] Logos RONA et Aristid ; deux créas (circulaires, déclinaisons) en planches
-- [ ] À confirmer : périmètre (cas canadien), KPI principal (ROI coché, résultats en délai et coûts), période, −50 % ou « près de 50 % », accord de RONA pour être nommée
+- [x] Arbitré le 18/11 : titre proposé conservé ; leviers en phases validés (Aristid gère les flux produits, pas un acteur média) ; KPI ROI laissé pour l'instant ; −50 % conservé ; période inchangée ; chiffres internes en « comparatif simple »
+- [ ] Logo et nom RONA : vérification par Aristid ; périmètre (cas canadien) à valider en GT
 
 # Roadmap — Marges de la landing (18/11)
 
