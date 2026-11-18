@@ -1,3 +1,9 @@
+# Roadmap — Cas RONA (Aristid), classeur du 18/11
+
+- [x] 9e cas : RONA, apporté par Aristid ; titre proposé (enjeu non renseigné) ; 3 leviers = 3 colonnes (phases du projet), textes des lignes data et KPI repris dans « Fonctionnement »
+- [x] Logos RONA et Aristid ; deux créas (circulaires, déclinaisons) en planches
+- [ ] À confirmer : périmètre (cas canadien), KPI principal (ROI coché, résultats en délai et coûts), période, −50 % ou « près de 50 % », accord de RONA pour être nommée
+
 # Roadmap — Marges de la landing (18/11)
 
 - [x] Objectif, Enseignements et Ouverture sur la grille du contexte : titre à gauche (4/12, collant), texte à droite (8/12) aligné sur le panneau du contexte ; largeur de lecture 720 px conservée ; mobile inchangé

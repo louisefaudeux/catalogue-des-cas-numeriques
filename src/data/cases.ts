@@ -423,6 +423,78 @@ const raw: CaseStudy[] = [
     nextSteps: "Optimisation et ajout de nouveaux canaux et formats à l'édition 2026.",
     creatives: [],
   },
+  {
+    // Aristid (classeur du 18/11). Enjeu non renseigné par le contributeur : titre proposé.
+    // Les colonnes LEVIER décrivent les trois phases du projet (pas des leviers média) : un levier par colonne,
+    // titres tels que saisis ; les lignes data et KPI contenant des phrases, elles sont reprises dans « Fonctionnement ».
+    slug: "rona",
+    brand: "RONA",
+    partners: [],
+    contributor: "Aristid",
+    period: "Printemps 2026",
+    tags: {
+      pdvType: ids("GSS"), scale: slugify("National"), pdvCount: "Intégralité du parc",
+      frequency: slugify("Fil rouge"), mainKpi: slugify("ROI"),
+      environments: [
+        ...ids("Site/App Enseigne", "WhatsApp/Messenger/RCS", "Emailing", "Page Social (fb)"),
+        ...ids("Agrégateur catalogue"),
+        ...ids("Social Ads", "Display / Programmatique"),
+      ],
+      formats: ids(
+        "Liseuse / catalogue feuilletable hébergé sur agrégateur",
+        "Liseuse / catalogue feuilletable hébergé sur site/app enseigne",
+        "Mosaïque / flux produits",
+        "Stories / Carrousels / Formats natifs social",
+        "Catalogue intégré liste de courses",
+        "Catalogue shoppable avec ajout panier",
+      ),
+      dataSources: ids("Flux produit (PIM / DAM / ERP)", "Zones géographiques (IRIS, isochrones, zones de chalandise)"),
+    },
+    challenge: "Comment automatiser la production de promotions localisées sur un réseau national de plus de 400 magasins ?",
+    context: {
+      situation: "Il y a deux ans, RONA a constaté que la complexité de ses opérations promotionnelles avait atteint un seuil critique. Avec plus de 400 magasins, plusieurs formats de points de vente, plus de 20 zones tarifaires et des communications bilingues à travers le Canada, la gestion manuelle des promotions n'était plus viable. Pour accompagner sa transformation, RONA a choisi Aristid, à l'issue d'un audit complet, afin de moderniser ses opérations promotionnelles, d'automatiser l'exécution à grande échelle et de construire les fondations d'un marketing retail de nouvelle génération.",
+    },
+    levers: [
+      {
+        title: "Construire des fondations solides",
+        environments: [],
+        howItWorks: ["Avant d'introduire de nouvelles technologies, RONA a concentré ses efforts sur la préparation de ses équipes, de ses processus et de son organisation. Ensemble, RONA et Aristid ont défini une feuille de route de transformation visant à simplifier les workflows, améliorer la qualité des données et mettre en place les fondations opérationnelles nécessaires à l'automatisation de la production promotionnelle à grande échelle."],
+      },
+      {
+        title: "Automatiser l'exécution promotionnelle",
+        environments: [],
+        howItWorks: [
+          "Le déploiement de la plateforme Aristid a permis à RONA d'automatiser la production de ses circulaires promotionnelles et de ses supports de communication magasin à travers des dizaines de versions localisées.",
+          "Le délai de production est passé de 15 semaines à seulement 2 semaines, tandis que près de 50 % d'économies opérationnelles ont été réalisées.",
+          "Plus important encore, cette nouvelle plateforme a donné à RONA la capacité de gérer une complexité promotionnelle croissante sans augmenter la charge de travail des équipes.",
+        ],
+      },
+      {
+        title: "Déployer des promotions locales pertinentes partout au Canada",
+        environments: [],
+        howItWorks: [
+          "Aujourd'hui, RONA est capable d'exécuter des promotions fortement localisées à travers l'ensemble de son réseau.",
+          "Déploiement dans plus de 20 zones tarifaires et plus de 40 variantes promotionnelles.",
+          "Les équipes magasins et les adhérents bénéficient désormais de promotions adaptées aux contextes locaux, permettant de proposer les bons produits, au bon prix et au bon endroit. Grâce à ces fondations solides, RONA est désormais prête à accélérer la personnalisation de ses actions marketing et l'utilisation de l'intelligence artificielle.",
+        ],
+      },
+    ],
+    keyFigure: {
+      value: "× 7,5",
+      sentence: "plus rapide : le délai de production passe de 15 à 2 semaines, pour accélérer la mise en marché des promotions.",
+      source: "Aristid. Chiffres cités par le VP des opérations marketing de RONA lors de la conférence RCC.",
+    },
+    results: [
+      { value: "× 7,5", label: "plus rapide : délai de production réduit de 15 à 2 semaines" },
+      { value: "−50 %", label: "de coûts opérationnels" },
+    ],
+    method: { type: "simple_comparison", detail: "Chiffres cités par le VP des opérations marketing de RONA lors de la conférence RCC (l'équivalent canadien de la NRF)." },
+    nextSteps: "Accélérer la personnalisation grâce à l'IA et à Meta : l'enseigne mise sur la puissance combinée d'Aristid et de Meta pour déployer des campagnes promotionnelles hautement personnalisées.",
+    creatives: [
+      { label: "Circulaires promotionnelles localisées", ratio: "auto", src: "/cases/rona/circulaires.jpg" },
+      { label: "Déclinaisons sur les supports numériques et en magasin", ratio: "auto", src: "/cases/rona/declinaisons.jpg" },
+    ],
+  },
 ];
 
 export const CASES: CaseStudy[] = deepTypo(raw);

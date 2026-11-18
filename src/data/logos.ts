@@ -15,12 +15,14 @@ export const LOGOS: Record<string, LogoAsset> = {
   "BUT": { src: "/logos/but.png", ratio: 1 },
   "Brico Dépôt": { src: "/logos/brico-depot.svg", ratio: 1.644 },
   "Coopérative U": { src: "/logos/cooperative-u.png", ratio: 4.339 },
+  "RONA": { src: "/logos/rona.png", ratio: 4.425 },
   // Apporteurs de cas
   "Azira": { src: "/logos/azira.png", ratio: 4.991 },
   "DeepReach": { src: "/logos/deepreach.png", ratio: 5.412 },
   "Azerion": { src: "/logos/azerion.png", ratio: 5.716 },
   "Mobsuccess": { src: "/logos/mobsuccess.png", ratio: 11.43 },
   "Nanotera": { src: "/logos/nanotera.png", ratio: 8.333 },
+  "Aristid": { src: "/logos/aristid.svg", ratio: 5.158 },
 };
 
 // Les textes passent par la typographie française (espaces insécables) : on compare les noms espaces normalisés.

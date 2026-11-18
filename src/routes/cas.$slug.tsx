@@ -91,7 +91,7 @@ function CasePage() {
                   <span className="num absolute -left-[45px] flex size-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground" aria-hidden>{i + 1}</span>
                   <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Levier {i + 1}</p>
                   <h3 className="mt-1 text-lg font-semibold">{l.title}</h3>
-                  <div className="mt-3 flex flex-wrap gap-1.5">{l.environments.map((e) => <EnvBadge key={e} id={e} />)}</div>
+                  {l.environments.length > 0 && <div className="mt-3 flex flex-wrap gap-1.5">{l.environments.map((e) => <EnvBadge key={e} id={e} />)}</div>}
                   <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[140px_1fr]">
                     {l.format && <><dt className="font-medium text-muted-foreground">Format</dt><dd>{l.format}</dd></>}
                     {l.data && <><dt className="font-medium text-muted-foreground">Data activée</dt><dd>{l.data}</dd></>}

@@ -33,7 +33,7 @@ describe("filters", () => {
 
 describe("case data", () => {
   it("holds only real cases (fictional cases removed on 17/11)", () => {
-    expect(CASES).toHaveLength(8);
+    expect(CASES).toHaveLength(9);
     expect(CASES.some((c) => /illustrati|fictiv/i.test(`${c.slug} ${c.brand} ${c.contributor}`))).toBe(false);
   });
   it("has unique slugs", () => {
@@ -60,14 +60,15 @@ describe("case data", () => {
   });
   it("keeps one lever per LEVIER column of the workbook, never merged (classeur du 17/11)", () => {
     const expected: Record<string, number> = {
-      netto: 1, jardiland: 1, "gsa-display-drive-to-store": 1, "feu-vert": 3, carrefour: 3, but: 4, "brico-depot": 1, "cooperative-u": 4,
+      netto: 1, jardiland: 1, "gsa-display-drive-to-store": 1, "feu-vert": 3, carrefour: 3, but: 4, "brico-depot": 1, "cooperative-u": 4, rona: 3,
     };
     for (const [slug, n] of Object.entries(expected)) expect(CASES.find((c) => c.slug === slug)?.levers.length, slug).toBe(n);
   });
-  it("gives every lever an environment that is also tagged on the case", () => {
+  it("gives every lever content, and only environments that are tagged on the case", () => {
     for (const c of CASES) {
       for (const l of c.levers) {
-        expect(l.environments.length, `${c.slug} : ${l.title}`).toBeGreaterThan(0);
+        // Un levier sans environnement est admis quand la colonne décrit une phase du projet (cas RONA), pas un canal.
+        expect(l.environments.length + l.howItWorks.length + (l.data ? 1 : 0), `${c.slug} : ${l.title}`).toBeGreaterThan(0);
         for (const e of l.environments) expect(c.tags.environments, `${c.slug} : ${l.title} → ${e}`).toContain(e);
       }
     }
